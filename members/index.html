@@ -392,15 +392,15 @@ body{font-family:"Noto Sans SC",sans-serif;background:var(--navy);color:var(--t1
 
 <script>
 const ND={
-  1:{nm:"领导",el:"金",pos:"管理能力强、创造创新、自信有主见、天生领导者、独立自主、果断有远见",neg:"自我中心、自负或自卑、独断不听建议、固执己见、缺乏耐心、过于强势",dream:"当领导",rep:"Steve Jobs",love:"渴望伴侣全心全意关注自己，需要主导权。表面独立强势，内心害怕失去掌控。会用冷淡或发脾气测试伴侣。给予尊重和空间，满足其主导欲，保持自身独立性。",career:"适合领导岗位、创业。天生组织管理能力，易晋升高管或行业领军者。",blessing:"你习惯冲锋，习惯扛事。真正的强者，也允许自己偶尔「不坚强」。",tags:["🚀 开始年","📌 高运起点"],adv:"开好头旺9年！接受好机会，善合作不独行，婚姻有功课，注意血光（献血）。",opp:"机遇"},
-  2:{nm:"沟通",el:"水",pos:"说话好听、适应能力强、沟通力超强、善解人意、人缘极好、印钞机",neg:"犹豫不决、错失天下、内在压力大、依赖性强、敏感多疑、自己的事就卡住",dream:"靠嘴征服世界",rep:"李嘉诚",love:"害怕孤独，渴望亲密连接。黏人爱唠叨，对感情变化极敏感。不善表达需求，嘴硬心软。需要多陪伴，及时沟通，不要冷战。",career:"适合销售、公关、客服、心理咨询、市场调研。沟通力出众，能整合不同优势。",blessing:"你善于维系整个世界，却常常忘了维系自己。真正的和谐，从不是一味妥协。",tags:["💬 沟通年","⚠ 犹豫不决"],adv:"适合做销售，多学习多合作。方向不对及时调头，避免口舌是非。",opp:"沟通"},
-  3:{nm:"行动",el:"火",pos:"慧眼识机、反应快、表达能力强、行动力强、机会精准、乐观积极",neg:"很心急、容易冲动、喜欢顺眼/不顺眼办事、内心挑剔、情绪易波动",dream:"成为贵族",rep:"马云",love:"有完美爱情的模板，不轻易妥协。遇到梦中情人会一见钟情。热恋后会对伴侣施压，要求改变。需欣赏其才华，多给赞美，明确底线。",career:"适合讲师、演员、销售、公关、媒体、创意设计、教育工作者。靠口才谋生最适合。",blessing:"你用热情感染了所有人，真正的光芒不在于永远闪耀，而在于敢于接纳自己的阴晴圆缺。",tags:["🛡 低运年","⚠ 底运"],adv:"以守为攻！不做重大决定，不投资。冲动是魔鬼，多诱惑容易上当。",opp:"行动"},
-  4:{nm:"策划",el:"木",pos:"凡事要想、安全优先、注意细节、思维细腻、善于总结、责任感强",neg:"挑不出框框、无趣保守、太在乎安全感、缺掌控力、固执不接受改变",dream:"规划所有人的人生",rep:"Bill Gates、郭鹤年",love:"极度渴望安全感，不喜欢变化。选伴侣可能不够挑剔，只要提供安全感。不善表达，习惯用行动证明爱。需保持稳定，定期制造小新鲜，多表达爱意。",career:"适合财务会计、审计、工程技术、行政管理、人事管理。需要稳定性和责任感的工作。",blessing:"你为所有人构建避风港，偶尔允许计划之外，生命会回馈你意想不到的惊喜。",tags:["📚 规划年","🌱 扎根"],adv:"学习规划，稳定扎根。多做功德，多自我成长。",opp:"策划"},
-  5:{nm:"方向",el:"土",pos:"天生领袖、格局大、目标方向明确、口才与说服力强、热情活力",neg:"怕人管、固执不接受建议、性格善变、爱面子、有拖延倾向",dream:"成为领袖",rep:"Mark Zuckerberg",love:"伴侣必须有趣且尊重自己的自由。活在当下，不执着长久承诺。追求自由，付出过多会直接表达不满。保持自身独立和趣味，给足空间，轻松相处反而更长久。",career:"适合营销销售、公关媒体、旅游探险、创意设计。需要创造力和冒险精神的工作。",blessing:"真正的自由，不是拒绝所有地图，而是亲手绘制自己的航线。",tags:["🔄 转折年","💥 关键节点"],adv:"转折的一年！格局要大，往外走，五方求财。",opp:"转折"},
-  6:{nm:"智慧",el:"金",pos:"有智慧、吸财能力强、天生财神爷、第六感强、暖男暖女、家和万事兴",neg:"太追求完美、极致挑剔、情绪化敏感、过度付出后失落、给别人压力",dream:"用钱征服世界",rep:"巴菲特、李宗伟",love:"将爱情视为责任，投入极多。付出得不到回报时变得挑剔有支配欲。对细节极敏感，容易觉得付出不值。需回应其付出，明确表达爱和认可，保持感情平衡。",career:"适合心理咨询、社会工作、医护、教师、行政。需要关怀照顾他人的工作。",blessing:"真正的守护，不是完美的牺牲，而是有分寸的付出。你本身就是无价之宝。",tags:["💰 财富年","🌟 高运"],adv:"一年赚九年的钱！五方来财，往外跑。不要投资，存钱最重要。",opp:"财富"},
-  7:{nm:"人缘",el:"水",pos:"洞察力非常强、天底下最幸运的人、贵人多、社交能力出众、博爱包容",neg:"容易觉得无聊、反应慢半拍、行动力迟缓、情绪波动、过度质疑",dream:"掌控所有人",rep:"周润发、Elon Musk",love:"伴侣必须值得学习，能让自己成长。重视精神共鸣，若无共同话题会逐渐疏远。理性大于感性。保持自身成长，给足空间，多制造有趣互动。",career:"适合心理咨询、医师、律师、会计师、研究学者、艺术家。思考性多于行动性。",blessing:"你的边界守护着你的深度，而偶尔的开放，将为这份深度带来光。",tags:["👑 高运年","🤝 贵人多"],adv:"人缘广，贵人多，领导力强。可以动婚。多笑容！",opp:"人脉"},
-  8:{nm:"责任",el:"火",pos:"有责任感、独特人格魅力、有爱心、世界最好的朋友、承担压力",neg:"死要面子、总为别人忙、情绪发泄、爱面子、过度关注成就而忽视感情",dream:"拿到属于自己的权利",rep:"刘德华",love:"希望伴侣有潜力，在感情中需要主导。视督促伴侣成长为爱意。责任感强，努力创造物质条件，但容易忽视情感需求。需要认可和感谢，平衡事业与陪伴。",career:"适合管理、创业、项目总负责人。能承担巨大压力，带领团队取得成功。",blessing:"真正的强大，不是独自承担所有，而是知道何时该放手，何时该寻求支持。",tags:["⚠ 大底运","💪 压力大"],adv:"富足权力责任年，以守为攻，大事化小。压力极大，不可投资。",opp:"权力"},
-  9:{nm:"成功",el:"木",pos:"心想事成、机会非常多、包含1-8号特性、浪漫感性、愿意为感情奉献",neg:"想好坏兜零、容易贪心、无原则很懒、退让隐忍、不及时沟通导致委屈",dream:"君临天下",rep:"周杰伦、张惠妹",love:"浪漫感性，容易被有才华有魅力的人吸引。即使感情降温也不轻易表现，默默付出。容易牺牲自己。欣赏其浪漫和奉献，满足仪式感需求，给予同等回报。",career:"适合创业、资源整合、社交运营。敏锐商业头脑，社交圈广，多才多艺。",blessing:"你把最好的给了所有人，却常常忘了留一份给自己。真正的丰盛，始于你相信自己值得被珍惜。",tags:["🎯 结果年","🏆 收获"],adv:"收获年！走好运气旺18年。总结净化心灵，为下一周期做准备。",opp:"总结"},
+  1:{nm:"领导",el:"金",pos:"管理能力强、创造创新、自信、天生领导者",neg:"自我自负、自卑、干不完的事、不会做领导",dream:"当领导",rep:"Steve Jobs",tags:["🚀 开始年","📌 高运起点"],adv:"开好头旺9年！接受好机会，善合作不独行，婚姻有功课，注意血光（献血）。",opp:"机遇"},
+  2:{nm:"沟通",el:"水",pos:"说话好听、适应能力强、印钞机、开口就有人帮",neg:"犹豫不决、错失天下、内在压力大、自己的事就卡住",dream:"靠嘴征服世界",rep:"李嘉诚",tags:["💬 沟通年","⚠ 犹豫不决"],adv:"适合做销售，多学习多合作。方向不对及时调头，避免口舌是非。",opp:"沟通"},
+  3:{nm:"行动",el:"火",pos:"慧眼、反应快、表达能力强、行动力强、机会精准",neg:"很心急、容易冲动、喜欢顺眼/不顺眼办事、内心挑剔",dream:"成为贵族",rep:"马云",tags:["🛡 低运年","⚠ 底运"],adv:"以守为攻！不做重大决定，不投资。冲动是魔鬼，多诱惑容易上当。",opp:"行动"},
+  4:{nm:"策划",el:"木",pos:"凡事要想、安全优先、注意细节、思维细腻、善于总结",neg:"挑不出框框、无趣、太在乎别人感受、缺掌控力",dream:"规划所有人的人生",rep:"Bill Gates、郭鹤年",tags:["📚 规划年","🌱 扎根"],adv:"学习规划，稳定扎根。多做功德，多自我成长。",opp:"策划"},
+  5:{nm:"方向",el:"土",pos:"天生领袖、格局大、目标方向明确、喜欢自由自在",neg:"怕人管、不听别人意见、固执、不接受建议",dream:"成为领袖",rep:"Mark Zuckerberg",tags:["🔄 转折年","💥 关键节点"],adv:"转折的一年！格局要大，往外走，五方求财。",opp:"转折"},
+  6:{nm:"智慧",el:"金",pos:"有智慧、吸财、天生财神爷、第六感强、要求高品位高",neg:"太追求完美、极致挑剔、给别人机会成长",dream:"用钱征服世界",rep:"巴菲特、李宗伟",tags:["💰 财富年","🌟 高运"],adv:"一年赚九年的钱！五方来财，往外跑。不要投资，存钱最重要。",opp:"财富"},
+  7:{nm:"人缘",el:"水",pos:"洞察力非常强、高冷、天底下最幸运的人、贵人多",neg:"觉得无聊、反应慢半拍、要人推",dream:"掌控所有人",rep:"周润发、Elon Musk",tags:["👑 高运年","🤝 贵人多"],adv:"人缘广，贵人多，领导力强。可以动婚。多笑容！",opp:"人脉"},
+  8:{nm:"责任",el:"火",pos:"有责任、独特人格魅力、有爱心、世界最好的朋友",neg:"要对自己好一点、死要面子、总为别人忙",dream:"拿到属于自己的权利",rep:"刘德华",tags:["⚠ 大底运","💪 压力大"],adv:"富足权力责任年，以守为攻，大事化小。压力极大，不可投资。",opp:"权力"},
+  9:{nm:"成功",el:"木",pos:"心想事成、机会非常多、专心有成果、容易被人认同、包含1-8号特性",neg:"想好坏兜零、很容易贪心、无原则、很懒、退让隐忍",dream:"君临天下",rep:"周杰伦、张惠妹",tags:["🎯 结果年","🏆 收获"],adv:"收获年！走好运气旺18年。总结净化心灵，为下一周期做准备。",opp:"总结"},
 };
 const MD={
   1:{nm:"缺主见",d:"没主见、依赖性强、缺乏自信、没有判断力、容易被人影响、黏父母"},
@@ -1029,12 +1029,6 @@ function compute(name,day,month,year,surname,name1,name2){
     return {nm:nm, key:key, rev:rev, hi:hi};
   });
 
-  // Inner number (内心数字) = g +制约数字(m, position index 1) + n (index 5 of 7魄)
-  // Using 7魄: i,j,k,l,m2,n2,g -> based on book: O+M+N where M=制约=e(起始), N=inner calc
-  // Simplified: inner = R(g + e + f), subcon = R(g + a + d)
-  var inner_num = R(g + e + f);   // 内心数字
-  var subcon_num = R(g + a + d);  // 潜意识数字 = Q (same as 本源梦想 in this system)
-
   return {
     name:name, surname:surname||'', name1:name1||'', name2:name2||'',
     zodiac:zodiac, day:day, month:month, year:year, ji:ji, ni:ni,
@@ -1042,8 +1036,7 @@ function compute(name,day,month,year,surname,name1,name2){
     Q:Q, hid:hid, all16:all16, pres:pres, miss:miss, wx:wx,
     posElems:posElems, gEl:gEl,
     lyA:lyA,lyB:lyB,lyG:lyG, md:md, lyd:lyd,
-    wxMap:wxMap, c13:c13, lyC:lyC, lyY:lyY,
-    inner_num:inner_num, subcon_num:subcon_num
+    wxMap:wxMap, c13:c13, lyC:lyC, lyY:lyY
   };
 }
 
@@ -1377,21 +1370,14 @@ function renderReport(d){
     </div>`;
   }).join('');
 
-  // Traits - expanded with love, career, blessing from book
+  // Traits
   document.getElementById('tGrid').innerHTML=`
     <div class="tbox tp"><div class="tttl">✦ 正面特质</div><div class="tbody">${md.pos.split('、').join('<br>')}</div></div>
     <div class="tbox tn"><div class="tttl">⚠ 负面特质</div><div class="tbody">${md.neg.split('、').join('<br>')}</div></div>
-    <div class="tbox tm"><div class="tttl">💡 本源梦想 Q=${d.Q}</div><div class="tbody">
+    <div class="tbox tm"><div class="tttl">💡 本源梦想</div><div class="tbody">
       <div style="font-family:'Cinzel',serif;font-size:36px;color:var(--gb);font-weight:700;line-height:1;margin-bottom:8px;">${d.g}</div>
       <strong style="color:var(--gl);font-size:15px;">${md.dream}</strong>
       <br><br><span style="font-size:12px;color:var(--t3);">代表人物：</span><br>${md.rep}
-    </div></div>
-    ${md.love?`<div class="tbox" style="border-color:rgba(255,107,179,0.3);background:rgba(255,107,179,0.06);"><div class="tttl">❤️ 感情模式</div><div class="tbody" style="font-size:13px;line-height:1.8;">${md.love}</div></div>`:''}
-    ${md.career?`<div class="tbox" style="border-color:rgba(33,150,243,0.3);background:rgba(33,150,243,0.06);"><div class="tttl">💼 事业方向</div><div class="tbody" style="font-size:13px;line-height:1.8;">${md.career}</div></div>`:''}
-    <div class="tbox" style="border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.05);"><div class="tttl">✨ 人生箴言</div><div class="tbody" style="font-size:13px;line-height:1.8;color:var(--gl);font-style:italic;">${md.blessing||'顺应自己的本性，发挥天赋，弥补不足。'}</div></div>
-    <div class="tbox" style="border-color:rgba(100,200,100,0.3);background:rgba(100,200,100,0.04);"><div class="tttl">🔢 内心数字 ${d.inner_num} · 潜意识 ${d.subcon_num}</div><div class="tbody" style="font-size:13px;line-height:1.8;">
-      内心数字 <strong style="color:var(--gl);">${d.inner_num}</strong>：${ND[d.inner_num]?ND[d.inner_num].nm+' — '+ND[d.inner_num].pos.split('、')[0]:'深层驱动力'}<br>
-      潜意识数字 <strong style="color:var(--gl);">${d.subcon_num}</strong>：${ND[d.subcon_num]?ND[d.subcon_num].nm+' — '+ND[d.subcon_num].pos.split('、')[0]:'潜在行为模式'}
     </div></div>`;
 
   // Missing
@@ -1474,38 +1460,22 @@ function renderReport(d){
 
 function carT(d){
   let t=`${d.md.nm}号：${d.md.pos.split('、')[0]}。`;
-  if(d.md.career)t+=`<br>📌 ${d.md.career}`;
-  if(!d.pres.has(3))t+='<br>⚠ 缺3不善表达，容易错过机会，需主动开口。';
-  if(!d.pres.has(5))t+='<br>⚠ 缺5选择方向容易出错，决策前多听身边人意见。';
-  if(!d.pres.has(1))t+='<br>⚠ 缺1没有主见，容易被人影响方向。';
-  if(!d.pres.has(8))t+='<br>⚠ 缺8责任感不够，容易给人不可靠的感觉。';
-  // Career combos from book
-  const cc=['459','549','167','617','156','516','685','865'];
-  const cf=d.c13.filter(c=>cc.includes(c.key));
-  if(cf.length)t+=`<br>✅ 含事业有利组合（${cf.map(c=>c.key).join('、')}）。`;
-  const bc=['145','415','371','731','358','538'];
-  const bf=d.c13.filter(c=>bc.includes(c.key));
-  if(bf.length)t+=`<br>⚠ 含波折组合（${bf.map(c=>c.key).join('、')}），事业需坚持。`;
-  t+=`<br>📅 2026流年${d.lyG}号（${d.lyd.nm}），机遇在「${d.lyd.opp}」。`;
+  if(!d.pres.has(3))t+='缺3不善表达，容易错过机会。';
+  if(!d.pres.has(5))t+='缺5选择方向容易出错。';
+  t+=`2026流年${d.lyG}号（${d.lyd.nm}），机遇在「${d.lyd.opp}」。`;
   if(d.lyG===3||d.lyG===8)t+='今年低运，不宜投资，以守为攻。';
   if(d.lyG===6||d.lyG===7)t+='今年高运，抓住机遇！';
   return t;
 }
 function lovT(d){
   let t='';
-  // From book: 1-9号情感倾向
-  if(d.md.love)t+=d.md.love+'<br><br>';
-  if(!d.pres.has(2))t+='⚠ 缺2沟通方式直接，容易造成家庭摩擦，需学会温柔表达。<br>';
-  else t+='✅ 有2号沟通能力，感情表达顺畅。<br>';
-  if(!d.pres.has(5))t+='⚠ 缺5容易选错伴侣，感情决策需谨慎。<br>';
-  if(d.pres.has(7))t+='✅ 有7号异性缘好，桃花贵人多。<br>';
-  if(!d.pres.has(6))t+='⚠ 缺6财富能量弱，感情中容易因钱产生摩擦。<br>';
-  const mc=['112','167','191','911','279','729','786','876','371','731','257','527'];
+  if(!d.pres.has(2))t+='缺2沟通方式直接，容易造成家庭摩擦，需学会温柔表达。';
+  else t+='有2号沟通能力，感情表达顺畅。';
+  if(!d.pres.has(5))t+='缺5容易选错伴侣，感情决策需谨慎。';
+  if(d.pres.has(7))t+='有7号异性缘好，贵人多。';
+  const mc=['112','167','191','911','279','729','786','876'];
   const mf=d.c13.filter(c=>mc.includes(c.key));
-  if(mf.length)t+=`⚠ 含婚姻感情功课组合（${mf.map(c=>c.key).join('、')}），感情需多用心经营。<br>`;
-  const lc=['279','729','786','876','675'];
-  const lf=d.c13.filter(c=>lc.includes(c.key));
-  if(lf.length)t+=`✅ 含贵人桃花组合（${lf.map(c=>c.key).join('、')}），异性缘好。<br>`;
+  if(mf.length)t+=`含婚姻功课组合（${mf.map(c=>c.key).join('、')}），婚姻需多用心。`;
   return t||`${d.md.nm}号在感情上${d.md.pos.split('、')[0]}。`;
 }
 function weaT(d){
