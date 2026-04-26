@@ -1631,7 +1631,7 @@ const CHAR_DB_V4 = {
 '盧':{radicals:['火'],shape:['火'],elem:'火',meaning:'姓卢',stroke:16,zodiac_good:['虎']},
 
 // ─── 兔(卯) ───
-'柳':{radicals:['木'],shape:['木'],elem:'木',meaning:'柳树',stroke:9,zodiac_good:['兔','虎','龙']},
+'柳':{radicals:['木'],shape:['木','卯兔'],elem:'木',meaning:'柳树',stroke:9,zodiac_good:['兔','虎','龙']},
 '卿':{radicals:['卯'],shape:['卯兔'],elem:'金',meaning:'卿大夫',stroke:10,zodiac_good:['兔']},
 '印':{radicals:['卯'],shape:['卯兔'],elem:'金',meaning:'印章',stroke:6,zodiac_good:['兔']},
 '仰':{radicals:['亻'],shape:['人'],elem:'木',meaning:'仰望',stroke:6,zodiac_good:['马','猴','狗']},
@@ -2638,6 +2638,20 @@ const CHAR_DB_V4 = {
 '蘇':{radicals:['艹','禾'],shape:['艸','五谷'],elem:'木',meaning:'苏醒，姓苏',stroke:22},
 '龔':{radicals:['龙'],shape:['辰龙'],elem:'土',meaning:'姓龚',stroke:22},
 
+  // ── 十二地支字（三合/六合/三会核心字）──
+  '子':{radicals:['子'],shape:['子鼠'],elem:'水',meaning:'子时/地支第一',stroke:3,zodiac_good:['鼠','猴','龙']},
+  '丑':{radicals:['丑'],shape:['丑牛'],elem:'土',meaning:'丑时/地支第二',stroke:4,zodiac_good:['牛','蛇','鸡']},
+  '寅':{radicals:['寅'],shape:['寅虎'],elem:'木',meaning:'寅时/地支第三',stroke:11,zodiac_good:['虎','马','狗']},
+  '卯':{radicals:['卯'],shape:['卯兔'],elem:'木',meaning:'卯时/地支第四',stroke:5,zodiac_good:['兔','猪','羊']},
+  '辰':{radicals:['辰'],shape:['辰龙'],elem:'土',meaning:'辰时/地支第五',stroke:7,zodiac_good:['龙','鼠','猴']},
+  '巳':{radicals:['巳'],shape:['巳蛇'],elem:'火',meaning:'巳时/地支第六',stroke:3,zodiac_good:['蛇','鸡','牛']},
+  '午':{radicals:['午'],shape:['午马'],elem:'火',meaning:'午时/地支第七',stroke:4,zodiac_good:['马','虎','狗']},
+  '未':{radicals:['未'],shape:['未羊'],elem:'土',meaning:'未时/地支第八',stroke:5,zodiac_good:['羊','猪','兔'],zodiac_bad:['鼠','牛','龙']},
+  '申':{radicals:['申'],shape:['申猴'],elem:'金',meaning:'申时/地支第九',stroke:5,zodiac_good:['猴','鼠','龙']},
+  '酉':{radicals:['酉'],shape:['酉鸡'],elem:'金',meaning:'酉时/地支第十',stroke:7,zodiac_good:['鸡','蛇','牛']},
+  '戌':{radicals:['戌'],shape:['戌狗'],elem:'土',meaning:'戌时/地支第十一',stroke:6,zodiac_good:['狗','虎','马']},
+  '亥':{radicals:['亥'],shape:['亥猪'],elem:'水',meaning:'亥时/地支第十二',stroke:6,zodiac_good:['猪','兔','羊']},
+
 };
 
 // ══════════════════════════════════════════
@@ -3174,6 +3188,148 @@ function analyzeCharV4(ch, zodiac, gender) {
     bad.push({ tag: '女性专忌', reason: FEMALE_WARN[ch], source: '女性禁忌' });
   }
 
+  // 6. 六合关系（暗中贵人，终身扶持）
+  var LIUHE = {
+    '鼠':['丑牛'], '牛':['子鼠'],
+    '虎':['亥猪'], '猪':['寅虎'],
+    '兔':['戌狗'], '狗':['卯兔'],
+    '龙':['酉鸡'], '鸡':['辰龙'],
+    '蛇':['申猴'], '猴':['巳蛇'],
+    '马':['未羊'], '羊':['午马']
+  };
+  var LIUHE_SHAPE = {
+    '丑牛':'丑牛', '子鼠':'子鼠',
+    '亥猪':'亥猪', '寅虎':'寅虎',
+    '戌狗':'戌狗', '卯兔':'卯兔',
+    '酉鸡':'酉鸡', '辰龙':'辰龙',
+    '申猴':'申猴', '巳蛇':'巳蛇',
+    '未羊':'未羊', '午马':'午马'
+  };
+  var LIUHE_RADICAL = {
+    '丑牛':'丑', '子鼠':'子', '亥猪':'亥', '寅虎':'寅',
+    '戌狗':'戌', '卯兔':'卯', '酉鸡':'酉', '辰龙':'辰',
+    '申猴':'申', '巳蛇':'巳', '未羊':'未', '午马':'午'
+  };
+  if (info) {
+    var myLiuhe = LIUHE[zodiac] || [];
+    myLiuhe.forEach(function(lh) {
+      var lhShape = LIUHE_SHAPE[lh];
+      var lhRad = LIUHE_RADICAL[lh];
+      var hasShape = lhShape && (info.shape||[]).indexOf(lhShape)!==-1;
+      var hasRad = lhRad && (info.radicals||[]).indexOf(lhRad)!==-1;
+      if ((hasShape || hasRad) && !good.find(function(g){return g.tag.indexOf('六合')!==-1;})) {
+        good.push({ tag:'六合贵人·'+lh, reason:'与属'+zodiac+'六合，暗中贵人终身扶持，一生少坎坷', source:'六合' });
+      }
+    });
+  }
+
+  // 7. 三会关系（同气相助，力量集中）
+  var SANHUI = {
+    '鼠':['亥猪','丑牛'], '牛':['亥猪','子鼠'], '猪':['子鼠','丑牛'],
+    '虎':['卯兔','辰龙'], '兔':['寅虎','辰龙'], '龙':['寅虎','卯兔'],
+    '蛇':['午马','未羊'], '马':['巳蛇','未羊'], '羊':['巳蛇','午马'],
+    '猴':['酉鸡','戌狗'], '鸡':['申猴','戌狗'], '狗':['申猴','酉鸡']
+  };
+  if (info) {
+    var myHui = SANHUI[zodiac] || [];
+    (info.shape || []).forEach(function(s) {
+      myHui.forEach(function(sh) {
+        if (LIUHE_SHAPE[sh] && s === LIUHE_SHAPE[sh]) {
+          if (!good.find(function(g){return g.tag.indexOf('三会')!==-1;})) {
+            good.push({ tag:'三会同气·'+sh, reason:'与属'+zodiac+'三会，同气相助力量集中，做事易得众人相助', source:'三会' });
+          }
+        }
+      });
+    });
+  }
+
+  // 8. 自刑（自我内耗）
+  var ZIXING_MAP = {
+    '龙':{ shapes:['辰龙'], radicals:['辰'] },
+    '马':{ shapes:['午马'], radicals:['午'] },
+    '鸡':{ shapes:['酉鸡'], radicals:['酉'] },
+    '猪':{ shapes:['亥猪'], radicals:['亥'] }
+  };
+  if (info && ZIXING_MAP[zodiac]) {
+    var zx = ZIXING_MAP[zodiac];
+    var hasZixing = (info.shape||[]).some(function(s){return zx.shapes.indexOf(s)!==-1;}) ||
+                    (info.radicals||[]).some(function(r){return zx.radicals.indexOf(r)!==-1;});
+    if (hasZixing) {
+      if (!bad.find(function(b){return b.tag.indexOf('自刑')!==-1;})) {
+        bad.push({ tag:'自刑·内耗', reason:'同类字根自刑，容易自我内耗、半途而废、行事冲动后悔', source:'自刑' });
+      }
+    }
+  }
+
+  // 9. 四大桃花（子卯午酉 — 异性缘旺但感情是非多）
+  var TAOHUA_ZODIAC = ['鼠','兔','马','鸡'];
+  var TAOHUA_SHAPE = {
+    '鼠':'子鼠', '兔':'卯兔', '马':'午马', '鸡':'酉鸡'
+  };
+  if (info && TAOHUA_ZODIAC.indexOf(zodiac) !== -1) {
+    var myShape = TAOHUA_SHAPE[zodiac];
+    if (myShape && (info.shape || []).indexOf(myShape) !== -1) {
+      bad.push({ tag:'自带桃花·感情是非', reason:'四大桃花生肖（'+zodiac+'）见同类字根，桃花旺但感情是非易增多，需设定边界', source:'桃花' });
+    }
+  }
+  // 名字带桃花字根（对其他生肖）
+  var TAOHUA_SHAPES = ['子鼠','卯兔','午马','酉鸡'];
+  if (info && TAOHUA_ZODIAC.indexOf(zodiac) === -1) {
+    (info.shape || []).forEach(function(s){
+      if (TAOHUA_SHAPES.indexOf(s) !== -1 && s !== TAOHUA_SHAPE[zodiac]) {
+        if (!good.find(function(g){return g.tag.indexOf('桃花')!==-1;})) {
+          good.push({ tag:'引桃花·异性缘', reason:'含桃花字根，异性缘佳，贵人多，社交魅力强', source:'桃花' });
+        }
+      }
+    });
+  }
+
+  // 10. 驿马星（寅申巳亥 — 适合外出发展）
+  var YIMA_ZODIAC = ['虎','猴','蛇','猪'];
+  var YIMA_SHAPES = ['寅虎','申猴','巳蛇','亥猪'];
+  var YIMA_RADICALS = ['寅','申','巳','亥'];
+  if (info && YIMA_ZODIAC.indexOf(zodiac) !== -1) {
+    var hasYima = (info.shape || []).some(function(s){ return YIMA_SHAPES.indexOf(s)!==-1; }) ||
+                  (info.radicals || []).some(function(r){ return YIMA_RADICALS.indexOf(r)!==-1; });
+    if (hasYima) {
+      if (!good.find(function(g){return g.tag.indexOf('驿马')!==-1;})) {
+        good.push({ tag:'驿马星·外出发展', reason:'驿马生肖（'+zodiac+'）见驿马字根，适合往外走、离家发展，动中有财', source:'驿马' });
+      }
+    }
+  }
+
+  // 11. 华盖星 / 天罗地网（辰戌丑未 — 四库土，发展易受限）
+  var HUAGAI_ZODIAC = ['龙','狗','牛','羊'];
+  var HUAGAI_SHAPES = ['辰龙','戌狗','丑牛','未羊'];
+  if (info && HUAGAI_ZODIAC.indexOf(zodiac) !== -1) {
+    (info.shape || []).forEach(function(s){
+      if (HUAGAI_SHAPES.indexOf(s) !== -1 && s !== (
+        zodiac==='龙'?'辰龙':zodiac==='狗'?'戌狗':zodiac==='牛'?'丑牛':'未羊'
+      )) {
+        if (!bad.find(function(b){return b.tag.indexOf('天罗')!==-1;})) {
+          bad.push({ tag:'天罗地网·受制', reason:'四库土生肖（'+zodiac+'）见另一库土字根，天罗地网格，发展容易受限', source:'华盖' });
+        }
+      }
+    });
+  }
+
+  // 12. 孤鸾寡宿（孤独格字 — 感情不顺）
+  var GULUAN = {
+    '蓮':'莲子心中苦，孤独无人伴',
+    '燕':'水火相冲，孤独格',
+    '婵':'孤单格，易引外遇是非',
+    '素':'素净孤独，任劳任怨却孤单',
+    '霞':'变幻如云霞，感情难稳固',
+    '露':'露水情缘，短暂孤独',
+    '雪':'孤冷如雪，感情寒凉',
+    '梅':'梅花香自苦寒来，孤独奋斗',
+    '伶':'伶仃孤独，外表光鲜内心委屈',
+    '寥':'寂寥孤独，内心空洞'
+  };
+  if (info && GULUAN[ch]) {
+    bad.push({ tag:'孤鸾格·感情孤独', reason: GULUAN[ch], source:'孤鸾' });
+  }
+
   return {
     char: ch,
     known: !!info,
@@ -3186,6 +3342,52 @@ function analyzeCharV4(ch, zodiac, gender) {
     good: good,
     bad: bad
   };
+}
+
+// ── 姓名三字声调检测 ──
+function checkTonePattern(surname, name1, name2) {
+  // 简化声调表（常用字）
+  var TONES = {
+    // 1声
+    '王':1,'张':1,'陈':1,'刘':1,'李':1,'林':1,'黄':1,'郑':1,'吴':1,'周':1,
+    '高':1,'方':1,'龙':1,'冠':1,'明':1,'天':1,'先':1,'东':1,'中':1,'文':1,
+    '清':1,'通':1,'丰':1,'青':1,'星':1,'英':1,'芳':1,'荣':1,'书':1,'春':1,
+    '金':1,'心':1,'真':1,'新':1,'欣':1,'馨':1,'声':1,'生':1,'升':1,'晟':1,
+    // 2声
+    '马':3,'黎':2,'杨':2,'徐':2,'孙':1,'何':2,'吕':3,'韩':2,'曹':2,'许':3,
+    '华':2,'龙':2,'成':2,'诚':2,'明':2,'平':2,'荷':2,'萱':1,'桐':2,'同':2,
+    '宏':2,'涵':2,'浩':4,'淏':4,'字':4,'淑':2,'国':2,'强':2,'学':2,'华':2,
+    '子':3,'尊':1,'冠':4,'翔':2,'翰':4,'贤':2,'弦':2,'廉':2,'连':2,'联':2,
+    // 3声
+    '李':3,'冯':2,'柳':3,'雅':3,'晓':3,'美':3,'宝':3,'海':3,'水':3,'老':3,
+    '好':3,'有':3,'雨':3,'语':3,'友':3,'宇':3,'羽':3,'勇':3,'永':3,'允':3,
+    '品':3,'彬':1,'锦':3,'璇':2,'瑾':3,'昱':4,'雪':3,'雅':3,'婉':3,'婧':4,
+    // 4声
+    '黄':2,'郭':1,'赵':4,'陆':4,'钟':1,'邓':4,'曾':1,'蔡':4,'叶':4,'傅':4,
+    '志':4,'尚':4,'信':4,'义':4,'智':4,'富':4,'利':4,'宝':3,'振':4,'震':4,
+    '健':4,'建':4,'进':4,'靖':4,'境':4,'敬':4,'静':4,'净':4,'晶':1,'锐':4,
+  };
+
+  var chars = [surname, name1, name2].filter(Boolean);
+  if (chars.length < 2) return null;
+
+  var tones = chars.map(function(c){ return TONES[c] || 0; }).filter(function(t){return t>0;});
+  if (tones.length < 2) return null;
+
+  // 检测全部相同声调
+  var allSame = tones.every(function(t){ return t===tones[0]; });
+  if (allSame) {
+    var toneNames = ['','一声（阴平）','二声（阳平）','三声（上声）','四声（去声）'];
+    return { warn: true, msg: '三字声调全部为'+toneNames[tones[0]]+'，读起来较单调，建议调整' };
+  }
+
+  // 检测全部入声（4声叠加）
+  var allFalling = tones.filter(function(t){return t===4;}).length === tones.length;
+  if (allFalling) {
+    return { warn: true, msg: '三字全为去声（4声），读音偏沉重，建议加入1声或2声字' };
+  }
+
+  return { warn: false, msg: '声调搭配良好，读音和谐顺口' };
 }
 
 // ── 五得检测（v4完整版）──
@@ -3634,6 +3836,17 @@ function renderNameAnalysisV4(d, nameSecEl, naEl) {
   h.push('</div>');
   h.push('</div>');
 
+  // ── 声调检测 ──
+  var toneResult = checkTonePattern(d.surname, d.name1, d.name2);
+  if (toneResult) {
+    var toneColor = toneResult.warn ? '#EF9A9A' : '#81C784';
+    var toneIcon = toneResult.warn ? '⚠' : '✅';
+    h.push('<div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;margin-bottom:14px;">');
+    h.push('<div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:8px;">🎵 声调搭配检测</div>');
+    h.push('<div style="font-size:13px;color:'+toneColor+';">'+toneIcon+' '+toneResult.msg+'</div>');
+    h.push('</div>');
+  }
+
   // ── 缺名二 ──
   if (!d.name2) {
     h.push('<div style="background:rgba(255,193,7,.08);border:1px solid rgba(255,193,7,.3);border-radius:12px;padding:16px;margin-bottom:14px;">');
@@ -3645,11 +3858,13 @@ function renderNameAnalysisV4(d, nameSecEl, naEl) {
   // ── 底部说明 ──
   h.push('<div style="background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.03));border:1px solid rgba(201,168,76,.25);border-radius:12px;padding:16px;">');
   h.push('<div style="font-size:12px;color:var(--t2);line-height:1.9;">');
-  h.push('<strong style="color:var(--gl);">⭐ 综合分析三维度：</strong><br>');
-  h.push('① <strong style="color:var(--white);">字根字形</strong> — 部首对应生肖宜忌（三合/三会/六合/冲害刑）<br>');
-  h.push('② <strong style="color:var(--white);">五行生克</strong> — 字义五行 vs 生肖五行<br>');
-  h.push('③ <strong style="color:var(--white);">字义字音</strong> — 字义好坏、女性禁忌、音调绕口<br>');
-  h.push('<span style="color:var(--gold);">如需专业完整评估，建议搭配命盘综合判断，联系Wilson老师。</span>');
+  h.push('<strong style="color:var(--gl);">⭐ 综合分析五维度：</strong><br>');
+  h.push('① <strong style="color:var(--white);">三合/六合/三会</strong> — 贵人字根加分<br>');
+  h.push('② <strong style="color:var(--white);">相冲/相害/自刑</strong> — 凶性字根扣分<br>');
+  h.push('③ <strong style="color:var(--white);">桃花/驿马/华盖</strong> — 特殊格局提示<br>');
+  h.push('④ <strong style="color:var(--white);">孤鸾/女性禁忌</strong> — 感情婚姻注意<br>');
+  h.push('⑤ <strong style="color:var(--white);">字义字音声调</strong> — 字义好坏、读音顺口<br>');
+  h.push('<span style="color:var(--gold);">如需专业完整评估，建议联系黄冠尊老师。</span>');
   h.push('</div></div>');
 
   naEl.innerHTML = h.join('');
