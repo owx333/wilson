@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>黄冠尊 · 数易命盘 + 生肖姓名分析 · VIP会员系统 · 黄冠尊</title>
+<title>黄冠尊 · 数易命盘 + 流年运势 + 生肖姓名分析 · VVIP会员系统 · 黄冠尊</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
@@ -183,8 +183,8 @@ body{font-family:"Noto Sans SC",sans-serif;background:var(--navy);color:var(--t1
 </head>
 <body>
 <div class="hdr">
-  <div><div class="logo">数字生命信息系统<span>黄冠尊 · 数易命盘 + 生肖姓名分析</span></div></div>
-  <div class="hdr-tag">v4.0 VIP完整版</div>
+  <div><div class="logo">数字生命信息系统<span>黄冠尊 · 数易命盘 + 流年运势 + 生肖姓名分析</span></div></div>
+  <div class="hdr-tag">钻石VVIP会员系统</div>
 </div>
 
 <!-- PASSWORD -->
@@ -762,14 +762,11 @@ function renderReport(d){
     }
 
     // ── 联合码卡片 ──
-    function cdCard(label, efg, subLabel, derivation){
+    function cdCard(label, efg, subLabel){
       var info = findCD(efg);
       var h = '<div style="background:rgba(0,0,0,.25);border:1px solid rgba(33,150,243,.2);border-radius:12px;padding:14px;margin-bottom:10px;">';
-      h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:6px;">';
-      h += '<div>';
-      h += '<div style="font-size:12px;color:var(--pale);margin-bottom:2px;">'+label+'</div>';
-      h += '<div style="font-size:10px;color:var(--t3);">'+derivation+'</div>';
-      h += '</div>';
+      h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">';
+      h += '<div style="font-size:12px;color:var(--pale);">'+label+'</div>';
       h += '<div style="text-align:right;">';
       h += '<div style="font-size:28px;font-weight:700;color:var(--blue);font-family:Cinzel,serif;line-height:1;">'+efg+'</div>';
       h += '<div style="font-size:10px;color:var(--t3);">'+subLabel+'</div>';
@@ -793,18 +790,9 @@ function renderReport(d){
 
     var lyBox = '<div style="background:rgba(33,150,243,.06);border:1px solid rgba(33,150,243,.2);border-radius:14px;padding:16px;margin-top:14px;">'
       + '<div style="font-size:13px;font-weight:700;color:var(--blue);margin-bottom:14px;letter-spacing:1px;">📊 流年 · 流月 · 流日 联合码解说</div>'
-      // 计算步骤说明
-      + '<div style="background:rgba(0,0,0,.2);border-radius:8px;padding:10px 12px;margin-bottom:14px;font-size:11px;color:var(--t3);line-height:2;">'
-      + '<strong style="color:var(--white);">流年</strong> e='+d.lyA+' · f='+d.lyB+' · g=<span style="color:var(--gold);">'+d.lyG+'</span>　（'+d.a+'+'+d.b+'='+d.lyA+'，R(20)+R(26)='+d.lyB+'）<br>'
-      + '<strong style="color:var(--white);">流月</strong> e='+lm_e+' · f='+lm_f+' · g=<span style="color:var(--gold);">'+lm_g+'</span>　（出生月'+d.month+'＋当前月'+cm+'→新b='+lm_b+'，R('+d.a+'+'+lm_b+')='+lm_e+'）<br>'
-      + '<strong style="color:var(--white);">流日</strong> e='+ld_e+' · f='+ld_f+' · g=<span style="color:var(--gold);">'+ld_g+'</span>　（出生日'+d.day+'＋今日'+cd+'→新a='+ld_a+'，R('+ld_a+'+'+lm_b+')='+ld_e+'）'
-      + '</div>'
-      + cdCard('📅 2026 流年联合码', ly_efg, '全年运程',
-          'efg = '+d.lyA+' · '+d.lyB+' · '+d.lyG)
-      + cdCard('🌙 '+months[cm-1]+'月 流月联合码', lm_efg, months[cm-1]+'月运势',
-          'e=R('+d.a+'+'+lm_b+')='+lm_e+' · f='+lm_f+' · g='+lm_g)
-      + cdCard('☀️ '+cd+'日 流日联合码', ld_efg, '今日能量',
-          'e=R('+ld_a+'+'+lm_b+')='+ld_e+' · f='+ld_f+' · g='+ld_g)
+      + cdCard('📅 2026 流年联合码', ly_efg, '全年运程')
+      + cdCard('🌙 '+months[cm-1]+'月 流月联合码', lm_efg, months[cm-1]+'月运势')
+      + cdCard('☀️ '+cd+'日 流日联合码', ld_efg, '今日能量')
       + '</div>';
 
     document.getElementById('lyA').innerHTML += lyBox;
@@ -813,6 +801,15 @@ function renderReport(d){
   // 姓名分析
   var nameSecEl = document.getElementById('nameSec');
   var naEl = document.getElementById('nameAnalysis');
+
+  // ── 高分名字预设分析（硬编码）──
+  var fullNameCheck = (d.surname||'') + (d.name1||'') + (d.name2||'');
+  if (PRESET_NAMES[fullNameCheck]) {
+    nameSecEl.style.display = 'block';
+    naEl.innerHTML = PRESET_NAMES[fullNameCheck];
+    return;
+  }
+
   renderNameAnalysisV4(d, nameSecEl, naEl);
 
   // 四大重点
@@ -941,7 +938,7 @@ const CD81 = {
     advice: 'enjoy me time 没问题，但要主动经营感情和人际关系。学会借助他人力量，不要什么都一个人扛。'
   },
   '224': {
-    title: '224',
+    title: '能说会道号 · 口舌是非',
     core: '讲话很厉害，销售一流。但讲太多，不小心讲了不该讲的话，容易得罪人。',
     pos: '沟通谈判能力顶尖，文案写作有天分，善于倾听，人际关系好，亲和力强。',
     neg: '嘴巴停不下来，容易说漏嘴。心软，容易被人利用。需要安全感，有时过度依赖他人。',
@@ -957,7 +954,7 @@ const CD81 = {
     advice: '增强行动力，把军师的智慧转化为实际成果。大器晚成，不要因为早期不顺就放弃。'
   },
   '336': {
-    title: '336',
+    title: '行动来钱号 · 冲动花钱',
     core: '行动就来钱，冲动就花钱。行动力是财富的开关，情绪冲动是财富的漏洞。',
     pos: '行动力强，充满活力，创造力丰富，责任心强，喜欢与人分享，慷慨大方。',
     neg: '情绪化，急躁，容易因冲动而做出错误的消费或投资决定，钱来得快去得也快。',
@@ -981,7 +978,7 @@ const CD81 = {
     advice: '学会与「不完美」共存，接受事情无法全部掌控。如有需要，寻求专业心理支持，不要硬撑。'
   },
   '494': {
-    title: '494',
+    title: '木木木号 · 多想拿结果',
     core: '三个木叠加，想了就要拿结果。但想太多时容易混乱，陷入信息过载。',
     pos: '企业家精神，重面子，社交能力强，智慧与洞察力兼备，善于整合资源，策划高手。',
     neg: '想太多，思维容易卡死。对面子过于看重，有时为了面子做出不理性的决定。',
@@ -1149,7 +1146,7 @@ const CD81 = {
     advice: '不断提升自身价值，越有价值才越能吸引真正的贵人。学会辨别动机，不要因为人缘好就来者不拒。'
   },
   '797': {
-    title: '797',
+    title: '人多号 · 懂得用人',
     core: '身边的人非常多，但人多是非也多。核心功课是懂得「用人」而不是被人用。',
     pos: '社交能力顶尖，热情外向，行动力强，容易成为他人的贵人，善于合作共赢。',
     neg: '容易惹小人，身边鱼龙混杂。如果不懂筛选，能量会被消耗在无效的人际关系上。',
@@ -1253,7 +1250,7 @@ const CD81 = {
     advice: '学会放手，不需要每件事都做到某个标准才罢休。培养耐心，减少不必要的重复和折腾。定期体检。'
   },
   '944': {
-    title: '944',
+    title: '木木木号 · 多元副业',
     core: '想很多，副业能力超强，适合多元收入。但不懂的事情却非要弄到精通，弄到自己半死。',
     pos: '规划能力强，思维灵活多变，善于总结反思，多元化能力强，副业潜力大。',
     neg: '想多做少，内心过于敏感，容易担忧。什么都想做，结果每件事都做得不深。',
@@ -1277,7 +1274,7 @@ const CD81 = {
     advice: '配合强制储蓄机制，把赚钱能力转化为真正的财富积累。不要让完美主义阻碍了行动。'
   },
   '977': {
-    title: '977',
+    title: '贵人小人都多号',
     core: '贵人多，小人也多。人很多，有人脉有钱脉。关键是能不能分辨出谁是真贵人。',
     pos: '智慧与洞察力强，魅力和号召力大，独立思考能力强，内省与成长意识高，领导力出众。',
     neg: '容易冲动急躁，欲望控制是功课。贵人和小人同时多，人际关系复杂。',
@@ -1293,7 +1290,7 @@ const CD81 = {
     advice: '学会说「我需要帮助」。不是只有你一个人能扛，团队存在的意义就是分担。'
   },
   '999': {
-    title: '999',
+    title: '大好大坏号 · 心想事成',
     core: '什么都要，心想事成。好的时候像皇帝，不好的时候像奴才。大好大坏，两个极端。',
     pos: '能力超强，眼光敏锐，见解独到，有号召力，贵人多，机会多。包含1-9所有特质的精华。',
     neg: '贪心是最大弱点——机会太多，想要的太多，导致精力分散，最终什么都拿不到。孤独感重，常常一个人面对一切。',
@@ -1365,7 +1362,7 @@ const CD81 = {
     advice: '发挥销售天赋，找到适合自己的产品和平台。培养耐心，不要因为急于求成而错失好机会。'
   },
   '246 & 426': {
-    title: '246 & 426',
+    title: '价值销售号 · 看钱办事',
     core: '会销售，但是价值销售型——只为值得的事情、值得的人付出。看钱办事，利益导向清晰。',
     pos: '乐观开朗，亲和力强，有同情心，善于处理客户关系。策划和执行并重，人际和谐。',
     neg: '有时过于功利，太重利益计算。情绪可能波动，偶尔显得唯利是图。',
@@ -1405,7 +1402,7 @@ const CD81 = {
     advice: '不能出现在主性格位置（容易影响判断）。发挥独立创业的优势，但学会团队合作，不要事事独扛。'
   },
   '347 & 437': {
-    title: '347 & 437',
+    title: '慧眼识人号 · 反应快',
     core: '反应快，细心，有慧眼，学东西很快。带团队很厉害，能吸引贵人。但一旦发脾气，立刻吸引小人。',
     pos: '策划与执行并重，情商高，亲力亲为，善于发现人才并加以培养，适合管理岗位。',
     neg: '有时过于追求完美，行动迟缓。情绪一旦失控，贵人变小人，完全反转。',
@@ -1437,7 +1434,7 @@ const CD81 = {
     advice: '时刻保持正向能量和心态，这是保住贵人运的关键。遇到背叛要快速放下，不要让负面情绪持续发酵。'
   },
   '382 & 832': {
-    title: '382 & 832',
+    title: '水火冲号 · 解决问题高手',
     core: '沟通能力强，是解决问题的高手。但内部水火相冲，极容易内耗，情绪管理是一生的功课。',
     pos: '积极行动，创造力强，善于化困难为机遇，在团队中是协调者和救火队长。',
     neg: '情绪化，没耐性，容易冲动决策。内耗严重，外表能干但内心长期疲惫。婚姻波折大。',
@@ -1453,7 +1450,7 @@ const CD81 = {
     advice: '40岁前创业、布局、拼搏。40岁后守成、优化、传承。不要逆势而行。'
   },
   '461 & 641': {
-    title: '461 & 641',
+    title: '理财高手号 · 情财连动',
     core: '极强的理财和投资能力，但情财是连动的——情感稳定则财运稳，情感不稳则财运乱。',
     pos: '兼具思想与智慧，责任心强，关爱他人，独立自信，善于平衡各方利益。',
     neg: '追求完美导致决策迟缓，情绪波动影响财务判断。负面时，情财两伤。',
@@ -1501,7 +1498,7 @@ const CD81 = {
     advice: '584要保持乐观，但不能逃避现实问题；854要主动练习感恩和正向思考，打破悲观惯性。'
   },
   '674 & 764': {
-    title: '674 & 764',
+    title: '聪明人缘号 · LCLY',
     core: '聪明，见人喜爱，人缘极好。但有时觉得自己很厉害，带点骄傲感。',
     pos: '智慧与财富结合，社交能力强，贵人运旺，善于整合资源，慷慨大方，资源分享能力强。',
     neg: '觉得自己很厉害，容易让人觉得骄傲难接近。如果不笑，给人距离感很重。',
@@ -3250,6 +3247,190 @@ function checkFiveBlessingsV4(allChars, zodiac) {
 }
 
 // ── 姓名分析渲染（v4完整版）──
+// ═══════════════════════════════════════════════════════════════
+// 预设高分名字分析（硬编码，直接显示完整报告）
+// ═══════════════════════════════════════════════════════════════
+const PRESET_NAMES = {
+  '马子淏': `
+<div style="background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(0,0,0,.2));border:1px solid rgba(201,168,76,.35);border-radius:16px;padding:22px;font-family:'Noto Sans SC',sans-serif;">
+
+  <!-- 头部 -->
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+    <div>
+      <div style="font-size:11px;color:var(--t3);letter-spacing:2px;margin-bottom:6px;">数易生肖姓名学 · 专业分析报告</div>
+      <div style="font-size:22px;font-weight:700;color:var(--white);font-family:'Noto Serif SC',serif;letter-spacing:4px;">马子淏</div>
+      <div style="font-size:13px;color:var(--t2);margin-top:4px;">生肖：🐉 龙 &nbsp;·&nbsp; 格局定位：贵人财流型 + 成长型格局</div>
+    </div>
+    <div style="text-align:center;background:rgba(0,0,0,.3);border:2px solid #2ECC71;border-radius:14px;padding:14px 22px;">
+      <div style="font-size:11px;color:var(--t3);margin-bottom:4px;">综合评分</div>
+      <div style="font-size:46px;font-weight:700;color:#2ECC71;line-height:1;">92</div>
+      <div style="font-size:11px;color:#2ECC71;">高分名字 🔥</div>
+    </div>
+  </div>
+
+  <!-- 五得评分 -->
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:18px;">
+    ${[['得食','19/20','财源流动，赚钱机会多'],['得地','18/20','有基础，有承载'],['得位','18/20','具备上位潜质'],['得势','20/20','贵人运强 🔥'],['得福','18/20','能量顺畅']].map(function(x){return '<div style="text-align:center;background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.3);border-radius:10px;padding:10px 4px;"><div style="font-size:13px;font-weight:700;color:#2ECC71;">✓</div><div style="font-size:12px;font-weight:700;color:var(--white);margin:4px 0;">'+x[0]+'</div><div style="font-size:13px;font-weight:700;color:#2ECC71;">'+x[1]+'</div><div style="font-size:10px;color:var(--t3);margin-top:3px;line-height:1.4;">'+x[2]+'</div></div>';}).join('')}
+  </div>
+
+  <!-- 逐字分析 -->
+  <div style="margin-bottom:16px;">
+    <div style="font-size:13px;font-weight:700;color:var(--gold);margin-bottom:12px;border-bottom:1px solid rgba(201,168,76,.2);padding-bottom:8px;">🔍 逐字结构分析</div>
+
+    <div style="background:rgba(0,0,0,.2);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:14px;margin-bottom:10px;">
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="font-size:48px;color:var(--white);font-family:'Noto Serif SC',serif;font-weight:700;line-height:1;min-width:50px;">马</div>
+        <div>
+          <div style="font-size:12px;color:var(--t2);margin-bottom:6px;">【字义】行动力 / 执行力　【字形】午马字根（属龙三合）</div>
+          <div style="font-size:13px;color:#81C784;margin-bottom:4px;"><span style="background:rgba(46,204,113,.15);padding:1px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">✦ 得位</span>主动、敢冲、有行动力，做得到、动得起来</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:rgba(0,0,0,.2);border-left:4px solid #64B5F6;border-radius:0 10px 10px 0;padding:14px;margin-bottom:10px;">
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="font-size:48px;color:var(--white);font-family:'Noto Serif SC',serif;font-weight:700;line-height:1;min-width:50px;">子</div>
+        <div>
+          <div style="font-size:12px;color:var(--t2);margin-bottom:6px;">【字义】子 = 鼠字根　【地支】子鼠</div>
+          <div style="font-size:13px;color:#81C784;margin-bottom:4px;"><span style="background:rgba(46,204,113,.15);padding:1px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">✦ 得势·三合</span>龙 + 鼠 = 申子辰三合水局 🔥 贵人运最强</div>
+          <div style="font-size:13px;color:#81C784;"><span style="background:rgba(46,204,113,.15);padding:1px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">✦ 得地</span>根基扎实，有基础有承载</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:rgba(0,0,0,.2);border-left:4px solid #64B5F6;border-radius:0 10px 10px 0;padding:14px;">
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="font-size:48px;color:var(--white);font-family:'Noto Serif SC',serif;font-weight:700;line-height:1;min-width:50px;">淏</div>
+        <div>
+          <div style="font-size:12px;color:var(--t2);margin-bottom:6px;">【字义】水深广　【字形】氵水字根</div>
+          <div style="font-size:13px;color:#81C784;margin-bottom:4px;"><span style="background:rgba(46,204,113,.15);padding:1px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">✦ 得食</span>龙最喜水，财源流动，赚钱机会多</div>
+          <div style="font-size:13px;color:#81C784;"><span style="background:rgba(46,204,113,.15);padding:1px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">✦ 得福</span>能量来源充沛，运势推动力强</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 格局解析 -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;">
+    <div style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:12px;text-align:center;">
+      <div style="font-size:18px;margin-bottom:6px;">💰</div>
+      <div style="font-size:11px;font-weight:700;color:var(--gold);margin-bottom:4px;">财运</div>
+      <div style="font-size:11px;color:var(--t2);line-height:1.6;">越做越有 · 有财源有流动有机会</div>
+    </div>
+    <div style="background:rgba(100,181,246,.07);border:1px solid rgba(100,181,246,.2);border-radius:10px;padding:12px;text-align:center;">
+      <div style="font-size:18px;margin-bottom:6px;">👥</div>
+      <div style="font-size:11px;font-weight:700;color:#64B5F6;margin-bottom:4px;">贵人运</div>
+      <div style="font-size:11px;color:var(--t2);line-height:1.6;">三合结构 · 容易遇到帮助他的人</div>
+    </div>
+    <div style="background:rgba(46,204,113,.07);border:1px solid rgba(46,204,113,.2);border-radius:10px;padding:12px;text-align:center;">
+      <div style="font-size:18px;margin-bottom:6px;">🚀</div>
+      <div style="font-size:11px;font-weight:700;color:#81C784;margin-bottom:4px;">发展方向</div>
+      <div style="font-size:11px;color:var(--t2);line-height:1.6;">生意 · 市场 · 资源整合 · 对外发展</div>
+    </div>
+  </div>
+
+  <!-- 总结 -->
+  <div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.3);border-radius:12px;padding:16px;text-align:center;">
+    <div style="font-size:12px;color:var(--gold);font-weight:700;margin-bottom:8px;">🏆 综合总结</div>
+    <div style="font-size:13px;color:var(--white);line-height:1.9;">
+      五得齐全，结构完整，具备财源、贵人、发展与承载能力<br>
+      <strong style="color:var(--gold);">「成长型高分格局名字」</strong><br>
+      <span style="color:var(--t2);">前期靠行动 → 中期靠人脉 → 后期见成果</span>
+    </div>
+  </div>
+</div>`,
+
+  '黄冠尊': `
+<div style="background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(0,0,0,.2));border:1px solid rgba(201,168,76,.35);border-radius:16px;padding:22px;font-family:'Noto Sans SC',sans-serif;">
+
+  <!-- 头部 -->
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+    <div>
+      <div style="font-size:11px;color:var(--t3);letter-spacing:2px;margin-bottom:6px;">数易生肖姓名学 · 专业分析报告</div>
+      <div style="font-size:22px;font-weight:700;color:var(--white);font-family:'Noto Serif SC',serif;letter-spacing:4px;">黄冠尊</div>
+      <div style="font-size:13px;color:var(--t2);margin-top:4px;">生肖：🐉 龙 &nbsp;·&nbsp; 格局定位：权力型 + 成长型 + 高格局结构</div>
+    </div>
+    <div style="text-align:center;background:rgba(0,0,0,.3);border:2px solid #2ECC71;border-radius:14px;padding:14px 22px;">
+      <div style="font-size:11px;color:var(--t3);margin-bottom:4px;">综合评分</div>
+      <div style="font-size:46px;font-weight:700;color:#2ECC71;line-height:1;">91</div>
+      <div style="font-size:11px;color:#2ECC71;">高分名字 🔥</div>
+    </div>
+  </div>
+
+  <!-- 五得评分 -->
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:18px;">
+    ${[['得食','18/20','能力型+地位型财富'],['得地','18/20','根基稳，能承载'],['得位','20/20','上位能力极强 🔥'],['得势','17/20','中后期贵人增强'],['得福','18/20','人生质量可提升']].map(function(x){return '<div style="text-align:center;background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.3);border-radius:10px;padding:10px 4px;"><div style="font-size:13px;font-weight:700;color:#2ECC71;">✓</div><div style="font-size:12px;font-weight:700;color:var(--white);margin:4px 0;">'+x[0]+'</div><div style="font-size:13px;font-weight:700;color:#2ECC71;">'+x[1]+'</div><div style="font-size:10px;color:var(--t3);margin-top:3px;line-height:1.4;">'+x[2]+'</div></div>';}).join('')}
+  </div>
+
+  <!-- 逐字分析 -->
+  <div style="margin-bottom:16px;">
+    <div style="font-size:13px;font-weight:700;color:var(--gold);margin-bottom:12px;border-bottom:1px solid rgba(201,168,76,.2);padding-bottom:8px;">🔍 逐字结构分析</div>
+
+    <div style="background:rgba(0,0,0,.2);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:14px;margin-bottom:10px;">
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="font-size:48px;color:var(--white);font-family:'Noto Serif SC',serif;font-weight:700;line-height:1;min-width:50px;">黄</div>
+        <div>
+          <div style="font-size:12px;color:var(--t2);margin-bottom:6px;">【字义】黄色·土色　【字形】五行土字根</div>
+          <div style="font-size:13px;color:#81C784;margin-bottom:4px;"><span style="background:rgba(46,204,113,.15);padding:1px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">✦ 得地</span>土根扎实，稳定基础，承载能力强，能守成</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:rgba(0,0,0,.2);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:14px;margin-bottom:10px;">
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="font-size:48px;color:var(--white);font-family:'Noto Serif SC',serif;font-weight:700;line-height:1;min-width:50px;">冠</div>
+        <div>
+          <div style="font-size:12px;color:var(--t2);margin-bottom:6px;">【字义】冠冕·第一　【字形】王帝格（得位·戴冠）</div>
+          <div style="font-size:13px;color:#81C784;margin-bottom:4px;"><span style="background:rgba(46,204,113,.15);padding:1px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">✦ 得位·极强</span>领导能力，有机会站在前面带领他人 🔥</div>
+          <div style="font-size:13px;color:#81C784;"><span style="background:rgba(46,204,113,.15);padding:1px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">✦ 得食</span>资源掌控，能力型财富来源</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:rgba(0,0,0,.2);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:14px;">
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div style="font-size:48px;color:var(--white);font-family:'Noto Serif SC',serif;font-weight:700;line-height:1;min-width:50px;">尊</div>
+        <div>
+          <div style="font-size:12px;color:var(--t2);margin-bottom:6px;">【字义】尊贵·分量感　【字形】王帝格·尊位</div>
+          <div style="font-size:13px;color:#81C784;margin-bottom:4px;"><span style="background:rgba(46,204,113,.15);padding:1px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">✦ 得位</span>价值感、被尊重、人生层次持续提升</div>
+          <div style="font-size:13px;color:#81C784;margin-bottom:4px;"><span style="background:rgba(46,204,113,.15);padding:1px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">✦ 得势</span>人际尊重，随地位提升自然吸引资源</div>
+          <div style="font-size:13px;color:#81C784;"><span style="background:rgba(46,204,113,.15);padding:1px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">✦ 得福</span>有享受能力，人生质量可持续提升</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 格局解析 -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;">
+    <div style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:12px;text-align:center;">
+      <div style="font-size:18px;margin-bottom:6px;">💰</div>
+      <div style="font-size:11px;font-weight:700;color:var(--gold);margin-bottom:4px;">财运</div>
+      <div style="font-size:11px;color:var(--t2);line-height:1.6;">权力型 + 能力型财富<br>靠能力靠位置靠影响力<br>越到后期越强</div>
+    </div>
+    <div style="background:rgba(100,181,246,.07);border:1px solid rgba(100,181,246,.2);border-radius:10px;padding:12px;text-align:center;">
+      <div style="font-size:18px;margin-bottom:6px;">👥</div>
+      <div style="font-size:11px;font-weight:700;color:#64B5F6;margin-bottom:4px;">贵人运</div>
+      <div style="font-size:11px;color:var(--t2);line-height:1.6;">中后期增强型<br>随着地位提升<br>自然吸引资源</div>
+    </div>
+    <div style="background:rgba(46,204,113,.07);border:1px solid rgba(46,204,113,.2);border-radius:10px;padding:12px;text-align:center;">
+      <div style="font-size:18px;margin-bottom:6px;">🚀</div>
+      <div style="font-size:11px;font-weight:700;color:#81C784;margin-bottom:4px;">发展方向</div>
+      <div style="font-size:11px;color:var(--t2);line-height:1.6;">创业 · 带团队<br>个人品牌<br>影响力行业</div>
+    </div>
+  </div>
+
+  <!-- 总结 -->
+  <div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.3);border-radius:12px;padding:16px;text-align:center;">
+    <div style="font-size:12px;color:var(--gold);font-weight:700;margin-bottom:8px;">🏆 综合总结</div>
+    <div style="font-size:13px;color:var(--white);line-height:1.9;">
+      五得齐全，结构完整，具备稳定基础、上位能力与发展潜力<br>
+      <strong style="color:var(--gold);">「高分权力型格局名字」</strong><br>
+      <span style="color:var(--t2);">适合走成长型与影响力人生路径</span>
+    </div>
+  </div>
+</div>`,
+};
+
 function renderNameAnalysisV4(d, nameSecEl, naEl) {
   if (!d.surname && !d.name1) { nameSecEl.style.display = 'none'; return; }
 
@@ -3368,7 +3549,8 @@ function renderNameAnalysisV4(d, nameSecEl, naEl) {
     }
 
     if (!ca.known) {
-      h.push('<div style="font-size:12px;color:var(--t3);">◇ 此字不在字库，需专业老师手动拆析</div>');
+      // 未知字：显示AI分析占位符，稍后异步填入
+      h.push('<div style="font-size:12px;color:var(--t3);">◇ 此字不在字库，建议咨询黄冠尊老师进行专业分析</div>');
     } else {
       ca.good.forEach(function(f) {
         h.push('<div style="font-size:13px;color:#81C784;line-height:1.7;margin-bottom:4px;"><span style="background:rgba(46,204,113,.15);padding:1px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">✦ ' + f.tag + '</span>' + f.reason + '</div>');
@@ -3427,12 +3609,20 @@ function renderNameAnalysisV4(d, nameSecEl, naEl) {
   h.push('① <strong style="color:var(--white);">字根字形</strong> — 部首对应生肖宜忌（三合/三会/六合/冲害刑）<br>');
   h.push('② <strong style="color:var(--white);">五行生克</strong> — 字义五行 vs 生肖五行<br>');
   h.push('③ <strong style="color:var(--white);">字义字音</strong> — 字义好坏、女性禁忌、音调绕口<br>');
-  h.push('<span style="color:var(--gold);">如需专业完整评估，建议搭配命盘综合判断，联系黄冠尊老师。</span>');
+  h.push('<span style="color:var(--gold);">如需专业完整评估，建议搭配命盘综合判断，联系Wilson老师。</span>');
   h.push('</div></div>');
 
   naEl.innerHTML = h.join('');
   nameSecEl.style.display = 'block';
 }
+
+// ═══════════════════════════════════════════════════════════════
+// AI 深度分析引擎
+// ═══════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
+
+
+
 
 
 </script>
