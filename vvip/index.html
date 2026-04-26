@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>黄冠尊 · 数易命盘 + 运势流程 + 生肖姓名分析 · 钻石VVIP会员系统 · 黄冠尊</title>
+<title>黄冠尊 · 数易命盘 + 生肖姓名分析 · VIP会员系统 · 黄冠尊</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
@@ -839,9 +839,8 @@ function renderReport(d){
       'font-size:15px;font-weight:700;cursor:pointer;letter-spacing:1px;' +
       'box-shadow:0 4px 20px rgba(201,168,76,.4);transition:all .3s;' +
     '">🤖 生成 AI 深度解读报告</button>' +
-    '<div style="font-size:11px;color:var(--t3);margin-top:10px;">基于你的完整命盘数据，由 Claude AI 生成个性化分析</div>' +
-    '</div>';
-
+    '<div style="font-size:11px;color:var(--t3);margin-top:10px;">基于你的完整命盘数据，由 Gemini AI 生成个性化分析</div>' +
+     + '<div style="margin-top:12px;">' + '<button id="geminiTestBtn" onclick="testGeminiConnection()" style="background:rgba(255,255,255,.06);color:var(--t2);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:6px 16px;font-size:11px;cursor:pointer;">🔌 先测试连接</button>' + '<span id="geminiTestOut" style="font-size:12px;margin-left:10px;"></span>' + '</div>';
   // 保存当前命盘数据供AI使用
   window._shuyiData = d;
 }
@@ -3571,130 +3570,91 @@ async function analyzeUnknownCharsWithAI(unknownChars, zodiac, allAnalyses) {
 // 免费 API，每天1500次，需要 Google AI Studio API Key
 // 申请地址：aistudio.google.com
 // ═══════════════════════════════════════════════════════════════
-var GEMINI_API_KEY = 'AIzaSyCTuZq-CYGaQy0s7NPC1_kQ7fUk3-slwsU';  // ← 填入你的 Gemini API Key
+var GEMINI_API_KEY = 'AIzaSyCTuZq-CYGaQy0s7NPC1_kQ7fUk3-slwsU';
 
 async function callGemini(prompt) {
-  try {
-    var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + GEMINI_API_KEY;
-    var resp = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { maxOutputTokens: 1500, temperature: 0.7 }
-      })
-    });
-    var data = await resp.json();
-    if (data.error) { console.error('Gemini error:', data.error.message); return null; }
-    return data.candidates && data.candidates[0] && data.candidates[0].content &&
-           data.candidates[0].content.parts && data.candidates[0].content.parts[0] &&
-           data.candidates[0].content.parts[0].text || null;
-  } catch(e) {
-    console.error('Gemini fetch error:', e);
-    return null;
-  }
+  var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + GEMINI_API_KEY;
+  var resp = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: { maxOutputTokens: 1500, temperature: 0.7 }
+    })
+  });
+  var data = await resp.json();
+  if (data.error) throw new Error('Gemini错误: ' + data.error.message + ' (code:' + data.error.code + ')');
+  if (!data.candidates || !data.candidates[0]) throw new Error('Gemini空结果: ' + JSON.stringify(data).substring(0,200));
+  return data.candidates[0].content.parts[0].text;
 }
 
 async function runAIAnalysis() {
   var d = window._shuyiData;
   if (!d) return;
-
   var btn = document.getElementById('aiBtnMain');
   var aiResult = document.getElementById('aiResult');
-
-  // 显示加载状态
   btn && (btn.disabled = true);
   aiResult.innerHTML =
     '<div style="text-align:center;padding:30px;">' +
-    '<div style="font-size:32px;margin-bottom:14px;animation:spin 1s linear infinite;display:inline-block;">⏳</div>' +
+    '<div style="font-size:32px;margin-bottom:14px;">⏳</div>' +
     '<div style="font-size:14px;color:var(--white);margin-bottom:8px;">AI 正在深度解读命盘...</div>' +
     '<div style="font-size:12px;color:var(--t3);">整合16位数字 · 13组合 · 五行 · 流年 · 生肖姓名</div>' +
     '</div>';
 
-  // 构建命盘摘要（传给AI）
-  var c13summary = d.c13.map(function(c, i) {
-    var info = CD81 && (CD81[c.key] || (function(){
-      var f=null; Object.keys(CD81).forEach(function(k){if(k.indexOf(c.key)!==-1)f=CD81[k];}); return f;
-    })());
-    return c.nm + '=' + c.key + (info ? '（' + info.title + '）' : '');
-  }).join('；');
-
-  var wxSummary = Object.entries(d.wx).map(function(e){return e[0]+'×'+e[1];}).join(' ');
-
-  // 生肖姓名简报
-  var nameChars = ((d.surname||'')+(d.name1||'')+(d.name2||'')).split('');
-  var nameSummary = nameChars.length > 0 ? nameChars.map(function(ch){
-    var r = typeof analyzeCharV4 === 'function' ? analyzeCharV4(ch, d.zodiac, 'unknown') : null;
-    if(!r) return ch;
-    var g = r.good.map(function(x){return x.tag;}).join(',');
-    var b = r.bad.map(function(x){return x.tag;}).join(',');
-    return ch + (g?'[✦'+g+']':'') + (b?'[⚠'+b+']':'');
-  }).join(' / ') : '（未输入姓名）';
-
-  // 流月流日
+  var c13summary = d.c13.map(function(c) {
+    var info = CD81 && (CD81[c.key] || (function(){ var f=null; Object.keys(CD81).forEach(function(k){if(k.indexOf(c.key)!==-1)f=CD81[k];}); return f; })());
+    return c.nm + '=' + c.key + (info ? '(' + info.title + ')' : '');
+  }).join(';');
+  var wxSummary = Object.entries(d.wx).map(function(e){ return e[0]+':'+e[1]; }).join(' ');
   var today = new Date();
-  var cm = today.getMonth()+1, cd = today.getDate();
-  function digitAdd(n1,n2){
+  var cm = today.getMonth()+1, cd2 = today.getDate();
+  function dA(n1,n2){
     var s1=String(n1).padStart(2,'0'),s2=String(n2).padStart(2,'0');
-    var d1=parseInt(s1[0])+parseInt(s2[0]),d2=parseInt(s1[1])+parseInt(s2[1]);
-    var sum=(''+d1+d2).split('').reduce(function(s,c){return s+parseInt(c);},0);
+    var sum=(''+(parseInt(s1[0])+parseInt(s2[0]))+(parseInt(s1[1])+parseInt(s2[1]))).split('').reduce(function(s,c){return s+parseInt(c);},0);
     while(sum>9)sum=String(sum).split('').reduce(function(s,c){return s+parseInt(c);},0);
     return sum;
   }
-  var lm_b=digitAdd(d.month,cm), lm_e=R(d.a+lm_b), lm_f=d.lyB, lm_g=R(lm_e+lm_f);
-  var ld_a=digitAdd(d.day,cd), ld_e=R(ld_a+lm_b), ld_g=R(ld_e+lm_f);
-  var lm_key=''+lm_e+lm_f+lm_g, ld_key=''+ld_e+lm_f+ld_g;
+  var lm_b=dA(d.month,cm),lm_e=R(d.a+lm_b),lm_g=R(lm_e+d.lyB);
+  var ld_a=dA(d.day,cd2),ld_e=R(ld_a+lm_b),ld_g=R(ld_e+d.lyB);
 
-  var prompt = '你是黄冠尊老师的数易命盘系统助手，精通SHUYI数字生命信息系统。请用中文对以下命盘做深度分析，语气专业但亲切，像老师在给学员面对面解读。\n\n' +
-    '【姓名】' + (d.name||'（未填）') + '\n' +
-    '【出生】' + d.day + '/' + d.month + '/' + d.year + '　生肖：' + d.zodiac + '\n' +
-    '【16位数字】a=' + d.a + ' b=' + d.b + ' c=' + d.c + ' d=' + d.d +
-      ' e=' + d.e + ' f=' + d.f + ' g=' + d.g + '（主性格）' +
-      ' h=' + d.h + ' i=' + d.i + ' j=' + d.j +
-      ' k=' + d.k + ' l=' + d.l + ' m=' + d.m2 + ' n=' + d.n2 + ' o=' + d.o + ' p=' + d.p + '\n' +
-    '【本源梦想Q】' + d.Q + '\n' +
-    '【隐藏号】' + d.hid + '\n' +
-    '【五行（16数）】' + wxSummary + '\n' +
-    '【缺失数字】' + (d.miss && d.miss.length ? d.miss.join(',') : '无') + '\n' +
-    '【2026流年】efg=' + d.lyA + d.lyB + d.lyG + '（' + d.lyd.nm + '）\n' +
-    '【流月(' + cm + '月)】efg=' + lm_key + '\n' +
-    '【流日(今日' + cd + '日)】efg=' + ld_key + '\n' +
-    '【13组合】' + c13summary + '\n' +
-    '【姓名生肖分析（属' + d.zodiac + '）】' + nameSummary + '\n\n' +
-    '请按以下结构分析（每部分3-5句，重点突出，不废话）：\n' +
-    '1. 【主性格' + d.g + '号 · 核心特质】这个人天生的能量模式、驱动力、核心优势\n' +
-    '2. 【13组合 · 人生蓝图】最重要的3个组合解读（主性格、事业、婚姻），说明对这个人的实际影响\n' +
-    '3. 【五行平衡 · 身心状态】五行过旺/偏弱/缺失对健康、情绪、财运的具体影响\n' +
-    '4. 【2026流年 · 具体行动建议】今年该怎么做，什么要抓住，什么要避开\n' +
-    '5. 【姓名能量】姓名与生肖的配合分析，有哪些字根是助力，哪些有需要注意的\n' +
-    '6. 【给这个人的一句话】最重要的一句人生洞见';
+  var prompt = '你是数易命盘专家（SHUYI数字生命信息系统），精通张科勉老师的数字命理学。请用中文分析以下命盘，专业亲切。\n\n' +
+    '姓名:' + (d.name||'未填') + ' 生肖:' + d.zodiac + ' 出生:' + d.day+'/'+d.month+'/'+d.year + '\n' +
+    '主性格:' + d.g + '号 本源梦想Q:' + d.Q + ' 隐藏号:' + d.hid + '\n' +
+    '五行(16数):' + wxSummary + ' 缺失:' + (d.miss&&d.miss.length?d.miss.join(','):'无') + '\n' +
+    '13组合:' + c13summary + '\n' +
+    '2026流年efg:' + d.lyA+d.lyB+d.lyG + '(' + d.lyd.nm + ')' +
+    ' 流月('+cm+'月)efg:' + lm_e+d.lyB+lm_g +
+    ' 流日('+cd2+'日)efg:' + ld_e+d.lyB+ld_g + '\n\n' +
+    '请按6点分析(每点3-4句):\n' +
+    '1.【主性格'+d.g+'号·核心特质】\n' +
+    '2.【13组合·人生蓝图】最重要3个组合\n' +
+    '3.【五行平衡·身心状态】\n' +
+    '4.【2026流年·具体行动】\n' +
+    '5.【姓名能量】\n' +
+    '6.【给这个人的一句话】';
 
   try {
-    var fullText = await callGemini(prompt) || '分析失败，请重试。';
-
-    // 渲染最终结果
+    var fullText = await callGemini(prompt);
     aiResult.innerHTML =
       '<div style="background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(0,0,0,.2));border:1px solid rgba(201,168,76,.25);border-radius:14px;padding:20px;">' +
-      '<div style="font-size:11px;color:var(--t3);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.08);">' +
-        '🤖 由 Claude AI 基于命盘数据生成 · 仅供参考 · 如需专业解读请联系黄冠尊老师' +
-      '</div>' +
+      '<div style="font-size:11px;color:var(--t3);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.08);">🤖 由 Gemini AI 生成 · 仅供参考 · 专业解读联系黄冠尊老师</div>' +
       '<div style="font-size:13px;color:var(--t2);line-height:2;white-space:pre-wrap;">' +
         fullText.replace(/【([^】]+)】/g, '<strong style="color:var(--gold);font-size:14px;">【$1】</strong>') +
       '</div>' +
       '<div style="margin-top:16px;text-align:center;">' +
         '<button onclick="runAIAnalysis()" style="background:rgba(201,168,76,.15);color:var(--gl);border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:8px 20px;font-size:12px;cursor:pointer;">🔄 重新生成</button>' +
-      '</div>' +
-      '</div>';
-
+      '</div></div>';
   } catch (err) {
     aiResult.innerHTML =
-      '<div style="text-align:center;padding:20px;color:#EF9A9A;">' +
-      '<div style="font-size:24px;margin-bottom:10px;">⚠️</div>' +
-      '<div style="font-size:13px;margin-bottom:14px;">AI 分析暂时无法连接，请稍后再试。</div>' +
+      '<div style="background:rgba(239,83,80,.07);border:1px solid rgba(239,83,80,.3);border-radius:12px;padding:20px;">' +
+      '<div style="font-size:13px;color:#EF9A9A;font-weight:700;margin-bottom:10px;">⚠️ 连接失败 — 错误详情：</div>' +
+      '<div style="font-size:12px;color:var(--t2);margin-bottom:14px;word-break:break-all;background:rgba(0,0,0,.3);padding:10px;border-radius:8px;">' + (err.message||String(err)) + '</div>' +
       '<button onclick="runAIAnalysis()" style="background:rgba(239,83,80,.15);color:#EF9A9A;border:1px solid rgba(239,83,80,.3);border-radius:20px;padding:8px 20px;font-size:12px;cursor:pointer;">重试</button>' +
       '</div>';
   }
 }
+
+
 
 
 </script>
