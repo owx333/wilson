@@ -259,13 +259,6 @@ body{font-family:"Noto Sans SC",sans-serif;background:var(--navy);color:var(--t1
     <div class="sec"><div class="sttl"><span>🎯</span>四大重点分析</div><div class="pgrid" id="pGrid"></div></div>
   </div>
 
-  <!-- 祝福语 -->
-  <div style="text-align:center;padding:32px 20px 20px;border-top:1px solid rgba(201,168,76,.15);margin-top:20px;">
-    <div style="font-size:13px;color:var(--t3);letter-spacing:3px;margin-bottom:10px;">✦ ✦ ✦</div>
-    <div style="font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;color:var(--gold);letter-spacing:6px;margin-bottom:8px;">五福临门</div>
-    <div style="font-size:14px;color:var(--t2);letter-spacing:4px;">越来越好</div>
-    <div style="font-size:11px;color:var(--t3);margin-top:14px;letter-spacing:2px;">黄冠尊 · 数易自动系统 · 钻石VIP会员专属</div>
-  </div>
 </div>
 
 <!-- 页面底部祝福语（常驻显示） -->
@@ -823,12 +816,11 @@ function renderReport(d){
   if (PRESET_NAMES[fullNameCheck]) {
     nameSecEl.style.display = 'block';
     naEl.innerHTML = PRESET_NAMES[fullNameCheck];
-    return;
+  } else {
+    renderNameAnalysisV4(d, nameSecEl, naEl);
   }
 
-  renderNameAnalysisV4(d, nameSecEl, naEl);
-
-  // 四大重点
+  // 四大重点（任何情况都显示）
   document.getElementById('pGrid').innerHTML=
     '<div class="pil pc"><div class="phdr"><span class="pico">💼</span><span class="pnm">事业</span></div><div class="ptxt">'+carT(d)+'</div></div>'+
     '<div class="pil pl"><div class="phdr"><span class="pico">💕</span><span class="pnm">感情家庭</span></div><div class="ptxt">'+lovT(d)+'</div></div>'+
