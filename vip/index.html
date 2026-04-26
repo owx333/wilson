@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>黄冠尊 · 数易命盘 + 流年运势 + 生肖姓名分析 · VIP会员系统 · 黄冠尊</title>
+<title>黄冠尊 · 数易命盘 + 生肖姓名分析 · VIP会员系统 · 黄冠尊</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
@@ -183,15 +183,15 @@ body{font-family:"Noto Sans SC",sans-serif;background:var(--navy);color:var(--t1
 </head>
 <body>
 <div class="hdr">
-  <div><div class="logo">数字生命信息系统<span>黄冠尊 · 数易命盘 + 流年运势 + 生肖姓名分析</span></div></div>
-  <div class="hdr-tag">钻石VVIP会员系统</div>
+  <div><div class="logo">黄冠尊 · 数易自动系统<span>数易命盘 · 流年分析 · 生肖姓名</span></div></div>
+  <div class="hdr-tag">钻石VIP会员系统</div>
 </div>
 
 <!-- PASSWORD -->
 <div style="min-height:100vh;background:var(--navy);" id="pwPage"><div class="pw-wrap">
   <div class="pw-lock">🔐</div>
-  <h2 class="pw-title">数字生命信息系统</h2>
-  <p class="pw-sub">此系统仅限授权学员使用<br>请输入访问密码</p>
+  <h2 class="pw-title">黄冠尊专属自动系统</h2>
+  <p class="pw-sub">此系统仅限授权黄冠尊钻石会员使用<br>请输入访问密码</p>
   <div class="pw-card">
     <input class="pw-inp" id="pwInp" type="password" placeholder="输入密码" maxlength="10" onkeydown="if(event.key==='Enter')checkPw()">
     <button class="pw-btn" onclick="checkPw()">🔓 进入系统</button>
@@ -258,6 +258,22 @@ body{font-family:"Noto Sans SC",sans-serif;background:var(--navy);color:var(--t1
     <div class="sec" id="nameSec"><div class="sttl"><span>📛</span>姓名生肖分析</div><div id="nameAnalysis"></div></div>
     <div class="sec"><div class="sttl"><span>🎯</span>四大重点分析</div><div class="pgrid" id="pGrid"></div></div>
   </div>
+
+  <!-- 祝福语 -->
+  <div style="text-align:center;padding:32px 20px 20px;border-top:1px solid rgba(201,168,76,.15);margin-top:20px;">
+    <div style="font-size:13px;color:var(--t3);letter-spacing:3px;margin-bottom:10px;">✦ ✦ ✦</div>
+    <div style="font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;color:var(--gold);letter-spacing:6px;margin-bottom:8px;">五福临门</div>
+    <div style="font-size:14px;color:var(--t2);letter-spacing:4px;">越来越好</div>
+    <div style="font-size:11px;color:var(--t3);margin-top:14px;letter-spacing:2px;">黄冠尊 · 数易自动系统 · 钻石VIP会员专属</div>
+  </div>
+</div>
+
+<!-- 页面底部祝福语（常驻显示） -->
+<div style="text-align:center;padding:28px 20px;background:linear-gradient(180deg,transparent,rgba(201,168,76,.04));border-top:1px solid rgba(201,168,76,.12);">
+  <div style="font-size:11px;color:rgba(201,168,76,.4);letter-spacing:4px;margin-bottom:12px;">✦ &nbsp;&nbsp; ✦ &nbsp;&nbsp; ✦</div>
+  <div style="font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;background:linear-gradient(135deg,#C9A84C,#F5D67A,#C9A84C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:8px;margin-bottom:10px;">五福临门</div>
+  <div style="font-size:15px;color:rgba(201,168,76,.7);letter-spacing:5px;margin-bottom:14px;">越 来 越 好</div>
+  <div style="font-size:10px;color:var(--t3);letter-spacing:2px;">黄冠尊 · 数易自动系统 · 钻石VIP会员专属</div>
 </div>
 
 <script>
@@ -821,63 +837,95 @@ function renderReport(d){
 }
 
 function carT(d){
-  var t=d.md.nm+'号：'+d.md.pos.split('、')[0]+'。';
-  if(d.md.career)t+='<br>📌 '+d.md.career;
-  if(!d.pres.has(3))t+='<br>⚠ 缺3不善表达，容易错过机会，需主动开口。';
-  if(!d.pres.has(5))t+='<br>⚠ 缺5选择方向容易出错，决策前多听身边人意见。';
-  if(!d.pres.has(1))t+='<br>⚠ 缺1没有主见，容易被人影响方向。';
-  if(!d.pres.has(8))t+='<br>⚠ 缺8责任感不够，容易给人不可靠的感觉。';
-  var cc=['459','549','167','617','156','516','685','865'];
-  var cf=d.c13.filter(function(c){return cc.includes(c.key);});
-  if(cf.length)t+='<br>✅ 含事业有利组合（'+cf.map(function(c){return c.key;}).join('、')+'）。';
-  var bc=['145','415','371','731','358','538'];
-  var bf=d.c13.filter(function(c){return bc.includes(c.key);});
-  if(bf.length)t+='<br>⚠ 含波折组合（'+bf.map(function(c){return c.key;}).join('、')+'），事业需坚持。';
-  t+='<br>📅 2026流年'+d.lyG+'号（'+d.lyd.nm+'），机遇在「'+d.lyd.opp+'」。';
-  if(d.lyG===3||d.lyG===8)t+='今年低运，不宜投资，以守为攻。';
-  if(d.lyG===6||d.lyG===7)t+='今年高运，抓住机遇！';
-  return t;
+  var lines = [];
+  // 主性格事业方向
+  lines.push('<div style="font-size:13px;color:var(--white);font-weight:600;margin-bottom:8px;">'+d.md.nm+'号 · '+d.md.career+'</div>');
+  // 流年
+  var lyColor = (d.lyG===6||d.lyG===7) ? '#81C784' : (d.lyG===3||d.lyG===8) ? '#EF9A9A' : 'var(--gl)';
+  lines.push('<div style="font-size:12px;color:'+lyColor+';margin-bottom:6px;">📅 2026流年'+d.lyG+'号「'+d.lyd.nm+'」— 机遇：'+d.lyd.opp+'</div>');
+  if(d.lyG===3||d.lyG===8) lines.push('<div style="font-size:12px;color:#EF9A9A;">⚠ 低运年，不宜投资，以守为攻</div>');
+  if(d.lyG===6) lines.push('<div style="font-size:12px;color:#81C784;">🔥 财富年！1年赚9年的钱，抓住机遇</div>');
+  if(d.lyG===7) lines.push('<div style="font-size:12px;color:#81C784;">🌟 高运年，贵人多，人脉广</div>');
+  // 缺数提示
+  if(!d.pres.has(1)) lines.push('<div style="font-size:12px;color:#EF9A9A;">⚠ 缺1：缺乏主见，易被外界影响方向</div>');
+  if(!d.pres.has(3)) lines.push('<div style="font-size:12px;color:#EF9A9A;">⚠ 缺3：行动力不足，容易错失机会</div>');
+  if(!d.pres.has(5)) lines.push('<div style="font-size:12px;color:#EF9A9A;">⚠ 缺5：方向感弱，决策前多听建议</div>');
+  if(!d.pres.has(8)) lines.push('<div style="font-size:12px;color:#EF9A9A;">⚠ 缺8：责任感需加强，说到做到</div>');
+  // 有利组合
+  var cc=['459','549','167','617','156','516','685','865','281','821'];
+  var cf=d.c13.filter(function(c){return cc.indexOf(c.key)!==-1;});
+  if(cf.length) lines.push('<div style="font-size:12px;color:#81C784;margin-top:4px;">✅ 含事业有利组合：'+cf.map(function(c){return c.key;}).join('、')+'</div>');
+  var bc=['145','415','358','538'];
+  var bf=d.c13.filter(function(c){return bc.indexOf(c.key)!==-1;});
+  if(bf.length) lines.push('<div style="font-size:12px;color:#EF9A9A;">⚠ 含波折组合：'+bf.map(function(c){return c.key;}).join('、')+'，需坚持</div>');
+  return lines.join('');
 }
+
 function lovT(d){
-  var t='';
-  if(d.md.love)t+=d.md.love+'<br><br>';
-  if(!d.pres.has(2))t+='⚠ 缺2沟通方式直接，容易造成家庭摩擦，需学会温柔表达。<br>';
-  else t+='✅ 有2号沟通能力，感情表达顺畅。<br>';
-  if(!d.pres.has(5))t+='⚠ 缺5容易选错伴侣，感情决策需谨慎。<br>';
-  if(d.pres.has(7))t+='✅ 有7号异性缘好，桃花贵人多。<br>';
-  if(!d.pres.has(6))t+='⚠ 缺6财富能量弱，感情中容易因钱产生摩擦。<br>';
-  var mc=['112','167','191','911','279','729','786','876','371','731','257','527'];
-  var mf=d.c13.filter(function(c){return mc.includes(c.key);});
-  if(mf.length)t+='⚠ 含婚姻感情功课组合（'+mf.map(function(c){return c.key;}).join('、')+'），感情需多用心经营。<br>';
+  var lines = [];
+  // 感情模式
+  if(d.md.love) lines.push('<div style="font-size:12px;color:var(--t2);line-height:1.8;margin-bottom:8px;">'+d.md.love+'</div>');
+  // 沟通能力
+  if(d.pres.has(2)) lines.push('<div style="font-size:12px;color:#81C784;">✅ 有2号：沟通力强，感情表达顺畅</div>');
+  else lines.push('<div style="font-size:12px;color:#EF9A9A;">⚠ 缺2：沟通较直接，学会温柔表达</div>');
+  // 缘分
+  if(d.pres.has(7)) lines.push('<div style="font-size:12px;color:#81C784;">✅ 有7号：异性缘好，桃花贵人多</div>');
+  if(!d.pres.has(5)) lines.push('<div style="font-size:12px;color:#EF9A9A;">⚠ 缺5：感情决策需谨慎，易选错方向</div>');
+  if(!d.pres.has(6)) lines.push('<div style="font-size:12px;color:#EF9A9A;">⚠ 缺6：财富弱，感情中易因钱摩擦</div>');
+  // 婚姻功课组合
+  var mc=['112','167','191','911','279','729','786','876','371','731'];
+  var mf=d.c13.filter(function(c){return mc.indexOf(c.key)!==-1;});
+  if(mf.length) lines.push('<div style="font-size:12px;color:#EF9A9A;margin-top:4px;">⚠ 婚姻功课组合：'+mf.map(function(c){return c.key;}).join('、')+'，感情需用心经营</div>');
+  // 桃花贵人
   var lc=['279','729','786','876'];
-  var lf=d.c13.filter(function(c){return lc.includes(c.key);});
-  if(lf.length)t+='✅ 含贵人桃花组合（'+lf.map(function(c){return c.key;}).join('、')+'），异性缘好。<br>';
-  return t||d.md.nm+'号在感情上'+d.md.pos.split('、')[0]+'。';
+  var lf=d.c13.filter(function(c){return lc.indexOf(c.key)!==-1;});
+  if(lf.length) lines.push('<div style="font-size:12px;color:#81C784;">✅ 含异性贵人桃花：'+lf.map(function(c){return c.key;}).join('、')+'</div>');
+  return lines.join('') || '<div style="font-size:12px;color:var(--t2);">'+d.md.nm+'号在感情上：'+d.md.pos.split('、')[0]+'</div>';
 }
+
 function weaT(d){
-  var t='';
-  if(!d.pres.has(6))t+='缺6吸财能力较弱，赚钱辛苦，注意守住财富。';
-  if(!d.pres.has(4))t+='缺4掌控能力弱，容易冲动消费。';
-  if(d.pres.has(6))t+='有6号天生财神爷，吸财能力强。';
-  if(d.lyG===6)t+='2026财富年！1年可以赚9年的钱！';
-  if(d.lyG===3||d.lyG===8)t+='2026低运，不可投资，以守为主。';
-  var wc=['156','516','178','718','336','663','369','639','966','696'];
-  var wf=d.c13.filter(function(c){return wc.includes(c.key);});
-  if(wf.length)t+='含财富组合（'+wf.map(function(c){return c.key;}).join('、')+'）。';
-  return t||'五行平衡是财富关键，保持能量高是王道。';
+  var lines = [];
+  // 吸财能力
+  if(d.pres.has(6)) lines.push('<div style="font-size:12px;color:#81C784;">✅ 有6号：天生财神爷，吸财能力强</div>');
+  else lines.push('<div style="font-size:12px;color:#EF9A9A;">⚠ 缺6：吸财弱，赚钱辛苦，注意守财</div>');
+  if(!d.pres.has(4)) lines.push('<div style="font-size:12px;color:#EF9A9A;">⚠ 缺4：掌控弱，容易冲动消费</div>');
+  // 流年财运
+  if(d.lyG===6) lines.push('<div style="font-size:12px;color:#81C784;font-weight:600;">🔥 2026财富年！1年赚9年的钱！</div>');
+  else if(d.lyG===3||d.lyG===8) lines.push('<div style="font-size:12px;color:#EF9A9A;">⚠ 2026低运，不可投资，守住为主</div>');
+  else lines.push('<div style="font-size:12px;color:var(--gl);">📅 2026流年'+d.lyG+'号，机遇「'+d.lyd.opp+'」</div>');
+  // 财富组合
+  var wc=['156','516','178','718','336','663','369','639','966','696','167','617'];
+  var wf=d.c13.filter(function(c){return wc.indexOf(c.key)!==-1;});
+  if(wf.length) lines.push('<div style="font-size:12px;color:#81C784;margin-top:4px;">✅ 含财富组合：'+wf.map(function(c){return c.key;}).join('、')+'</div>');
+  // 五行财
+  if(d.wx['金']===0) lines.push('<div style="font-size:12px;color:#EF9A9A;">⚠ 极缺金，财库意识弱，需特别存钱</div>');
+  return lines.join('') || '<div style="font-size:12px;color:var(--t2);">五行平衡是财富关键，保持能量高是王道。</div>';
 }
+
 function helT(d){
-  var t='';
-  var hc=['189','819','382','832','393','933','494','944','898','988','448'];
-  var hf=d.c13.filter(function(c){return hc.includes(c.key);});
-  if(hf.length)t+='⚠️ 含健康高发组合（'+hf.map(function(c){return c.key;}).join('、')+'），需特别关注。';
-  if(d.wx['木']>=4)t+='木气偏重，注意眼睛、肝胆。';
-  if(d.wx['火']>=4)t+='火气偏重，注意心脏、小肠。';
-  if(d.wx['土']===0)t+='土=0，注意肠胃消化，容易体重异常。';
-  if(d.wx['金']>=4)t+='金气过重，注意肺、大肠、皮肤敏感。';
-  if(d.wx['水']>=4)t+='水气偏重，注意肾脏、膀胱。';
-  if(d.wx['火']>0&&d.wx['水']>0)t+='水火相冲影响情绪，情绪管理是健康关键。';
-  return t||'保持规律作息，减少压力，定期体检。';
+  var lines = [];
+  // 健康高发组合
+  var hc=['189','819','382','832','393','933','494','944','898','988','448','551'];
+  var hf=d.c13.filter(function(c){return hc.indexOf(c.key)!==-1;});
+  if(hf.length) lines.push('<div style="font-size:12px;color:#EF9A9A;font-weight:600;">⚠ 健康高发组合：'+hf.map(function(c){return c.key;}).join('、')+'，需特别关注</div>');
+  // 五行健康
+  if(d.wx['木']>=4) lines.push('<div style="font-size:12px;color:#EF9A9A;">⚠ 木气偏重，注意肝胆、眼睛</div>');
+  if(d.wx['火']>=4) lines.push('<div style="font-size:12px;color:#EF9A9A;">⚠ 火气偏重，注意心脏、血压</div>');
+  if(d.wx['土']===0) lines.push('<div style="font-size:12px;color:#EF9A9A;">⚠ 极缺土，注意肠胃消化，体重管理</div>');
+  if(d.wx['金']>=4) lines.push('<div style="font-size:12px;color:#EF9A9A;">⚠ 金气过重，注意肺、大肠、皮肤</div>');
+  if(d.wx['水']>=4) lines.push('<div style="font-size:12px;color:#EF9A9A;">⚠ 水气偏重，注意肾脏、泌尿系统</div>');
+  if(d.wx['火']>0&&d.wx['水']>0){
+    var pairs=0;
+    d.c13.forEach(function(c){
+      var fw=['3','8'].indexOf(String(c.key[0]))!==-1;
+      var sw=['2','7'].indexOf(String(c.key[2]))!==-1;
+      if(fw&&sw) pairs++;
+    });
+    if(pairs>=2) lines.push('<div style="font-size:12px;color:#EF9A9A;">⚠ 水火相冲（'+pairs+'组），情绪与心脑血管需注意</div>');
+  }
+  // 积极建议
+  lines.push('<div style="font-size:12px;color:#81C784;margin-top:6px;">✅ 规律作息，减少压力，定期体检</div>');
+  return lines.join('');
 }
 
 // ═══════════════════════════════════════════════════════════════
