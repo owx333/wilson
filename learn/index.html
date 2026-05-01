@@ -1,0 +1,2139 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黄冠尊 · 会员中心 · Wilson Ooi</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@400;500;700&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#0A1628;color:#F5F0E8;min-height:100vh}
+body{font-family:'Noto Sans SC',sans-serif;font-size:17px;line-height:1.85;background:#0A1628 !important}
+img{max-width:100%;display:block}
+
+/* GATE */
+#gate{position:fixed;top:0;left:0;right:0;bottom:0;background:#0A1628;display:flex;align-items:center;justify-content:center;padding:24px;z-index:9999}
+#gate.hidden{display:none}
+.gate-box{max-width:440px;width:100%;background:#1A2C4E;border:1px solid #D4B878;padding:48px 36px;text-align:center}
+.gate-icon{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border:1.5px solid #D4B878;font-family:'Noto Serif SC',serif;font-size:28px;color:#E8C96A;margin-bottom:24px}
+.gate-kicker{font-family:'Cormorant Garamond',serif;font-size:14px;color:#D4B878;letter-spacing:5px;text-transform:uppercase;margin-bottom:10px}
+.gate-ttl{font-family:'Noto Serif SC',serif;font-size:26px;font-weight:700;color:#F5F0E8;margin-bottom:10px}
+.gate-sub{font-size:14px;color:#8A7F6B;margin-bottom:30px}
+.gate-input{width:100%;background:#0A1628;color:#F5F0E8;border:1px solid #D4B878;padding:16px;font-size:18px;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:600;letter-spacing:8px;margin-bottom:14px}
+.gate-input:focus{outline:none;border-color:#E8C96A}
+.gate-btn{width:100%;background:#D4B878;color:#0A1628;padding:16px;font-size:16px;font-weight:700;letter-spacing:1px;border:none;cursor:pointer;font-family:'Noto Sans SC',sans-serif}
+.gate-btn:hover{background:#E8C96A}
+.gate-err{color:#E07B7B;font-size:14px;margin-top:14px}
+.gate-foot{margin-top:28px;padding-top:20px;border-top:1px solid rgba(212,184,120,0.2);font-size:12px;color:#8A7F6B}
+
+/* APP */
+#app{display:none;background:#0A1628;min-height:100vh}
+#app.show{display:block}
+
+.header{position:sticky;top:0;z-index:50;background:#0F1F3D;border-bottom:1px solid rgba(212,184,120,0.3);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-mark{width:36px;height:36px;border:1.5px solid #D4B878;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:#E8C96A}
+.logo-txt{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:700;letter-spacing:2px;color:#F5F0E8}
+.menu-btn{background:transparent;border:1px solid rgba(212,184,120,0.3);padding:8px 14px;color:#F5F0E8;font-size:13px;cursor:pointer;font-family:'Noto Sans SC',sans-serif}
+
+/* LAYOUT */
+.layout{display:flex;background:#0A1628;min-height:calc(100vh - 65px)}
+.sidebar{width:280px;flex-shrink:0;background:#0F1F3D;border-right:1px solid rgba(212,184,120,0.2);padding:24px 0}
+.main{flex:1;min-width:0;padding:40px;background:#0A1628;color:#F5F0E8}
+
+@media(max-width:900px){
+  .sidebar{display:none;position:fixed;top:65px;left:0;bottom:0;z-index:40;overflow-y:auto}
+  .sidebar.show{display:block}
+  .main{padding:24px}
+}
+@media(min-width:901px){
+  .menu-btn{display:none}
+  .sidebar{display:block !important}
+}
+
+.side-section{padding:0 20px 20px;border-bottom:1px solid rgba(212,184,120,0.2);margin-bottom:20px}
+.side-section:last-child{border-bottom:none}
+.side-ttl{font-family:'Cormorant Garamond',serif;font-size:12px;color:#D4B878;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;font-weight:600}
+.side-link{display:block;padding:8px 12px;font-size:14px;color:#C8BDA7;cursor:pointer;border-left:2px solid transparent;margin-bottom:2px}
+.side-link:hover{color:#E8C96A;background:rgba(212,184,120,0.05)}
+.side-link.active{color:#E8C96A;background:rgba(212,184,120,0.08);border-left-color:#D4B878;font-weight:600}
+.side-num{font-family:'Cormorant Garamond',serif;color:#D4B878;font-style:italic;margin-right:8px}
+
+/* LESSON */
+.lesson{display:none;color:#F5F0E8}
+.lesson.show{display:block}
+.lesson-head{margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid rgba(212,184,120,0.2)}
+.lesson-kick{font-family:'Cormorant Garamond',serif;font-size:13px;color:#D4B878;letter-spacing:4px;text-transform:uppercase;margin-bottom:10px}
+.lesson-num{font-family:'Cormorant Garamond',serif;font-size:14px;color:#D4B878;letter-spacing:2px;margin-bottom:8px}
+.lesson-ttl{font-family:'Noto Serif SC',serif;font-size:32px;font-weight:700;color:#F5F0E8;margin-bottom:14px;line-height:1.25}
+.lesson-sub{font-size:16px;color:#C8BDA7;line-height:1.85}
+.lesson-sub strong{color:#E8C96A}
+
+.content h2{font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;color:#F5F0E8;margin:36px 0 16px;padding-bottom:10px;border-bottom:1px solid rgba(212,184,120,0.2)}
+.content h3{font-family:'Noto Serif SC',serif;font-size:19px;font-weight:700;color:#E8C96A;margin:24px 0 12px}
+.content h4{font-size:16px;font-weight:700;color:#F5F0E8;margin:18px 0 8px}
+.content p{margin-bottom:12px;color:#C8BDA7}
+.content p strong,.content li strong{color:#E8C96A;font-weight:600}
+.content ul,.content ol{margin:10px 0 16px 22px;color:#C8BDA7}
+.content ul li,.content ol li{margin-bottom:6px}
+.content em{color:#D4B878;font-style:italic}
+.content code{background:rgba(74,157,122,0.15);padding:2px 6px;font-family:'Cormorant Garamond',serif;color:#4A9D7A;font-weight:600}
+
+.box{background:#1A2C4E;border:1px solid rgba(212,184,120,0.2);border-left:3px solid #D4B878;padding:20px 24px;margin:16px 0;color:#C8BDA7}
+.box-num{display:inline-block;width:26px;height:26px;border-radius:50%;background:#D4B878;color:#0A1628;text-align:center;line-height:26px;font-family:'Cormorant Garamond',serif;font-weight:700;margin-right:8px}
+.box-ttl{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700;color:#F5F0E8;margin-bottom:8px}
+
+.formula{background:rgba(212,184,120,0.08);border:1px solid #D4B878;padding:18px 22px;margin:16px 0;text-align:center;font-family:'Cormorant Garamond',serif;font-size:19px;color:#E8C96A;font-weight:600}
+.formula-cn{font-family:'Noto Serif SC',serif;font-size:15px;color:#F5F0E8;margin-top:6px;font-weight:400}
+
+.example{background:rgba(74,157,122,0.08);border:1px solid rgba(74,157,122,0.3);border-left:3px solid #4A9D7A;padding:18px 22px;margin:16px 0;color:#F5F0E8}
+.example-lbl{font-family:'Cormorant Garamond',serif;font-size:12px;color:#4A9D7A;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;font-weight:600}
+.example p{color:#F5F0E8}
+
+.warn{background:rgba(184,72,94,0.08);border:1px solid rgba(184,72,94,0.3);border-left:3px solid #B8485E;padding:16px 20px;margin:16px 0}
+.warn-lbl{font-family:'Cormorant Garamond',serif;font-size:12px;color:#E07B7B;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px;font-weight:600}
+.warn p{color:#C8BDA7}
+
+.tip{background:rgba(212,184,120,0.06);border:1px solid rgba(212,184,120,0.2);padding:12px 18px;margin:14px 0;font-size:14px;color:#C8BDA7}
+
+.tbl{width:100%;border-collapse:collapse;margin:16px 0;background:#1A2C4E;border:1px solid rgba(212,184,120,0.2);font-size:14px;color:#C8BDA7}
+.tbl th,.tbl td{padding:10px 14px;text-align:left;border-bottom:1px solid rgba(212,184,120,0.2)}
+.tbl th{background:rgba(212,184,120,0.08);color:#E8C96A;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td strong{color:#E8C96A}
+
+.num-card{background:#1A2C4E;border:1px solid rgba(212,184,120,0.2);padding:20px 24px;margin:16px 0;display:flex;gap:20px;align-items:flex-start;color:#C8BDA7}
+@media(max-width:600px){.num-card{flex-direction:column}}
+.num-circle{width:70px;height:70px;border:2px solid #D4B878;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:#E8C96A;flex-shrink:0}
+.num-name{font-family:'Noto Serif SC',serif;font-size:19px;font-weight:700;color:#F5F0E8;margin-bottom:4px}
+.num-elem{display:inline-block;padding:3px 10px;background:rgba(212,184,120,0.1);border:1px solid rgba(212,184,120,0.3);font-size:11px;color:#D4B878;letter-spacing:2px;margin-bottom:10px}
+.num-info p{font-size:14px;color:#C8BDA7;margin-bottom:8px}
+
+.diagram{background:#0A1628;border:1px solid rgba(212,184,120,0.2);padding:28px 20px;margin:20px 0;text-align:center}
+.grid-16{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:340px;margin:0 auto}
+.cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:#1A2C4E;border:1px solid rgba(212,184,120,0.3);font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#E8C96A;position:relative}
+.cell::after{content:attr(data-label);position:absolute;top:3px;left:5px;font-family:'Cormorant Garamond',serif;font-size:10px;color:#D4B878;font-weight:600}
+
+.lesson-nav{display:flex;justify-content:space-between;gap:12px;margin-top:40px;padding-top:24px;border-top:1px solid rgba(212,184,120,0.2)}
+.lesson-nav-btn{flex:1;background:#1A2C4E;border:1px solid rgba(212,184,120,0.2);padding:16px 20px;cursor:pointer;font-family:'Noto Sans SC',sans-serif;color:#F5F0E8;text-align:left}
+.lesson-nav-btn:hover:not(:disabled){border-color:#D4B878;background:#213A5C}
+.lesson-nav-btn:disabled{opacity:0.3;cursor:not-allowed}
+.lnb-lbl{font-family:'Cormorant Garamond',serif;font-size:11px;color:#D4B878;letter-spacing:3px;text-transform:uppercase;margin-bottom:4px}
+.lnb-ttl{font-size:13px;color:#F5F0E8;font-weight:600}
+.lnb-r{text-align:right}
+
+.home-hero{text-align:center;padding:30px 0 50px;border-bottom:1px solid rgba(212,184,120,0.2);margin-bottom:40px}
+.home-kicker{font-family:'Cormorant Garamond',serif;font-size:13px;color:#D4B878;letter-spacing:5px;text-transform:uppercase;margin-bottom:14px}
+.home-ttl{font-family:'Noto Serif SC',serif;font-size:38px;font-weight:700;color:#F5F0E8;margin-bottom:14px;line-height:1.2}
+.home-ttl-accent{color:#E8C96A}
+.home-sub{font-size:16px;color:#C8BDA7;max-width:580px;margin:0 auto 28px}
+.home-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.home-card{background:#1A2C4E;border:1px solid rgba(212,184,120,0.2);padding:24px 22px;cursor:pointer}
+.home-card:hover{border-color:#D4B878;background:#213A5C}
+.home-card-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:#D4B878;font-style:italic;margin-bottom:8px}
+.home-card-ttl{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700;color:#F5F0E8;margin-bottom:6px}
+.home-card-desc{font-size:13px;color:#8A7F6B;line-height:1.6}
+.home-card-arr{margin-top:10px;color:#D4B878;font-size:13px;letter-spacing:2px}
+
+.tool-box{background:#1A2C4E;border:1px solid #D4B878;padding:28px 24px;margin:20px 0}
+.tool-ttl{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700;color:#E8C96A;margin-bottom:16px}
+.tool-inputs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+@media(max-width:500px){.tool-inputs{grid-template-columns:1fr}}
+.tool-input{background:#0A1628;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);padding:12px;font-size:16px;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:600;width:100%}
+.tool-input:focus{outline:none;border-color:#D4B878}
+.tool-btn{width:100%;padding:14px;background:#D4B878;color:#0A1628;font-size:14px;font-weight:700;letter-spacing:1px;border:none;cursor:pointer;font-family:'Noto Sans SC',sans-serif}
+.tool-btn:hover{background:#E8C96A}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-icon">易</div>
+    <div class="gate-kicker">学员专区</div>
+    <h1 class="gate-ttl">黄冠尊 · 会员中心</h1>
+    <p class="gate-sub">仅限 Wilson Ooi 课程学员访问<br>请输入密码进入学习平台</p>
+    <input type="password" class="gate-input" id="gatePwd" placeholder="••••" maxlength="10">
+    <button class="gate-btn" onclick="checkPassword()">进入学习中心 →</button>
+    <div class="gate-err" id="gateErr" style="display:none">密码错误，请重新输入</div>
+    <div class="gate-foot">忘记密码？请联系 Wilson · WhatsApp +60125676118</div>
+  </div>
+</div>
+
+<div id="app">
+
+<header class="header">
+  <div class="logo">
+    <div class="logo-mark">易</div>
+    <div class="logo-txt">黄冠尊 · 会员中心</div>
+  </div>
+  <button class="menu-btn" onclick="toggleSidebar()">☰ 目录</button>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar" id="sidebar">
+  <div class="side-section">
+    <div class="side-ttl">— 开始 —</div>
+    <a class="side-link active" data-id="home" onclick="goLesson('home')"><span class="side-num">◇</span>首页 · 总览</a>
+  </div>
+  <div class="side-section">
+    <div class="side-ttl">第一篇 基础</div>
+    <a class="side-link" data-id="1-1" onclick="goLesson('1-1')"><span class="side-num">1.1</span>什么是数易文化</a>
+    <a class="side-link" data-id="1-2" onclick="goLesson('1-2')"><span class="side-num">1.2</span>主性格数字算法</a>
+    <a class="side-link" data-id="1-3" onclick="goLesson('1-3')"><span class="side-num">1.3</span>如何画人生幸福树</a>
+  </div>
+  <div class="side-section">
+    <div class="side-ttl">第二篇 数字</div>
+    <a class="side-link" data-id="2-1" onclick="goLesson('2-1')"><span class="side-num">2.1</span>1-9 号人完全解析</a>
+    <a class="side-link" data-id="2-2" onclick="goLesson('2-2')"><span class="side-num">2.2</span>主性格 (g) 详解</a>
+    <a class="side-link" data-id="2-3" onclick="goLesson('2-3')"><span class="side-num">2.3</span>本源梦想 Q 与隐藏号</a>
+  </div>
+  <div class="side-section">
+    <div class="side-ttl">第三篇 组合</div>
+    <a class="side-link" data-id="3-1" onclick="goLesson('3-1')"><span class="side-num">3.1</span>13 大组合解读</a>
+    <a class="side-link" data-id="3-2" onclick="goLesson('3-2')"><span class="side-num">3.2</span>81 组联合数字</a>
+    <a class="side-link" data-id="3-3" onclick="goLesson('3-3')"><span class="side-num">3.3</span>事业感情财富分析</a>
+  </div>
+  <div class="side-section">
+    <div class="side-ttl">第四篇 五行</div>
+    <a class="side-link" data-id="4-1" onclick="goLesson('4-1')"><span class="side-num">4.1</span>五行学说基础</a>
+    <a class="side-link" data-id="4-2" onclick="goLesson('4-2')"><span class="side-num">4.2</span>五行平衡分析</a>
+    <a class="side-link" data-id="4-3" onclick="goLesson('4-3')"><span class="side-num">4.3</span>五行失衡与补救</a>
+  </div>
+  <div class="side-section">
+    <div class="side-ttl">第五篇 姓名</div>
+    <a class="side-link" data-id="5-1" onclick="goLesson('5-1')"><span class="side-num">5.1</span>生肖姓名学基础</a>
+    <a class="side-link" data-id="5-2" onclick="goLesson('5-2')"><span class="side-num">5.2</span>起名五得</a>
+    <a class="side-link" data-id="5-3" onclick="goLesson('5-3')"><span class="side-num">5.3</span>12 生肖宜忌字</a>
+  </div>
+  <div class="side-section">
+    <div class="side-ttl">第六篇 流年</div>
+    <a class="side-link" data-id="6-1" onclick="goLesson('6-1')"><span class="side-num">6.1</span>流年计算公式</a>
+    <a class="side-link" data-id="6-2" onclick="goLesson('6-2')"><span class="side-num">6.2</span>9 年周期理论</a>
+    <a class="side-link" data-id="6-3" onclick="goLesson('6-3')"><span class="side-num">6.3</span>2026 流年分析</a>
+  </div>
+  <div class="side-section">
+    <div class="side-ttl">— 工具 —</div>
+    <a class="side-link" data-id="tool" onclick="goLesson('tool')"><span class="side-num">⚙</span>命盘速查工具</a>
+  </div>
+</aside>
+
+<main class="main">
+
+<div class="lesson show" id="lesson-home">
+  <div class="home-hero">
+    <div class="home-kicker">— 欢迎回来 —</div>
+    <h1 class="home-ttl">黄冠尊 · <span class="home-ttl-accent">会员中心</span></h1>
+    <p class="home-sub">这是 Wilson Ooi 课程学员的专属复习平台。<br>6 大单元、18 节课程，从基础到实战，完整梳理你的知识。</p>
+  </div>
+  <h2 style="font-family:'Noto Serif SC',serif;font-size:22px;color:#F5F0E8;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid rgba(212,184,120,0.2)">七大学习单元</h2>
+  <div class="home-grid">
+    <div class="home-card" onclick="goLesson('1-1')">
+      <div class="home-card-num">I</div>
+      <div class="home-card-ttl">第一篇 · 基础</div>
+      <div class="home-card-desc">数易文化简介、主性格数字算法、人生幸福树</div>
+      <div class="home-card-arr">3 节课 →</div>
+    </div>
+    <div class="home-card" onclick="goLesson('2-1')">
+      <div class="home-card-num">II</div>
+      <div class="home-card-ttl">第二篇 · 数字</div>
+      <div class="home-card-desc">1-9 号人解析、主性格 g、本源梦想 Q 与隐藏号</div>
+      <div class="home-card-arr">3 节课 →</div>
+    </div>
+    <div class="home-card" onclick="goLesson('3-1')">
+      <div class="home-card-num">III</div>
+      <div class="home-card-ttl">第三篇 · 组合</div>
+      <div class="home-card-desc">13 大组合、81 联合数字、事业感情财富</div>
+      <div class="home-card-arr">3 节课 →</div>
+    </div>
+    <div class="home-card" onclick="goLesson('4-1')">
+      <div class="home-card-num">IV</div>
+      <div class="home-card-ttl">第四篇 · 五行</div>
+      <div class="home-card-desc">五行学说、平衡分析、失衡补救方法</div>
+      <div class="home-card-arr">3 节课 →</div>
+    </div>
+    <div class="home-card" onclick="goLesson('5-1')">
+      <div class="home-card-num">V</div>
+      <div class="home-card-ttl">第五篇 · 姓名</div>
+      <div class="home-card-desc">生肖姓名学、起名五得、12 生肖宜忌字</div>
+      <div class="home-card-arr">3 节课 →</div>
+    </div>
+    <div class="home-card" onclick="goLesson('6-1')">
+      <div class="home-card-num">VI</div>
+      <div class="home-card-ttl">第六篇 · 流年</div>
+      <div class="home-card-desc">流年计算、9 年周期、2026 流年深度分析</div>
+      <div class="home-card-arr">3 节课 →</div>
+    </div>
+    <div class="home-card" onclick="goLesson('tool')">
+      <div class="home-card-num">⚙</div>
+      <div class="home-card-ttl">命盘速查工具</div>
+      <div class="home-card-desc">输入生日，自动生成完整 16 位命盘 + 五行 + 流年</div>
+      <div class="home-card-arr">立即使用 →</div>
+    </div>
+  </div>
+  <div style="margin-top:40px;padding:24px;background:#1A2C4E;border:1px solid rgba(212,184,120,0.2)">
+    <h3 style="font-family:'Noto Serif SC',serif;font-size:17px;color:#E8C96A;margin-bottom:12px">💡 学习建议</h3>
+    <ul style="margin-left:20px;color:#C8BDA7;line-height:1.95">
+      <li><strong style="color:#E8C96A">新手</strong>：从第一篇开始按顺序学习，打好基础</li>
+      <li><strong style="color:#E8C96A">复习</strong>：跳到你想巩固的单元，每节课独立</li>
+      <li><strong style="color:#E8C96A">实战</strong>：先看完 1-6 篇再看第七篇，效果最好</li>
+      <li><strong style="color:#E8C96A">遇到不懂</strong>：联系 Wilson 在 WhatsApp 学员群提问</li>
+    </ul>
+  </div>
+</div>
+
+<div class="lesson" id="lesson-1-1">
+  <div class="lesson-head">
+    <div class="lesson-kick">第一篇 · 基础</div>
+    <div class="lesson-num">Lesson 1.1</div>
+    <h1 class="lesson-ttl">什么是数易文化</h1>
+    <p class="lesson-sub">数易文化是一套<strong>融合东西方智慧</strong>的自我认知系统。它不是算命，是一套用<strong>数学方法</strong>解读你「是什么样的人」的工具。</p>
+  </div>
+  <div class="content">
+    <h2>一、数易文化的起源</h2>
+    <p>数易文化的根源可追溯到两个源头：</p>
+    <div class="box">
+      <div class="box-ttl"><span class="box-num">1</span>西方源头：毕达哥拉斯 (公元前570年)</div>
+      <p>古希腊数学家毕达哥拉斯提出 <em>「万物皆数」</em> — 宇宙的本质是数字，每个数字都有特定的能量与含义。毕达哥拉斯用数字 1-9 解读人的命运、天性与生命周期。</p>
+    </div>
+    <div class="box">
+      <div class="box-ttl"><span class="box-num">2</span>东方源头：《易经》与河图洛书</div>
+      <p>中华文化里的《易经》、河图洛书早已用数字 1-9 解读宇宙规律、五行生克、人事变化。<em>「数」是宇宙规律的基础符号</em>。</p>
+    </div>
+    <div class="tip">✦ 东西方在 2500 多年前，竟然不约而同地发现：<strong style="color:#E8C96A">数字 1 到 9 就足以解读整个人生</strong>。这不是巧合，是宇宙的共同语言。</div>
+
+    <h2>二、数易文化 vs 传统算命</h2>
+    <table class="tbl">
+      <thead><tr><th>维度</th><th>传统算命</th><th>数易文化</th></tr></thead>
+      <tbody>
+        <tr><td><strong>目的</strong></td><td>预测吉凶</td><td>认识自己</td></tr>
+        <tr><td><strong>方法</strong></td><td>玄学、直觉</td><td>数学计算</td></tr>
+        <tr><td><strong>验证</strong></td><td>无法验证</td><td>可验证、可复现</td></tr>
+        <tr><td><strong>主导权</strong></td><td>命运决定你</td><td>你掌握方向</td></tr>
+        <tr><td><strong>学习</strong></td><td>需要天赋</td><td>普通人都能学</td></tr>
+      </tbody>
+    </table>
+
+    <h2>三、数易文化能解读什么？</h2>
+    <ul>
+      <li><strong>性格</strong>：你天生的脾气、思维模式、行为习惯</li>
+      <li><strong>天赋</strong>：你最擅长的能力、最容易成功的方向</li>
+      <li><strong>盲点</strong>：你最容易栽跟头的陷阱</li>
+      <li><strong>关系模式</strong>：你跟父母、伴侣、孩子的相处模式</li>
+      <li><strong>事业方向</strong>：什么行业、什么角色最适合你</li>
+      <li><strong>财富结构</strong>：你的赚钱方式、漏财盲点</li>
+      <li><strong>健康倾向</strong>：你最需要注意的身体部位</li>
+      <li><strong>流年运势</strong>：哪一年该冲、哪一年该守</li>
+    </ul>
+
+    <h2>四、为什么用「易学」这个名字？</h2>
+    <div class="box"><div class="box-ttl">① 简易 (Simple)</div><p>用最简单的数学（小学加法）就能解读，普通人都学得会。</p></div>
+    <div class="box"><div class="box-ttl">② 变易 (Change)</div><p>人生是流动的，每一年、每一天都有新的可能性。数字会变，命运也会变。</p></div>
+    <div class="box"><div class="box-ttl">③ 不易 (Eternal)</div><p>变化中有不变的规律 — 这就是数易文化要教你的：<strong>看清规律，掌握方向</strong>。</p></div>
+
+    <div class="example">
+      <div class="example-lbl">小结</div>
+      <p>数易文化 = <code>毕达哥拉斯数理</code> + <code>易经五行</code> + <code>现代心理学</code>。它的目的不是预测未来，而是<strong>让你看懂自己，做出更清醒的选择</strong>。</p>
+    </div>
+  </div>
+  <div class="lesson-nav">
+    <button class="lesson-nav-btn" disabled><div class="lnb-lbl">← 上一节</div><div class="lnb-ttl">这是第一节</div></button>
+    <button class="lesson-nav-btn lnb-r" onclick="goLesson('1-2')"><div class="lnb-lbl">下一节 →</div><div class="lnb-ttl">1.2 主性格数字算法</div></button>
+  </div>
+</div>
+
+<div class="lesson" id="lesson-1-2">
+  <div class="lesson-head">
+    <div class="lesson-kick">第一篇 · 基础</div>
+    <div class="lesson-num">Lesson 1.2</div>
+    <h1 class="lesson-ttl">主性格数字算法</h1>
+    <p class="lesson-sub">数易文化的算法<strong>简单到只需要小学一年级的加法</strong>。这一节学会怎么从生日算出你的<strong>主性格数字</strong>。</p>
+  </div>
+  <div class="content">
+    <h2>一、核心原理</h2>
+    <p>数易文化只用 <strong>1 到 9</strong> 这九个数字。所有大数字，都可以通过<strong>不断相加</strong>简化到 1-9 之间的个位数。</p>
+    <div class="formula">把所有数字加起来 → 一直加 → 直到只剩一位数<div class="formula-cn">这就是数易文化所有计算的基础</div></div>
+
+    <h2>二、（1）快速计算法 — 算主性格数字</h2>
+    <p>这是最简单的方法，用来算你的<strong>主性格数字（1-9 号人）</strong>。</p>
+    <div class="box">
+      <div class="box-ttl">三步搞定</div>
+      <ol style="margin-left:20px;margin-top:8px">
+        <li>写下你的<strong>阳历生日</strong>（必须是阳历，不是农历）</li>
+        <li>把生日里<strong>所有数字一个个加起来</strong></li>
+        <li>如果结果还是两位数，<strong>继续相加</strong>，直到剩下一位数</li>
+      </ol>
+    </div>
+
+    <h3>例 1：1994 年 11 月 7 日</h3>
+    <div class="example">
+      <div class="example-lbl">第一步：所有数字加起来</div>
+      <p><code>1 + 9 + 9 + 4 + 1 + 1 + 0 + 7 = 32</code></p>
+    </div>
+    <div class="example">
+      <div class="example-lbl">第二步：32 还是两位数，继续加</div>
+      <p><code>3 + 2 = 5</code></p>
+    </div>
+    <div class="example">
+      <div class="example-lbl">结论</div>
+      <p>这个人的主性格数字 = <strong style="color:#E8C96A;font-size:18px">5 号人</strong></p>
+    </div>
+
+    <h3>例 2：1992 年 10 月 12 日</h3>
+    <div class="example">
+      <div class="example-lbl">计算过程</div>
+      <p><code>1 + 9 + 9 + 2 + 1 + 0 + 1 + 2 = 25</code><br><code>2 + 5 = 7</code><br>所以是 <strong style="color:#E8C96A">7 号人</strong></p>
+    </div>
+
+    <h3>例 3：2000 年出生</h3>
+    <div class="example">
+      <div class="example-lbl">2000 年的特别处理</div>
+      <p>2000 年的两个 0：<br><code>2 + 0 = 2</code><br><code>0 + 0 = 0</code><br>因为<strong>没有 0 号人</strong>，所以 0 当作 5 — 然后再相加：<code>2 + 5 = 7</code></p>
+    </div>
+
+    <h2>三、（2）一般计算法 — 算完整命盘</h2>
+    <p>这种方法用来画完整的<strong>16 位命盘</strong>。</p>
+    <div class="box">
+      <div class="box-ttl">基本规则</div>
+      <p style="margin-top:6px">把出生年月日的每一位数字<strong>两两相加</strong>。如果相加结果还是两位数，<strong>继续把这两位数字拆开相加</strong>，直到得到一位数为止。</p>
+    </div>
+
+    <h3>完整示范：1993 年 9 月 2 日</h3>
+    <div class="example">
+      <div class="example-lbl">第一步：拆分年、月、日数字</div>
+      <p>• <strong>年</strong>：1、9、9、3<br>• <strong>月</strong>：9<br>• <strong>日</strong>：2</p>
+    </div>
+    <div class="example">
+      <div class="example-lbl">第二步：年的 4 位数字两两相加</div>
+      <p>• 1 + 9 = 10 → 1 + 0 = <strong>1</strong><br>• 9 + 3 = 12 → 1 + 2 = <strong>3</strong><br>• 再相加：<strong>1 + 3 = 4</strong></p>
+    </div>
+    <div class="example">
+      <div class="example-lbl">第三步：月 + 日</div>
+      <p>9 + 2 = 11 → 1 + 1 = <strong>2</strong></p>
+    </div>
+    <div class="example">
+      <div class="example-lbl">第四步：最后两个结果相加</div>
+      <p>2 + 4 = <strong style="color:#E8C96A;font-size:18px">6（主性格数字）</strong></p>
+    </div>
+
+    <h2>四、温馨提示</h2>
+    <div class="warn">
+      <div class="warn-lbl">⚠️ 必读</div>
+      <p>① <strong>必须用阳历生日</strong>（西方没有阴历，要用公历日期）<br>② 晚上 11 点到凌晨 0 点之间出生 → 出生时辰算<strong>第二天</strong><br>③ 如果身份证日期跟实际出生日不同 → 以<strong>实际出生日为准</strong><br>④ 没有 0 号人 — 遇到 0，先加完再说，最终算出的若是 0 则当 5</p>
+    </div>
+
+    <h2>五、亲手练习</h2>
+    <p>用「快速计算法」算出主性格数字：</p>
+    <ol>
+      <li>1985 年 10 月 15 日 = ?</li>
+      <li>1990 年 5 月 23 日 = ?</li>
+      <li>2001 年 12 月 31 日 = ?</li>
+      <li>1976 年 8 月 8 日 = ?</li>
+    </ol>
+    <div class="tip">✦ <strong>答案</strong>：① 3 ② 2 ③ 1 ④ 2</div>
+
+    <h2>六、为什么用九个数字？</h2>
+    <p>《易经》有「九九归一」的说法，<strong>9 是「老阳」</strong>，象征旧周期的结束与新周期的开启。所有数字相加最终化简为 1-9 个位数，<strong>这就是宇宙的循环规律</strong>。</p>
+    <ul>
+      <li><strong>1、2、3</strong> 代表起步、沟通、行动</li>
+      <li><strong>4、5、6</strong> 代表规划、转折、智慧</li>
+      <li><strong>7、8、9</strong> 代表人缘、责任、成就</li>
+    </ul>
+
+    <div class="tip">✦ 学会这两种算法，你已经掌握了数易文化的<strong style="color:#E8C96A">全部计算基础</strong>。下一节学怎么画完整的「人生幸福树」命盘。</div>
+  </div>
+  <div class="lesson-nav">
+    <button class="lesson-nav-btn" onclick="goLesson('1-1')"><div class="lnb-lbl">← 上一节</div><div class="lnb-ttl">1.1 什么是数易文化</div></button>
+    <button class="lesson-nav-btn lnb-r" onclick="goLesson('1-3')"><div class="lnb-lbl">下一节 →</div><div class="lnb-ttl">1.3 如何画人生幸福树</div></button>
+  </div>
+</div>
+
+<div class="lesson" id="lesson-1-3">
+  <div class="lesson-head">
+    <div class="lesson-kick">第一篇 · 基础</div>
+    <div class="lesson-num">Lesson 1.3</div>
+    <h1 class="lesson-ttl">如何画人生幸福树</h1>
+    <p class="lesson-sub">这是数易文化的<strong>核心技术</strong>。学会画命盘，就掌握了一个人的生命地图。</p>
+  </div>
+  <div class="content">
+    <h2>一、命盘的整体结构</h2>
+    <p>16 位命盘按数易文化标准格式排列 — 字母行 (a-p) 对应数值行：</p>
+    <div style="margin:20px 0;overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-family:'Cormorant Garamond',serif;min-width:560px">
+        <tr style="background:#0F1F3D">
+          <th style="padding:10px 8px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:13px;letter-spacing:1px;width:60px">字母</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">a</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">b</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">c</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">d</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">e</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">f</th>
+          <th style="padding:10px 4px;color:#FFE89A;border:1px solid #E8C96A;font-size:14px;background:rgba(255,232,154,0.1)">g ★</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">h</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">i</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">j</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">k</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">l</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">m</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">n</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">o</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">p</th>
+        </tr>
+        <tr style="background:#1A2C4E">
+          <th style="padding:10px 8px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:13px;letter-spacing:1px">数值</th>
+          <td colspan="16" style="padding:10px;color:#8A7F6B;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:14px;font-family:'Noto Sans SC',sans-serif">输入生日后，每个字母对应 1-9 的能量数字</td>
+        </tr>
+      </table>
+    </div>
+    <p style="font-size:13px;color:#8A7F6B;text-align:center">★ <strong style="color:#E8C96A">g 是主性格</strong>，是 16 位中最重要的数字</p>
+    <div class="warn">
+      <div class="warn-lbl">⚠ 重点</div>
+      <p>先记住四个起点：<br><strong>a</strong> = R(出生日) ｜ <strong>b</strong> = R(出生月)<br><strong>c</strong> = R(出生年前两位) ｜ <strong>d</strong> = R(出生年后两位)</p>
+    </div>
+
+    <h2>二、计算公式（必须背熟）</h2>
+    <div class="box"><div class="box-ttl"><span class="box-num">1</span>第一层：基础四数</div>
+      <ul style="margin-top:8px"><li><strong>a</strong> = R(日)</li><li><strong>b</strong> = R(月)</li><li><strong>c</strong> = R(年前两位)</li><li><strong>d</strong> = R(年后两位) <em>(0 → 5)</em></li></ul>
+    </div>
+    <div class="box"><div class="box-ttl"><span class="box-num">2</span>第二层：核心三数</div>
+      <ul style="margin-top:8px"><li><strong>e</strong> = R(a + b) — 父基因桥梁</li><li><strong>f</strong> = R(c + d) — 母基因桥梁</li><li><strong>g</strong> = R(e + f) — <span style="color:#E8C96A;font-weight:700">主性格 ★</span></li></ul>
+    </div>
+    <div class="box"><div class="box-ttl"><span class="box-num">3</span>第三层：人生过程</div>
+      <ul style="margin-top:8px"><li><strong>h</strong> = R(e + g) — 内在过程</li><li><strong>i</strong> = R(f + g) — 外在过程</li><li><strong>j</strong> = R(h + i) — 子女与下属</li></ul>
+    </div>
+    <div class="box"><div class="box-ttl"><span class="box-num">4</span>第四层：事业与朋友</div>
+      <ul style="margin-top:8px"><li><strong>k</strong> = R(a + e) — 事业起点</li><li><strong>l</strong> = R(b + e) — 事业发展</li><li><strong>m</strong> = R(k + l) — 朋友贵人</li></ul>
+    </div>
+    <div class="box"><div class="box-ttl"><span class="box-num">5</span>第五层：婚姻与未来</div>
+      <ul style="margin-top:8px"><li><strong>n</strong> = R(c + f) — 婚姻能量①</li><li><strong>o</strong> = R(d + f) — 婚姻能量②</li><li><strong>p</strong> = R(n + o) — 未来财富与健康</li></ul>
+    </div>
+    <div class="box"><div class="box-ttl"><span class="box-num">6</span>第六层：本源梦想</div>
+      <p style="margin-top:6px"><strong>Q</strong> = R(a + d + g) — <span style="color:#E8C96A">本源梦想数字</span><br>Q 代表你灵魂深处真正想要的东西。</p>
+    </div>
+
+    <h2>三、完整计算示范</h2>
+    <p>用真实例子：<strong>1985 年 10 月 15 日</strong>出生的人</p>
+    <div class="example"><div class="example-lbl">第一步：算基础四数</div>
+      <p><code>a = R(15) = 6</code><br><code>b = R(10) = 1</code><br><code>c = R(19) = 1</code><br><code>d = R(85) = 4</code><br>✓ <strong>a=6, b=1, c=1, d=4</strong></p>
+    </div>
+    <div class="example"><div class="example-lbl">第二步：算核心三数</div>
+      <p><code>e = R(6+1) = 7</code><br><code>f = R(1+4) = 5</code><br><code>g = R(7+5) = R(12) = 3</code><br>✓ <strong>主性格 = 3 号人</strong></p>
+    </div>
+    <div class="example"><div class="example-lbl">第三步：算人生过程</div>
+      <p><code>h = R(7+3) = 1</code><br><code>i = R(5+3) = 8</code><br><code>j = R(1+8) = 9</code></p>
+    </div>
+    <div class="example"><div class="example-lbl">第四步：算事业朋友</div>
+      <p><code>k = R(6+7) = 4</code><br><code>l = R(1+7) = 8</code><br><code>m = R(4+8) = 3</code></p>
+    </div>
+    <div class="example"><div class="example-lbl">第五步：算婚姻未来</div>
+      <p><code>n = R(1+5) = 6</code><br><code>o = R(4+5) = 9</code><br><code>p = R(6+9) = 6</code></p>
+    </div>
+    <div class="example"><div class="example-lbl">第六步：算本源梦想 Q</div>
+      <p><code>Q = R(6+4+3) = R(13) = 4</code><br>✓ <strong>Q = 4</strong></p>
+    </div>
+
+    <h2>四、完整命盘汇总</h2>
+    <div style="margin:20px 0;overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-family:'Cormorant Garamond',serif;min-width:560px">
+        <tr style="background:#0F1F3D">
+          <th style="padding:10px 8px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:13px;letter-spacing:1px;width:60px">字母</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">a</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">b</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">c</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">d</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">e</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">f</th>
+          <th style="padding:10px 4px;color:#FFE89A;border:1px solid #E8C96A;font-size:14px;background:rgba(255,232,154,0.1)">g ★</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">h</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">i</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">j</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">k</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">l</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">m</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">n</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">o</th>
+          <th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px">p</th>
+        </tr>
+        <tr style="background:#1A2C4E">
+          <th style="padding:10px 8px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:13px;letter-spacing:1px">数值</th>
+          <td style="padding:10px 4px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:18px;font-weight:700">6</td>
+          <td style="padding:10px 4px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:18px;font-weight:700">1</td>
+          <td style="padding:10px 4px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:18px;font-weight:700">1</td>
+          <td style="padding:10px 4px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:18px;font-weight:700">4</td>
+          <td style="padding:10px 4px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:18px;font-weight:700">7</td>
+          <td style="padding:10px 4px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:18px;font-weight:700">5</td>
+          <td style="padding:10px 4px;color:#FFE89A;border:1px solid #E8C96A;text-align:center;font-size:18px;font-weight:700;background:rgba(255,232,154,0.1)">3</td>
+          <td style="padding:10px 4px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:18px;font-weight:700">1</td>
+          <td style="padding:10px 4px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:18px;font-weight:700">8</td>
+          <td style="padding:10px 4px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:18px;font-weight:700">9</td>
+          <td style="padding:10px 4px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:18px;font-weight:700">4</td>
+          <td style="padding:10px 4px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:18px;font-weight:700">8</td>
+          <td style="padding:10px 4px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:18px;font-weight:700">3</td>
+          <td style="padding:10px 4px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:18px;font-weight:700">6</td>
+          <td style="padding:10px 4px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:18px;font-weight:700">9</td>
+          <td style="padding:10px 4px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:18px;font-weight:700">6</td>
+        </tr>
+      </table>
+    </div>
+    <p style="text-align:center;font-size:14px;color:#C8BDA7">本源梦想 <strong style="color:#E8C96A">Q = 4</strong> · 主性格 <strong style="color:#FFE89A">g = 3</strong></p>
+
+    <h2>五、隐藏号</h2>
+    <p>除了 16 位主命盘，还有 3 个<strong>隐藏号</strong>：</p>
+    <div class="box"><div class="box-ttl">隐藏号 1: R(e+e)</div><p>本例：R(7+7) = R(14) = 5</p></div>
+    <div class="box"><div class="box-ttl">隐藏号 2: R(f+f)</div><p>本例：R(5+5) = R(10) = 1</p></div>
+    <div class="box"><div class="box-ttl">隐藏号 3: R(g+g)</div><p>本例：R(3+3) = 6</p></div>
+    <div class="tip">✦ 隐藏号代表<strong style="color:#E8C96A">潜藏的能量与未表现的天赋</strong>。</div>
+
+    <h2>六、内心数字 & 潜意识数字</h2>
+    <div class="box"><div class="box-ttl">内心数字 = R(g + e + f)</div><p>代表你<strong>内心深处真正的渴望</strong>。本例：R(3+7+5) = 6</p></div>
+    <div class="box"><div class="box-ttl">潜意识数字 = R(g + a + d)</div><p>代表你<strong>潜意识里的人生主题</strong>。本例：R(3+6+4) = 4</p></div>
+
+    <div class="example"><div class="example-lbl">恭喜！你已经会画命盘了</div>
+      <p>从一个生日，你已经能算出 <strong>16 位主命盘</strong> + <strong>Q</strong> + <strong>3 个隐藏号</strong> + <strong>内心 & 潜意识数字</strong> 共 <strong>21 个数字</strong>。</p>
+    </div>
+    <div class="tip">⚙ 不想手算？使用<a onclick="goLesson('tool')" style="color:#E8C96A;cursor:pointer;text-decoration:underline">命盘速查工具</a>。</div>
+  </div>
+  <div class="lesson-nav">
+    <button class="lesson-nav-btn" onclick="goLesson('1-2')"><div class="lnb-lbl">← 上一节</div><div class="lnb-ttl">1.2 主性格数字算法</div></button>
+    <button class="lesson-nav-btn lnb-r" onclick="goLesson('2-1')"><div class="lnb-lbl">下一节 →</div><div class="lnb-ttl">2.1 1-9 号人完全解析</div></button>
+  </div>
+</div>
+
+<div class="lesson" id="lesson-2-1">
+  <div class="lesson-head">
+    <div class="lesson-kick">第二篇 · 数字</div>
+    <div class="lesson-num">Lesson 2.1</div>
+    <h1 class="lesson-ttl">1-9 号人完全解析</h1>
+    <p class="lesson-sub">每个数字都有<strong>独特的能量与性格</strong>。深入解读 1-9 号人的天性、天赋、盲点。</p>
+  </div>
+  <div class="content">
+    <div class="num-card"><div class="num-circle">1</div><div class="num-info">
+      <div class="num-name">1 号 · 领导者</div>
+      <div class="num-elem">五行属金 · 开始年</div>
+      <p>独立、自信、有领导欲。代表人物：Steve Jobs、Trump。</p>
+      <p><strong>正面</strong>：独立、果敢、开创力强 ｜ <strong>盲点</strong>：固执、霸道、不愿低头</p>
+      <p><strong>感情</strong>：需要尊重 ｜ <strong>事业</strong>：做老板、做领导</p>
+    </div></div>
+    <div class="num-card"><div class="num-circle">2</div><div class="num-info">
+      <div class="num-name">2 号 · 沟通者</div>
+      <div class="num-elem">五行属水 · 沟通年</div>
+      <p>细腻、敏感、善解人意，是天生的桥梁。代表人物：李嘉诚。</p>
+      <p><strong>正面</strong>：协调力强、有同理心 ｜ <strong>盲点</strong>：太替别人想、忘了自己</p>
+      <p><strong>感情</strong>：渴望被关心 ｜ <strong>事业</strong>：销售、公关、教学</p>
+    </div></div>
+    <div class="num-card"><div class="num-circle">3</div><div class="num-info">
+      <div class="num-name">3 号 · 行动派</div>
+      <div class="num-elem">五行属火 · 低运年</div>
+      <p>反应快、行动力强、有表现力。代表人物：马云。</p>
+      <p><strong>正面</strong>：冲劲足、表达力强 ｜ <strong>盲点</strong>：急躁、易冲动后悔</p>
+      <p><strong>感情</strong>：外冷内热 ｜ <strong>事业</strong>：表演、营销、创意</p>
+    </div></div>
+    <div class="num-card"><div class="num-circle">4</div><div class="num-info">
+      <div class="num-name">4 号 · 规划者</div>
+      <div class="num-elem">五行属木 · 规划年</div>
+      <p>稳重、有条理、追求安全感。代表人物：Bill Gates、郭鹤年。</p>
+      <p><strong>正面</strong>：可靠、计划性强 ｜ <strong>盲点</strong>：怕变、不敢冒险</p>
+      <p><strong>感情</strong>：需要安稳 ｜ <strong>事业</strong>：管理、研究、技术</p>
+    </div></div>
+    <div class="num-card"><div class="num-circle">5</div><div class="num-info">
+      <div class="num-name">5 号 · 自由派</div>
+      <div class="num-elem">五行属土 · 转折年</div>
+      <p>热爱自由、格局大、说服力强。代表人物：Mark Zuckerberg。</p>
+      <p><strong>正面</strong>：多才多艺、灵活 ｜ <strong>盲点</strong>：三分钟热度</p>
+      <p><strong>感情</strong>：需要新鲜感 ｜ <strong>事业</strong>：跨界、销售、咨询</p>
+    </div></div>
+    <div class="num-card"><div class="num-circle">6</div><div class="num-info">
+      <div class="num-name">6 号 · 智慧者</div>
+      <div class="num-elem">五行属金 · 财富年 ★</div>
+      <p>有爱心、有智慧、注重品质。代表人物：巴菲特、李宗伟。<strong style="color:#E8C96A">9 年才一次的财富年</strong>。</p>
+      <p><strong>正面</strong>：有责任心、注重品质 ｜ <strong>盲点</strong>：完美主义、控制欲</p>
+      <p><strong>感情</strong>：愿意付出 ｜ <strong>事业</strong>：教育、咨询、管理</p>
+    </div></div>
+    <div class="num-card"><div class="num-circle">7</div><div class="num-info">
+      <div class="num-name">7 号 · 思考者</div>
+      <div class="num-elem">五行属水 · 高运年</div>
+      <p>洞察力强、贵人多、天生幸运。代表人物：周润发、Elon Musk。</p>
+      <p><strong>正面</strong>：聪明、有运气 ｜ <strong>盲点</strong>：爱独处、容易孤独</p>
+      <p><strong>感情</strong>：桃花多但易无常 ｜ <strong>事业</strong>：专业人士、研究</p>
+    </div></div>
+    <div class="num-card"><div class="num-circle">8</div><div class="num-info">
+      <div class="num-name">8 号 · 责任者</div>
+      <div class="num-elem">五行属火 · 大底运</div>
+      <p>有责任感、有魄力、肩扛千斤。代表人物：刘德华。</p>
+      <p><strong>正面</strong>：责任心强、抗压 ｜ <strong>盲点</strong>：扛太多、自我消耗</p>
+      <p><strong>感情</strong>：不善表达 ｜ <strong>事业</strong>：管理、金融、家族企业</p>
+    </div></div>
+    <div class="num-card"><div class="num-circle">9</div><div class="num-info">
+      <div class="num-name">9 号 · 成功者</div>
+      <div class="num-elem">五行属木 · 结果年</div>
+      <p>浪漫、多才、充满创意。代表人物：周杰伦、张惠妹。</p>
+      <p><strong>正面</strong>：创意、艺术感 ｜ <strong>盲点</strong>：梦多、容易理想化</p>
+      <p><strong>感情</strong>：浪漫 ｜ <strong>事业</strong>：艺术、创意、表演</p>
+    </div></div>
+
+    <h2>1-9 五行对应表</h2>
+    <table class="tbl">
+      <thead><tr><th>数字</th><th>五行</th><th>关键词</th><th>流年特质</th></tr></thead>
+      <tbody>
+        <tr><td>1, 6</td><td>金</td><td>开创、智慧</td><td>1=开始 · 6=财富 ★</td></tr>
+        <tr><td>2, 7</td><td>水</td><td>沟通、流动</td><td>2=沟通 · 7=高运</td></tr>
+        <tr><td>3, 8</td><td>火</td><td>行动、责任</td><td>3=低运 ⚠️ · 8=大底 ⚠️</td></tr>
+        <tr><td>4, 9</td><td>木</td><td>规划、成长</td><td>4=规划 · 9=结果</td></tr>
+        <tr><td>5</td><td>土</td><td>转折、自由</td><td>5=转折</td></tr>
+      </tbody>
+    </table>
+    <div class="tip">✦ 看完 1-9，你能立刻看懂自己的<strong style="color:#E8C96A">主性格 g</strong>、伴侣的 g、孩子的 g。</div>
+  </div>
+  <div class="lesson-nav">
+    <button class="lesson-nav-btn" onclick="goLesson('1-3')"><div class="lnb-lbl">← 上一节</div><div class="lnb-ttl">1.3 如何画人生幸福树</div></button>
+    <button class="lesson-nav-btn lnb-r" onclick="goLesson('2-2')"><div class="lnb-lbl">下一节 →</div><div class="lnb-ttl">2.2 主性格 g 详解</div></button>
+  </div>
+</div>
+
+<div class="lesson" id="lesson-2-2">
+  <div class="lesson-head">
+    <div class="lesson-kick">第二篇 · 数字</div>
+    <div class="lesson-num">Lesson 2.2</div>
+    <h1 class="lesson-ttl">主性格 (g) 详解</h1>
+    <p class="lesson-sub">主性格 <strong>g</strong> 是命盘里<strong>最重要的数字</strong>。</p>
+  </div>
+  <div class="content">
+    <h2>一、g 的位置与含义</h2>
+    <div class="formula">g = R(e + f) = R(R(a+b) + R(c+d))<div class="formula-cn">即「父基因 e」+「母基因 f」融合后的核心</div></div>
+    <h3>g 代表什么？</h3>
+    <ul>
+      <li><strong>核心性格</strong>：你天生最强的能量</li>
+      <li><strong>人生主题</strong>：你这辈子主要在学什么功课</li>
+      <li><strong>第一印象</strong>：别人最先感受到你的气场</li>
+      <li><strong>处事模式</strong>：你遇事第一反应的方式</li>
+    </ul>
+
+    <h2>二、如何用 g 看一个人？</h2>
+    <div class="box"><div class="box-ttl">① 适不适合做老板？</div><p>g = 1, 6, 8 的人最适合自己当头。<br>g = 2, 4 的人适合做副手或专业人士。</p></div>
+    <div class="box"><div class="box-ttl">② 适合什么样的伴侣？</div><p>g = 1 的人需要崇拜他的人 (互补 2 或 6)。<br>g = 9 的人需要懂他梦想的人 (3, 7)。</p></div>
+    <div class="box"><div class="box-ttl">③ 怎么沟通最有效？</div><p>g = 4 的人要逻辑、要规划。<br>g = 3 的人要直接、要爽快。<br>g = 2 的人要情感、要被理解。</p></div>
+
+    <h2>三、g 的高低分析</h2>
+    <p>同样是 g = 5，有些人很有格局，有些人很浮躁，差别在哪？</p>
+    <div class="example"><div class="example-lbl">看 g 的「上下文」</div>
+      <p><strong>看 g 旁边的 e 和 f</strong>：<br>• e + f 都是高能量数字 (6, 7, 9) → g 的能量被加强<br>• e + f 是低能量数字 (3, 5) → g 的能量被消耗<br><br><strong>看 Q (本源梦想)</strong>：<br>• Q 跟 g 同方向 → 整个人很整合<br>• Q 跟 g 冲突 → 心口不一，内在挣扎</p>
+    </div>
+
+    <h2>四、g 的真实案例</h2>
+    <div class="example"><div class="example-lbl">案例：g = 6 的女性</div>
+      <p>6 号智慧者，理论上应该是<strong>财富年 + 智慧型</strong>。但她长期感觉钱赚不到，关系很累。<br><br><strong>看完命盘</strong>：她的 e=3 (火), f=3 (火)，g=6 (金)，火克金。<br><br><strong>解决方案</strong>：学会拒绝、放下完美主义、回归本心。</p>
+    </div>
+
+    <div class="tip">✦ 记住：<strong style="color:#E8C96A">g 不是命运，是底色</strong>。</div>
+  </div>
+  <div class="lesson-nav">
+    <button class="lesson-nav-btn" onclick="goLesson('2-1')"><div class="lnb-lbl">← 上一节</div><div class="lnb-ttl">2.1 1-9 号人完全解析</div></button>
+    <button class="lesson-nav-btn lnb-r" onclick="goLesson('2-3')"><div class="lnb-lbl">下一节 →</div><div class="lnb-ttl">2.3 本源梦想 Q 与隐藏号</div></button>
+  </div>
+</div>
+
+<div class="lesson" id="lesson-2-3">
+  <div class="lesson-head">
+    <div class="lesson-kick">第二篇 · 数字</div>
+    <div class="lesson-num">Lesson 2.3</div>
+    <h1 class="lesson-ttl">本源梦想 (Q) 与隐藏号</h1>
+    <p class="lesson-sub">Q 是你<strong>灵魂深处真正的渴望</strong>。</p>
+  </div>
+  <div class="content">
+    <h2>一、本源梦想 Q</h2>
+    <div class="formula">Q = R(a + d + g)<div class="formula-cn">a = 出生日，d = 出生年后两位，g = 主性格</div></div>
+
+    <h2>二、Q 跟 g 的关系</h2>
+    <div class="box"><div class="box-ttl">Q = g (相同)</div><p><strong>整合型</strong>：你的渴望跟你的天性一致。活得轻松，做事有动力。</p></div>
+    <div class="box"><div class="box-ttl">Q ≠ g (不同)</div><p><strong>挑战型</strong>：你的渴望跟天性不同，会内在挣扎。但如果整合好，反而能成大事。</p></div>
+
+    <h2>三、Q 的 1-9 解读</h2>
+    <table class="tbl">
+      <thead><tr><th>Q 数字</th><th>灵魂渴望</th></tr></thead>
+      <tbody>
+        <tr><td>Q = 1</td><td>渴望<strong>独立掌权</strong>，做自己的主人</td></tr>
+        <tr><td>Q = 2</td><td>渴望<strong>深度连接</strong>，被理解被珍惜</td></tr>
+        <tr><td>Q = 3</td><td>渴望<strong>表达自己</strong>，被看见被欣赏</td></tr>
+        <tr><td>Q = 4</td><td>渴望<strong>稳定安全</strong>，有规划的人生</td></tr>
+        <tr><td>Q = 5</td><td>渴望<strong>自由探索</strong>，不被任何框架束缚</td></tr>
+        <tr><td>Q = 6</td><td>渴望<strong>奉献服务</strong>，成为有智慧的人</td></tr>
+        <tr><td>Q = 7</td><td>渴望<strong>独立思考</strong>，做精神层面的人</td></tr>
+        <tr><td>Q = 8</td><td>渴望<strong>担当成就</strong>，留下影响力</td></tr>
+        <tr><td>Q = 9</td><td>渴望<strong>实现梦想</strong>，活出独一无二的人生</td></tr>
+      </tbody>
+    </table>
+
+    <h2>四、隐藏号详解</h2>
+    <div class="formula">隐藏号 1 = R(e + e)<br>隐藏号 2 = R(f + f)<br>隐藏号 3 = R(g + g)</div>
+    <ul>
+      <li><strong>R(e+e)</strong>：父亲那一脉给你的潜藏天赋</li>
+      <li><strong>R(f+f)</strong>：母亲那一脉给你的潜藏天赋</li>
+      <li><strong>R(g+g)</strong>：你的天命课题，最深的功课</li>
+    </ul>
+
+    <div class="example"><div class="example-lbl">实战应用</div>
+      <p>如果命盘里<strong>没有出现某个数字</strong>，但<strong>隐藏号里有</strong>：→ 这个能量是潜藏的，你需要<strong>主动激活</strong>才能用上。</p>
+    </div>
+
+    <h2>五、内心 & 潜意识数字</h2>
+    <div class="box"><div class="box-ttl">内心数字 = R(g + e + f)</div><p>你<strong>真正想要</strong>的。表面行为可能不是这个，但内心一直渴望。</p></div>
+    <div class="box"><div class="box-ttl">潜意识数字 = R(g + a + d)</div><p>你<strong>不自觉</strong>就会做的。容易陷入的模式、习惯。</p></div>
+
+    <div class="tip">✦ 三者一致 → 内外整合，活得通透。三者不同 → 你需要做的是「自我整合」。</div>
+  </div>
+  <div class="lesson-nav">
+    <button class="lesson-nav-btn" onclick="goLesson('2-2')"><div class="lnb-lbl">← 上一节</div><div class="lnb-ttl">2.2 主性格 g 详解</div></button>
+    <button class="lesson-nav-btn lnb-r" onclick="goLesson('3-1')"><div class="lnb-lbl">下一节 →</div><div class="lnb-ttl">3.1 13 大组合解读</div></button>
+  </div>
+</div>
+
+<div class="lesson" id="lesson-3-1">
+  <div class="lesson-head">
+    <div class="lesson-kick">第三篇 · 组合</div>
+    <div class="lesson-num">Lesson 3.1</div>
+    <h1 class="lesson-ttl">13 大组合解读</h1>
+    <p class="lesson-sub">从 16 位命盘里，可以读出 <strong>13 个核心组合</strong>。</p>
+  </div>
+  <div class="content">
+    <h2>一、什么是「组合」？</h2>
+    <p>组合 = 命盘里<strong>几个相邻数字</strong>的连读。</p>
+
+    <h2>二、13 大组合一览表</h2>
+    <table class="tbl">
+      <thead><tr><th>编号</th><th>组合</th><th>含义</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>a + b + e</strong></td><td>父亲基因 (出身、家庭背景)</td></tr>
+        <tr><td>2</td><td><strong>c + d + f</strong></td><td>母亲基因 (情感、安全感来源)</td></tr>
+        <tr><td>3</td><td><strong>e + f + g ★</strong></td><td>主性格组合 (核心三数)</td></tr>
+        <tr><td>4</td><td><strong>e + g + h</strong></td><td>人生过程 (内在)</td></tr>
+        <tr><td>5</td><td><strong>f + g + i</strong></td><td>人生过程 (外在)</td></tr>
+        <tr><td>6</td><td><strong>i + h + j</strong></td><td>子女与下属</td></tr>
+        <tr><td>7</td><td><strong>a + e + k</strong></td><td>事业① (起点、方向)</td></tr>
+        <tr><td>8</td><td><strong>b + e + l</strong></td><td>事业② (发展、伙伴)</td></tr>
+        <tr><td>9</td><td><strong>k + l + m</strong></td><td>朋友 (人际、贵人)</td></tr>
+        <tr><td>10</td><td><strong>c + f + n</strong></td><td>婚姻① (情感能量)</td></tr>
+        <tr><td>11</td><td><strong>d + f + o</strong></td><td>婚姻② (相处模式)</td></tr>
+        <tr><td>12</td><td><strong>n + o + p</strong></td><td>未来 (财富 & 健康)</td></tr>
+        <tr><td>13</td><td><strong>隐藏号链接</strong></td><td>潜藏能量与天命</td></tr>
+      </tbody>
+    </table>
+
+    <h2>三、如何读组合？(三步法)</h2>
+    <div class="box"><div class="box-ttl"><span class="box-num">1</span>第一步：看三个数字本身</div><p>每个数字的 1-9 含义先看清楚。</p></div>
+    <div class="box"><div class="box-ttl"><span class="box-num">2</span>第二步：看五行关系</div><p>三个数字的五行是相生 (吉)、相克 (凶) 还是同行 (强)。</p></div>
+    <div class="box"><div class="box-ttl"><span class="box-num">3</span>第三步：看吉凶组合</div><p>如 <code>459、549、167、617</code> 是有利组合；如 <code>239、329</code> 是波折组合。</p></div>
+
+    <h2>四、几个常见组合实例</h2>
+    <div class="example"><div class="example-lbl">事业组合 a-e-k = 6-7-4</div>
+      <p>• 6 (金) + 7 (水) + 4 (木)<br>• 五行：金生水生木 — 顺生格局，事业能量流畅<br>• 解读：<strong>智慧带来高运、最终落地于规划</strong>。</p>
+    </div>
+    <div class="example"><div class="example-lbl">婚姻组合 c-f-n = 1-5-6</div>
+      <p>• 1 (金) + 5 (土) + 6 (金)<br>• 五行：土生金，再生金 — 婚姻能量加强<br>• 解读：<strong>稳定且有智慧的婚姻能量</strong>。</p>
+    </div>
+
+    <div class="warn"><div class="warn-lbl">⚠ 注意</div><p>三个数字相互<strong>相克</strong>的组合，意味着这个面向<strong>能量内耗</strong>。需要主动调和。</p></div>
+
+    <div class="tip">✦ 下一节我们深入看 <strong style="color:#E8C96A">81 组联合数字</strong>。</div>
+  </div>
+  <div class="lesson-nav">
+    <button class="lesson-nav-btn" onclick="goLesson('2-3')"><div class="lnb-lbl">← 上一节</div><div class="lnb-ttl">2.3 本源梦想 Q 与隐藏号</div></button>
+    <button class="lesson-nav-btn lnb-r" onclick="goLesson('3-2')"><div class="lnb-lbl">下一节 →</div><div class="lnb-ttl">3.2 81 组联合数字</div></button>
+  </div>
+</div>
+
+<div class="lesson" id="lesson-3-2">
+  <div class="lesson-head">
+    <div class="lesson-kick">第三篇 · 组合</div>
+    <div class="lesson-num">Lesson 3.2</div>
+    <h1 class="lesson-ttl">81 组联合数字完整表</h1>
+    <p class="lesson-sub">每组联合数字都是<strong>三位数表达</strong>。前两位是命盘里相邻位置数字，第三位 = <strong>R(前两位相加)</strong>。</p>
+  </div>
+  <div class="content">
+
+    <h2>一、81 组联合数字怎么算？</h2>
+    <p>命盘里两个相邻数字（比如 e 和 f、a 和 b）会自然产生一个第三位数字 — 这就是联合数字的<strong>三位数标准格式</strong>。</p>
+    <div class="formula">联合数字 = a-b-R(a+b)<div class="formula-cn">前两位 = 命盘相邻位置 ｜ 第三位 = R(前两位之和)</div></div>
+
+    <h2>二、为什么是 9 × 9 = 81 组？</h2>
+    <p>因为前两位每位都是 1-9，所以一共 9 × 9 = <strong>81 种独特组合</strong>。第三位是<strong>自动产生的</strong>，不需要额外选择。</p>
+    <div class="example">
+      <div class="example-lbl">示例</div>
+      <p>• 1-1 组合 → 第三位 = R(1+1) = 2 → <code>1-1-2</code><br>• 1-2 组合 → 第三位 = R(1+2) = 3 → <code>1-2-3</code><br>• 4-5 组合 → 第三位 = R(4+5) = 9 → <code>4-5-9</code> ★ 大吉<br>• 9-9 组合 → 第三位 = R(9+9) = R(18) = 9 → <code>9-9-9</code></p>
+    </div>
+
+    <h2>三、81 组完整数字表</h2>
+    <p>横轴 = 第一位数字 ｜ 纵轴 = 第二位数字 ｜ 表格内 = 三位数联合数字</p>
+    <div style="overflow-x:auto;margin:18px 0">
+      <table style="width:100%;border-collapse:collapse;font-family:'Cormorant Garamond',serif;min-width:600px;background:#1A2C4E">
+        <thead>
+          <tr style="background:#0F1F3D">
+            <th style="padding:10px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:13px">第二位 ↓ ｜ 第一位 →</th>
+            <th style="padding:10px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3)">1</th>
+            <th style="padding:10px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3)">2</th>
+            <th style="padding:10px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3)">3</th>
+            <th style="padding:10px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3)">4</th>
+            <th style="padding:10px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3)">5</th>
+            <th style="padding:10px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3)">6</th>
+            <th style="padding:10px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3)">7</th>
+            <th style="padding:10px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3)">8</th>
+            <th style="padding:10px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3)">9</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th style="padding:10px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);background:#0F1F3D">1</th><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">1-1-2</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">2-1-3</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">3-1-4</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">4-1-5</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">5-1-6</td><td style="padding:8px;color:#4A9D7A;border:1px solid rgba(74,157,122,0.5);text-align:center;font-size:15px;font-weight:700">6-1-7★</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">7-1-8</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">8-1-9</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">9-1-1</td></tr>
+          <tr><th style="padding:10px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);background:#0F1F3D">2</th><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">1-2-3</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">2-2-4</td><td style="padding:8px;color:#FACC15;border:1px solid rgba(250,204,21,0.5);text-align:center;font-size:15px;font-weight:600">3-2-5⚠</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">4-2-6</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">5-2-7</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">6-2-8</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">7-2-9</td><td style="padding:8px;color:#FACC15;border:1px solid rgba(250,204,21,0.5);text-align:center;font-size:15px;font-weight:600">8-2-1⚠</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">9-2-2</td></tr>
+          <tr><th style="padding:10px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);background:#0F1F3D">3</th><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">1-3-4</td><td style="padding:8px;color:#FACC15;border:1px solid rgba(250,204,21,0.5);text-align:center;font-size:15px;font-weight:600">2-3-5⚠</td><td style="padding:8px;color:#E07B7B;border:1px solid rgba(224,123,123,0.5);text-align:center;font-size:15px;font-weight:700">3-3-6⚠</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">4-3-7</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">5-3-8</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">6-3-9</td><td style="padding:8px;color:#FACC15;border:1px solid rgba(250,204,21,0.5);text-align:center;font-size:15px;font-weight:600">7-3-1⚠</td><td style="padding:8px;color:#E07B7B;border:1px solid rgba(224,123,123,0.5);text-align:center;font-size:15px;font-weight:700">8-3-2⚠</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">9-3-3</td></tr>
+          <tr><th style="padding:10px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);background:#0F1F3D">4</th><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">1-4-5</td><td style="padding:8px;color:#4A9D7A;border:1px solid rgba(74,157,122,0.5);text-align:center;font-size:15px;font-weight:700">2-4-6★</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">3-4-7</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">4-4-8</td><td style="padding:8px;color:#4A9D7A;border:1px solid rgba(74,157,122,0.5);text-align:center;font-size:15px;font-weight:700">5-4-9★</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">6-4-1</td><td style="padding:8px;color:#4A9D7A;border:1px solid rgba(74,157,122,0.5);text-align:center;font-size:15px;font-weight:700">7-4-2★</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">8-4-3</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">9-4-4</td></tr>
+          <tr><th style="padding:10px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);background:#0F1F3D">5</th><td style="padding:8px;color:#4A9D7A;border:1px solid rgba(74,157,122,0.5);text-align:center;font-size:15px;font-weight:700">1-5-6★</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">2-5-7</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">3-5-8</td><td style="padding:8px;color:#4A9D7A;border:1px solid rgba(74,157,122,0.5);text-align:center;font-size:15px;font-weight:700">4-5-9★</td><td style="padding:8px;color:#FACC15;border:1px solid rgba(250,204,21,0.5);text-align:center;font-size:15px;font-weight:600">5-5-1⚠</td><td style="padding:8px;color:#4A9D7A;border:1px solid rgba(74,157,122,0.5);text-align:center;font-size:15px;font-weight:700">6-5-2★</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">7-5-3</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">8-5-4</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">9-5-5</td></tr>
+          <tr><th style="padding:10px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);background:#0F1F3D">6</th><td style="padding:8px;color:#4A9D7A;border:1px solid rgba(74,157,122,0.5);text-align:center;font-size:15px;font-weight:700">1-6-7★</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">2-6-8</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">3-6-9</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">4-6-1</td><td style="padding:8px;color:#4A9D7A;border:1px solid rgba(74,157,122,0.5);text-align:center;font-size:15px;font-weight:700">5-6-2★</td><td style="padding:8px;color:#FACC15;border:1px solid rgba(250,204,21,0.5);text-align:center;font-size:15px;font-weight:600">6-6-3⚠</td><td style="padding:8px;color:#4A9D7A;border:1px solid rgba(74,157,122,0.5);text-align:center;font-size:15px;font-weight:700">7-6-4★</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">8-6-5</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">9-6-6</td></tr>
+          <tr><th style="padding:10px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);background:#0F1F3D">7</th><td style="padding:8px;color:#4A9D7A;border:1px solid rgba(74,157,122,0.5);text-align:center;font-size:15px;font-weight:700">1-7-8★</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">2-7-9</td><td style="padding:8px;color:#FACC15;border:1px solid rgba(250,204,21,0.5);text-align:center;font-size:15px;font-weight:600">3-7-1⚠</td><td style="padding:8px;color:#4A9D7A;border:1px solid rgba(74,157,122,0.5);text-align:center;font-size:15px;font-weight:700">4-7-2★</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">5-7-3</td><td style="padding:8px;color:#4A9D7A;border:1px solid rgba(74,157,122,0.5);text-align:center;font-size:15px;font-weight:700">6-7-4★</td><td style="padding:8px;color:#FACC15;border:1px solid rgba(250,204,21,0.5);text-align:center;font-size:15px;font-weight:600">7-7-5⚠</td><td style="padding:8px;color:#FACC15;border:1px solid rgba(250,204,21,0.5);text-align:center;font-size:15px;font-weight:600">8-7-6⚠</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">9-7-7</td></tr>
+          <tr><th style="padding:10px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);background:#0F1F3D">8</th><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">1-8-9</td><td style="padding:8px;color:#FACC15;border:1px solid rgba(250,204,21,0.5);text-align:center;font-size:15px;font-weight:600">2-8-1⚠</td><td style="padding:8px;color:#E07B7B;border:1px solid rgba(224,123,123,0.5);text-align:center;font-size:15px;font-weight:700">3-8-2⚠</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">4-8-3</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">5-8-4</td><td style="padding:8px;color:#4A9D7A;border:1px solid rgba(74,157,122,0.5);text-align:center;font-size:15px;font-weight:700">6-8-5★</td><td style="padding:8px;color:#FACC15;border:1px solid rgba(250,204,21,0.5);text-align:center;font-size:15px;font-weight:600">7-8-6⚠</td><td style="padding:8px;color:#E07B7B;border:1px solid rgba(224,123,123,0.5);text-align:center;font-size:15px;font-weight:700">8-8-7⚠</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">9-8-8</td></tr>
+          <tr><th style="padding:10px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);background:#0F1F3D">9</th><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">1-9-1</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">2-9-2</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">3-9-3</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">4-9-4</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">5-9-5</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">6-9-6</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">7-9-7</td><td style="padding:8px;color:#F5F0E8;border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:15px;font-weight:600">8-9-8</td><td style="padding:8px;color:#FACC15;border:1px solid rgba(250,204,21,0.5);text-align:center;font-size:15px;font-weight:600">9-9-9⚠</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="text-align:center;font-size:13px;color:#8A7F6B">★ <span style="color:#4A9D7A;font-weight:600">绿色 = 大吉组合</span> ｜ <span style="color:#FACC15;font-weight:600">⚠ 黄色 = 警示</span> ｜ <span style="color:#E07B7B;font-weight:600">⚠ 红色 = 大忌</span></p>
+
+    <h2>四、9 大组详细解读</h2>
+    
+    <h3>★ 第一组：1 开头 (领导者)</h3>
+    <table class="tbl">
+      <thead><tr><th>组合</th><th>含义解读</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1-1-2</strong></td><td><strong>双领导星</strong> · 极强独立性，但易固执霸道。事业适合自主创业；婚姻则双方都想做主。</td></tr>
+        <tr><td><strong>1-2-3</strong></td><td><strong>领导 + 沟通</strong> · 顺生组合，天生的代言人、销售型领导。说服力强，能带团队。</td></tr>
+        <tr><td><strong>1-3-4</strong></td><td><strong>果断冲劲型</strong> · 行动力极强，但容易冲动后悔、健康易出问题。</td></tr>
+        <tr><td><strong>1-4-5</strong></td><td><strong>权威规划者</strong> · 严格的管理型。计划周密但易过于强势、压制下属。</td></tr>
+        <tr><td><strong>1-5-6</strong> ★</td><td><strong>稳重领导</strong> · 大吉！稳定 + 领导力。适合长期事业、家族传承。</td></tr>
+        <tr><td><strong>1-6-7</strong> ★</td><td><strong>富贵格局</strong> · 大吉！双金强格 + 贵人 = 富贵之相。适合做大老板。</td></tr>
+        <tr><td><strong>1-7-8</strong> ★</td><td><strong>领导 + 贵人</strong> · 大吉！既得贵人助又有领导力 — 创业首选。</td></tr>
+        <tr><td><strong>1-8-9</strong></td><td><strong>承担压力型</strong> · 责任型领袖，扛得起。但易过劳、心血管压力大。</td></tr>
+        <tr><td><strong>1-9-1</strong></td><td><strong>领导 + 创意 + 领导</strong> · 有想法但执行有冲突。适合做创意公司老板。</td></tr>
+      </tbody>
+    </table>
+
+    <h3>★ 第二组：2 开头 (沟通者)</h3>
+    <table class="tbl">
+      <thead><tr><th>组合</th><th>含义解读</th></tr></thead>
+      <tbody>
+        <tr><td><strong>2-1-3</strong></td><td><strong>沟通 + 领导</strong> · 适合外交、公关。先沟通后行动型。</td></tr>
+        <tr><td><strong>2-2-4</strong></td><td><strong>双沟通型</strong> · 共情力超强，但情绪波动大、容易内耗。</td></tr>
+        <tr><td><strong>2-3-5</strong> ⚠</td><td><strong>沟通 + 行动</strong> · 警示 — 想得多、做得急，容易话多伤人。</td></tr>
+        <tr><td><strong>2-4-6</strong> ★</td><td><strong>沟通 + 规划</strong> · 大吉！教育、咨询、文案、企划工作的天才组合。</td></tr>
+        <tr><td><strong>2-5-7</strong></td><td><strong>沟通 + 自由</strong> · 天生主持人 / 主播。但 5 易让 2 的细腻被压制。</td></tr>
+        <tr><td><strong>2-6-8</strong></td><td><strong>沟通 + 智慧</strong> · 适合做导师、心理咨询、教练。能听懂人话。</td></tr>
+        <tr><td><strong>2-7-9</strong></td><td><strong>双水极敏</strong> · 直觉力惊人。但太爱想，容易陷入精神世界。</td></tr>
+        <tr><td><strong>2-8-1</strong> ⚠</td><td><strong>沟通 + 责任</strong> · 警示 — 内心负担重，扛别人情绪。</td></tr>
+        <tr><td><strong>2-9-2</strong></td><td><strong>沟通 + 创意</strong> · 文创、艺术、自媒体的天才组合。</td></tr>
+      </tbody>
+    </table>
+
+    <h3>★ 第三组：3 开头 (行动派)</h3>
+    <table class="tbl">
+      <thead><tr><th>组合</th><th>含义解读</th></tr></thead>
+      <tbody>
+        <tr><td><strong>3-1-4</strong></td><td><strong>行动 + 领导</strong> · 冲劲型创业者。容易冲动决策、跟人起冲突。</td></tr>
+        <tr><td><strong>3-2-5</strong> ⚠</td><td><strong>行动 + 沟通</strong> · 警示 — 嘴快脑快但易得罪人。</td></tr>
+        <tr><td><strong>3-3-6</strong> ⚠</td><td><strong>双火大忌</strong> · 火过旺！冲动易后悔、心脏压力、人际易爆裂。</td></tr>
+        <tr><td><strong>3-4-7</strong></td><td><strong>行动 + 规划</strong> · 顺生组合，执行力强。适合项目经理、运营。</td></tr>
+        <tr><td><strong>3-5-8</strong></td><td><strong>行动 + 自由</strong> · 天生销售员、销售冠军型。能说会道、行动快。</td></tr>
+        <tr><td><strong>3-6-9</strong></td><td><strong>行动 + 智慧</strong> · 矛盾型 — 想得多但又冲动，常感觉「自己跟自己打架」。</td></tr>
+        <tr><td><strong>3-7-1</strong> ⚠</td><td><strong>行动 + 贵人</strong> · 警示 — 有贵人但常错过，关系起伏大。</td></tr>
+        <tr><td><strong>3-8-2</strong> ⚠</td><td><strong>双火过旺警示</strong> · 极强行动力但易燃尽。要主动慢下来、补水。</td></tr>
+        <tr><td><strong>3-9-3</strong></td><td><strong>行动 + 创意</strong> · 创意人做事爽快，适合表演、艺术行动派。</td></tr>
+      </tbody>
+    </table>
+
+    <h3>★ 第四组：4 开头 (规划者)</h3>
+    <table class="tbl">
+      <thead><tr><th>组合</th><th>含义解读</th></tr></thead>
+      <tbody>
+        <tr><td><strong>4-1-5</strong></td><td><strong>规划 + 领导</strong> · 强势规划者。计划周密但易压制别人意见。</td></tr>
+        <tr><td><strong>4-2-6</strong> ★</td><td><strong>规划 + 沟通</strong> · 大吉！教育、研究、知识管理类工作的天才组合。</td></tr>
+        <tr><td><strong>4-3-7</strong></td><td><strong>规划 + 行动</strong> · 想到就做型。适合做产品经理、项目执行。</td></tr>
+        <tr><td><strong>4-4-8</strong></td><td><strong>双规划者</strong> · 极度求稳定，但易陷入「过度计划、不敢行动」。</td></tr>
+        <tr><td><strong>4-5-9</strong> ★</td><td><strong>大吉创新组合</strong> · 远见的开拓者！能看到未来，敢于布局。</td></tr>
+        <tr><td><strong>4-6-1</strong></td><td><strong>规划 + 智慧</strong> · 完美主义型。思考精密但容易钻牛角尖。</td></tr>
+        <tr><td><strong>4-7-2</strong> ★</td><td><strong>规划 + 贵人</strong> · 大吉！稳赢型 — 既有计划又有运气，最适合做长期投资。</td></tr>
+        <tr><td><strong>4-8-3</strong></td><td><strong>规划 + 责任</strong> · 厚重型领袖。扛得起、稳得住，适合家族企业接班。</td></tr>
+        <tr><td><strong>4-9-4</strong></td><td><strong>规划 + 创意</strong> · 极致艺术家型。能把梦想做成系统，但易理想化。</td></tr>
+      </tbody>
+    </table>
+
+    <h3>★ 第五组：5 开头 (自由派)</h3>
+    <table class="tbl">
+      <thead><tr><th>组合</th><th>含义解读</th></tr></thead>
+      <tbody>
+        <tr><td><strong>5-1-6</strong> ★</td><td><strong>稳重领导力</strong> · 大吉！有格局、有定力，能带大团队。</td></tr>
+        <tr><td><strong>5-2-7</strong></td><td><strong>自由 + 沟通</strong> · 风趣表达型。但土克水易让 2 的敏感被忽略。</td></tr>
+        <tr><td><strong>5-3-8</strong></td><td><strong>自由 + 行动</strong> · 天生销售。能说能做，行动力配上自由格局 = 销售冠军。</td></tr>
+        <tr><td><strong>5-4-9</strong> ★</td><td><strong>大吉破局组合</strong> · 既想自由又想规划，整合好就能成大事。</td></tr>
+        <tr><td><strong>5-5-1</strong> ⚠</td><td><strong>双土过重</strong> · 警示！极度求稳定，易固守不变、错过机会。</td></tr>
+        <tr><td><strong>5-6-2</strong> ★</td><td><strong>自由 + 智慧</strong> · 大吉！人生破局者 — 关键时刻能跳脱框架。</td></tr>
+        <tr><td><strong>5-7-3</strong></td><td><strong>自由 + 贵人</strong> · 有自由格局但贵人能量被压制 — 容易感觉「机会都不长久」。</td></tr>
+        <tr><td><strong>5-8-4</strong></td><td><strong>自由 + 责任</strong> · 自由型领袖，但责任压力大 — 适合做有使命感的事业。</td></tr>
+        <tr><td><strong>5-9-5</strong></td><td><strong>大破大立</strong> · 极戏剧化人生 — 不破不立、要么大成要么大败。</td></tr>
+      </tbody>
+    </table>
+
+    <h3>★ 第六组：6 开头 (智慧者)</h3>
+    <table class="tbl">
+      <thead><tr><th>组合</th><th>含义解读</th></tr></thead>
+      <tbody>
+        <tr><td><strong>6-1-7</strong> ★</td><td><strong>大富格局</strong> · 双金 + 贵人！适合做大老板、大平台。</td></tr>
+        <tr><td><strong>6-2-8</strong></td><td><strong>智慧 + 沟通</strong> · 心理咨询、教练、教师类工作的天才组合。</td></tr>
+        <tr><td><strong>6-3-9</strong></td><td><strong>智慧 + 行动</strong> · 内耗型 — 智慧被冲动消耗，常做事后悔。</td></tr>
+        <tr><td><strong>6-4-1</strong></td><td><strong>智慧 + 规划</strong> · 完美主义大师。但易钻牛角尖、要求别人也完美。</td></tr>
+        <tr><td><strong>6-5-2</strong> ★</td><td><strong>智慧 + 自由</strong> · 大吉！适合做导师、顾问、独立思考者。</td></tr>
+        <tr><td><strong>6-6-3</strong> ⚠</td><td><strong>双智慧极旺</strong> · 警示！金过旺 → 易孤独、难亲近。</td></tr>
+        <tr><td><strong>6-7-4</strong> ★</td><td><strong>智慧 + 贵人</strong> · 大吉！财富双向流动！既能赚钱又懂理财，富贵双全。</td></tr>
+        <tr><td><strong>6-8-5</strong></td><td><strong>智慧 + 责任</strong> · 重担型智者 — 心很累。要学会放下、信任别人。</td></tr>
+        <tr><td><strong>6-9-6</strong></td><td><strong>智慧 + 创意</strong> · 完美艺术家。但 6 的严苛容易压制 9 的灵感。</td></tr>
+      </tbody>
+    </table>
+
+    <h3>★ 第七组：7 开头 (思考者/贵人)</h3>
+    <table class="tbl">
+      <thead><tr><th>组合</th><th>含义解读</th></tr></thead>
+      <tbody>
+        <tr><td><strong>7-1-8</strong> ★</td><td><strong>大富格局</strong> · 大吉！既得贵人助又有领导力 — 创业首选。</td></tr>
+        <tr><td><strong>7-2-9</strong></td><td><strong>双水极敏</strong> · 极致直觉型，但易陷入幻想、不踏实。</td></tr>
+        <tr><td><strong>7-3-1</strong> ⚠</td><td><strong>贵人 + 行动</strong> · 警示 — 贵人来了又被自己冲动赶走。</td></tr>
+        <tr><td><strong>7-4-2</strong> ★</td><td><strong>稳赢型</strong> · 大吉！既有运气又有计划，最适合长期投资。</td></tr>
+        <tr><td><strong>7-5-3</strong></td><td><strong>贵人 + 自由</strong> · 贵人来了但难留住，机会多但不长久。</td></tr>
+        <tr><td><strong>7-6-4</strong> ★</td><td><strong>贵人 + 智慧</strong> · 大吉富贵格！跟 6-7 类似，财富与智慧并存。</td></tr>
+        <tr><td><strong>7-7-5</strong> ⚠</td><td><strong>双贵人极旺</strong> · 桃花贵人都很多，但易感情泛滥、关系不稳。</td></tr>
+        <tr><td><strong>7-8-6</strong> ⚠</td><td><strong>贵人 + 责任</strong> · 警示 — 有贵人但责任压力大，孤军奋战感。</td></tr>
+        <tr><td><strong>7-9-7</strong></td><td><strong>贵人 + 创意</strong> · 文创、艺术、自媒体的天才组合，灵感泉涌。</td></tr>
+      </tbody>
+    </table>
+
+    <h3>★ 第八组：8 开头 (责任者)</h3>
+    <table class="tbl">
+      <thead><tr><th>组合</th><th>含义解读</th></tr></thead>
+      <tbody>
+        <tr><td><strong>8-1-9</strong></td><td><strong>责任 + 领导</strong> · 强压型领袖。扛得起千斤但易心力交瘁。</td></tr>
+        <tr><td><strong>8-2-1</strong> ⚠</td><td><strong>责任 + 沟通</strong> · 警示 — 内心承受多、外表沉默 — 典型「老好人」。</td></tr>
+        <tr><td><strong>8-3-2</strong> ⚠</td><td><strong>双火过旺警示</strong> · 责任 + 冲动 = 易崩溃。要懂得放下、补水。</td></tr>
+        <tr><td><strong>8-4-3</strong></td><td><strong>责任 + 规划</strong> · 厚重型 — 适合家族企业、长期项目领导者。</td></tr>
+        <tr><td><strong>8-5-4</strong></td><td><strong>责任 + 自由</strong> · 顺生组合 — 责任带来格局，格局带来自由。</td></tr>
+        <tr><td><strong>8-6-5</strong> ★</td><td><strong>责任 + 智慧</strong> · 大吉！智者扛重担 — 心累但有成就。</td></tr>
+        <tr><td><strong>8-7-6</strong> ⚠</td><td><strong>责任 + 贵人</strong> · 警示 — 贵人帮你减负，但易依赖、自己不长进。</td></tr>
+        <tr><td><strong>8-8-7</strong> ⚠</td><td><strong>双火大忌</strong> · 极强责任感但极易燃尽。要主动转化为创造性能量。</td></tr>
+        <tr><td><strong>8-9-8</strong></td><td><strong>责任 + 创意</strong> · 既扛得起又有创意，适合做有使命感的创意领袖。</td></tr>
+      </tbody>
+    </table>
+
+    <h3>★ 第九组：9 开头 (成功者/创意)</h3>
+    <table class="tbl">
+      <thead><tr><th>组合</th><th>含义解读</th></tr></thead>
+      <tbody>
+        <tr><td><strong>9-1-1</strong></td><td><strong>创意 + 领导</strong> · 创意领袖，但自己人格冲突 — 想自由又要管人。</td></tr>
+        <tr><td><strong>9-2-2</strong></td><td><strong>创意 + 沟通</strong> · 艺术家 + 表达者 = 自媒体、内容创作的天才。</td></tr>
+        <tr><td><strong>9-3-3</strong></td><td><strong>创意 + 行动</strong> · 想到就做的艺术家型。适合表演、舞台、即兴创作。</td></tr>
+        <tr><td><strong>9-4-4</strong></td><td><strong>双木创意</strong> · 极致艺术家，但易过度理想化、不接地气。</td></tr>
+        <tr><td><strong>9-5-5</strong></td><td><strong>创意 + 自由</strong> · 大破大立型艺术家 — 要么改变世界要么不被理解。</td></tr>
+        <tr><td><strong>9-6-6</strong></td><td><strong>创意 + 智慧</strong> · 完美艺术家，但 6 的严苛会压制 9 的自由灵感。</td></tr>
+        <tr><td><strong>9-7-7</strong></td><td><strong>创意 + 贵人</strong> · 大吉！既有灵感又有运气，作品易出名、易遇贵人。</td></tr>
+        <tr><td><strong>9-8-8</strong></td><td><strong>创意 + 责任</strong> · 有使命感的艺术家。作品有深度、能影响人。</td></tr>
+        <tr><td><strong>9-9-9</strong> ⚠</td><td><strong>三重创意警示</strong> · 极致灵性、艺术天才，但易过度敏感、与现实脱节。</td></tr>
+      </tbody>
+    </table>
+
+    <h2>五、四类联合数字快速判断</h2>
+    
+    <h3>① 大吉组合 ★ (12 组)</h3>
+    <div class="example">
+      <div class="example-lbl">12 大吉</div>
+      <p>1-5-6, 1-6-7, 1-7-8, 5-1-6, 6-1-7, 7-1-8 (富贵格)<br>2-4-6, 4-2-6, 4-5-9, 5-4-9, 6-7-4, 7-4-2, 7-6-4 (顺生格)<br>5-6-2, 6-5-2, 8-6-5 (智慧格)</p>
+    </div>
+
+    <h3>② 大忌组合 ⚠ (4 组)</h3>
+    <div class="warn">
+      <div class="warn-lbl">⚠️ 4 大忌</div>
+      <p><strong>3-3-6</strong>: 双火大忌，冲动易后悔<br><strong>3-8-2</strong>: 双火过旺，易崩溃<br><strong>8-3-2</strong>: 双火警示，需补水<br><strong>8-8-7</strong>: 双火大忌，极易燃尽</p>
+    </div>
+
+    <h3>③ 警示组合 ⚠ (10 组)</h3>
+    <div class="warn">
+      <div class="warn-lbl">⚠️ 10 警示</div>
+      <p>2-3-5, 2-8-1, 3-2-5, 3-7-1, 5-5-1, 6-6-3, 7-3-1, 7-7-5, 7-8-6, 8-2-1, 8-7-6, 9-9-9 — 都需要主动调和能量。</p>
+    </div>
+
+    <h3>④ 中性组合 (剩下 55 组)</h3>
+    <p>大部分组合都属于这一类。需要结合<strong>位置</strong>和<strong>整体五行平衡</strong>来判断。</p>
+
+    <h2>六、命盘里的 12 个核心位置</h2>
+    <p>看 81 组虽然全，但实战中你只需要分析这<strong>12 个关键位置</strong>。每个位置都是 3 位联合数字：</p>
+    <table class="tbl">
+      <thead><tr><th>位置</th><th>三位组合</th><th>实战意义</th></tr></thead>
+      <tbody>
+        <tr><td><strong>父基因</strong></td><td>a-b-e</td><td>家庭背景、童年环境</td></tr>
+        <tr><td><strong>母基因</strong></td><td>c-d-f</td><td>情感来源、安全感</td></tr>
+        <tr><td><strong>主性格 ★</strong></td><td>e-f-g</td><td>核心三数 — 你的人生底色</td></tr>
+        <tr><td><strong>人生过程内</strong></td><td>e-g-h</td><td>内在思考、自我对话</td></tr>
+        <tr><td><strong>性格过程外</strong></td><td>f-g-i</td><td>外在表现、别人看到的你</td></tr>
+        <tr><td><strong>子女下属</strong></td><td>i-h-j</td><td>子女缘分、带后辈</td></tr>
+        <tr><td><strong>事业过程①</strong></td><td>a-e-k</td><td>事业起点、方向</td></tr>
+        <tr><td><strong>事业过程②</strong></td><td>b-e-l</td><td>事业发展、伙伴</td></tr>
+        <tr><td><strong>当下朋友</strong></td><td>k-l-m</td><td>人际圈子、贵人</td></tr>
+        <tr><td><strong>婚姻过程①</strong></td><td>c-f-n</td><td>情感本质</td></tr>
+        <tr><td><strong>婚姻过程②</strong></td><td>d-f-o</td><td>相处模式</td></tr>
+        <tr><td><strong>未来财富</strong></td><td>n-o-p</td><td>中后期、健康、子媳</td></tr>
+      </tbody>
+    </table>
+
+    <div class="tip">✦ 81 组数字看似多，但<strong style="color:#E8C96A">真正用得上的就 20-30 组</strong>。先把命盘里出现的几组背熟，比强记 81 组更实用。</div>
+  </div>
+  <div class="lesson-nav">
+    <button class="lesson-nav-btn" onclick="goLesson('3-1')"><div class="lnb-lbl">← 上一节</div><div class="lnb-ttl">3.1 13 大组合解读</div></button>
+    <button class="lesson-nav-btn lnb-r" onclick="goLesson('3-3')"><div class="lnb-lbl">下一节 →</div><div class="lnb-ttl">3.3 事业感情财富分析</div></button>
+  </div>
+</div>
+
+<div class="lesson" id="lesson-3-3">
+  <div class="lesson-head">
+    <div class="lesson-kick">第三篇 · 组合</div>
+    <div class="lesson-num">Lesson 3.3</div>
+    <h1 class="lesson-ttl">事业、感情、财富分析</h1>
+    <p class="lesson-sub">这一节进入<strong>实战应用</strong>。</p>
+  </div>
+  <div class="content">
+    <h2>一、事业分析</h2>
+    <h3>看哪些位置？</h3>
+    <ul>
+      <li><strong>事业① = a + e + k</strong> (起点)</li>
+      <li><strong>事业② = b + e + l</strong> (发展)</li>
+      <li><strong>主性格 g</strong> (核心驱动力)</li>
+    </ul>
+    <h3>事业方向看 g 的五行</h3>
+    <table class="tbl">
+      <thead><tr><th>g 五行</th><th>适合行业</th></tr></thead>
+      <tbody>
+        <tr><td>金 (1, 6)</td><td>金融、金属、机械、工程、刀具、医生、警察</td></tr>
+        <tr><td>水 (2, 7)</td><td>沟通、媒体、贸易、物流、餐饮、流动性强的</td></tr>
+        <tr><td>木 (4, 9)</td><td>教育、出版、文创、家具、农业、医疗</td></tr>
+        <tr><td>火 (3, 8)</td><td>表演、营销、餐饮 (热)、电子、能源、运动</td></tr>
+        <tr><td>土 (5)</td><td>房地产、土地、稳定行业、咨询、辅导</td></tr>
+      </tbody>
+    </table>
+
+    <h2>二、感情分析</h2>
+    <h3>g 与感情需求</h3>
+    <table class="tbl">
+      <thead><tr><th>你的 g</th><th>你需要的伴侣</th></tr></thead>
+      <tbody>
+        <tr><td>1 号</td><td>能崇拜你、配合你的人</td></tr>
+        <tr><td>2 号</td><td>能给你安全感、懂你心思的人</td></tr>
+        <tr><td>3 号</td><td>能包容你脾气、温柔的人</td></tr>
+        <tr><td>4 号</td><td>稳定可靠、有规划的人</td></tr>
+        <tr><td>5 号</td><td>能给你空间、不黏人的人</td></tr>
+        <tr><td>6 号</td><td>能跟你共同成长、品味相似的人</td></tr>
+        <tr><td>7 号</td><td>能让你独立、又能给你温暖的人</td></tr>
+        <tr><td>8 号</td><td>能分担责任、坚强的人</td></tr>
+        <tr><td>9 号</td><td>能懂你梦想、欣赏你的人</td></tr>
+      </tbody>
+    </table>
+
+    <div class="warn"><div class="warn-lbl">⚠ 感情功课信号</div>
+      <p>• 婚姻位有 <strong>3-3 / 5-5 / 8-8</strong> → 容易重复同样模式<br>• 婚姻位有 <strong>1-1 / 7-7</strong> → 双方都强势/独立，易缺乏温度<br>• g 与婚姻数字相克 → 需要主动学习沟通</p>
+    </div>
+
+    <h2>三、财富分析</h2>
+    <h3>财富信号</h3>
+    <table class="tbl">
+      <thead><tr><th>组合</th><th>财富特质</th></tr></thead>
+      <tbody>
+        <tr><td><strong>4-5-9</strong></td><td>规划带来财富 (要长期主义)</td></tr>
+        <tr><td><strong>1-6-7</strong></td><td>大富格局 (适合做大事业)</td></tr>
+        <tr><td><strong>6-8-5</strong></td><td>责任带来财富 (做大平台)</td></tr>
+        <tr><td><strong>8-6-5</strong></td><td>家族/团队财富</td></tr>
+      </tbody>
+    </table>
+
+    <div class="warn"><div class="warn-lbl">⚠ 财富陷阱信号</div>
+      <p><strong>3 号或 8 号流年</strong>：不可大额投资<br><strong>5-5 或 5-3 组合</strong>：容易冲动消费、被骗<br><strong>水火并存严重</strong>：感情影响财富</p>
+    </div>
+
+    <h2>四、综合分析模板</h2>
+    <div class="box"><div class="box-ttl">分析一个人的标准流程</div>
+      <ol style="margin-left:18px;margin-top:8px">
+        <li>先算 16 位命盘 + Q + 隐藏号</li>
+        <li>识别主性格 g (五行属什么)</li>
+        <li>看 13 大组合，找有利 / 波折组合</li>
+        <li>分析事业、感情、财富三大面向</li>
+        <li>看五行平衡 (下一篇)</li>
+        <li>看流年 (第六篇)</li>
+        <li>给出 1-2 个具体建议</li>
+      </ol>
+    </div>
+  </div>
+  <div class="lesson-nav">
+    <button class="lesson-nav-btn" onclick="goLesson('3-2')"><div class="lnb-lbl">← 上一节</div><div class="lnb-ttl">3.2 81 组联合数字</div></button>
+    <button class="lesson-nav-btn lnb-r" onclick="goLesson('4-1')"><div class="lnb-lbl">下一节 →</div><div class="lnb-ttl">4.1 五行学说基础</div></button>
+  </div>
+</div>
+
+<div class="lesson" id="lesson-4-1">
+  <div class="lesson-head">
+    <div class="lesson-kick">第四篇 · 五行</div>
+    <div class="lesson-num">Lesson 4.1</div>
+    <h1 class="lesson-ttl">五行学说基础</h1>
+    <p class="lesson-sub">五行是数易文化的<strong>能量底层</strong>。</p>
+  </div>
+  <div class="content">
+    <h2>一、什么是五行？</h2>
+    <p>古人观察宇宙万物，归纳出五种基本能量 — <strong>金、木、水、火、土</strong>。</p>
+
+    <h2>二、数字与五行对应</h2>
+    <div class="box"><div class="box-ttl">⚪ 金 = 1, 6</div><p>坚硬、果决、有结构。代表事业、权威、刀剑、收割。身体对应：肺、大肠、皮肤。</p></div>
+    <div class="box"><div class="box-ttl">🔵 水 = 2, 7</div><p>流动、智慧、连接。代表沟通、贸易、流通。身体对应：肾、膀胱、生殖系统。</p></div>
+    <div class="box"><div class="box-ttl">🟢 木 = 4, 9</div><p>生长、规划、创造。代表教育、文创、医疗。身体对应：肝、胆、神经系统。</p></div>
+    <div class="box"><div class="box-ttl">🔴 火 = 3, 8</div><p>热情、行动、爆发。代表表演、激情、能量。身体对应：心、小肠、循环系统。</p></div>
+    <div class="box"><div class="box-ttl">🟡 土 = 5</div><p>稳定、承载、根基。代表房产、土地、咨询、稳固。身体对应：脾、胃、肌肉。</p></div>
+
+    <h2>三、五行相生 (创造)</h2>
+    <div class="formula">金 → 水 → 木 → 火 → 土 → 金<div class="formula-cn">金生水，水生木，木生火，火生土，土生金</div></div>
+    <ul>
+      <li>金熔化变成水</li>
+      <li>水滋养木</li>
+      <li>木燃烧成火</li>
+      <li>火烧后变土</li>
+      <li>土凝结产金</li>
+    </ul>
+
+    <h2>四、五行相克 (制约)</h2>
+    <div class="formula">金 ⊥ 木 ⊥ 土 ⊥ 水 ⊥ 火 ⊥ 金<div class="formula-cn">金克木，木克土，土克水，水克火，火克金</div></div>
+    <ul>
+      <li>金砍木 (斧头)</li>
+      <li>木吸土 (树根)</li>
+      <li>土挡水 (堤坝)</li>
+      <li>水灭火</li>
+      <li>火熔金</li>
+    </ul>
+
+    <h2>五、五行的应用层次</h2>
+    <div class="box"><div class="box-ttl">① 性格层</div>
+      <p>金多 → 果断坚毅 ｜ 水多 → 灵活善变 ｜ 木多 → 温和有规划<br>火多 → 热情冲动 ｜ 土多 → 稳重不变</p>
+    </div>
+    <div class="box"><div class="box-ttl">② 健康层</div>
+      <p>某行过多/过少 → 对应器官出问题。如水太多 → 肾负担重；火太旺 → 心血管问题。</p>
+    </div>
+    <div class="box"><div class="box-ttl">③ 关系层</div>
+      <p>看你跟另一个人五行<strong>相生还是相克</strong>。相生 = 顺，相克 = 张力。</p>
+    </div>
+
+    <div class="tip">✦ 下一节我们用<strong style="color:#E8C96A">命盘</strong>来分析五行平衡。</div>
+  </div>
+  <div class="lesson-nav">
+    <button class="lesson-nav-btn" onclick="goLesson('3-3')"><div class="lnb-lbl">← 上一节</div><div class="lnb-ttl">3.3 事业感情财富分析</div></button>
+    <button class="lesson-nav-btn lnb-r" onclick="goLesson('4-2')"><div class="lnb-lbl">下一节 →</div><div class="lnb-ttl">4.2 五行平衡分析</div></button>
+  </div>
+</div>
+
+<div class="lesson" id="lesson-4-2">
+  <div class="lesson-head">
+    <div class="lesson-kick">第四篇 · 五行</div>
+    <div class="lesson-num">Lesson 4.2</div>
+    <h1 class="lesson-ttl">五行平衡分析</h1>
+    <p class="lesson-sub">学会从命盘看一个人的<strong>五行分布</strong>。</p>
+  </div>
+  <div class="content">
+    <h2>一、五行计数法</h2>
+    <p>把命盘里所有 16 位数字 + Q (本源梦想) 一起，按五行归类计数。</p>
+    <div class="formula">16 位主命盘 + Q = 17 个数字<div class="formula-cn">把每个数字归到对应的五行，看分布</div></div>
+
+    <h2>二、五行基准值</h2>
+    <table class="tbl">
+      <thead><tr><th>五行</th><th>对应数字</th><th>基准</th><th>状态判断</th></tr></thead>
+      <tbody>
+        <tr><td>金</td><td>1, 6</td><td>4</td><td>≥ 5 旺 ｜ ≤ 2 缺 ｜ = 0 极缺</td></tr>
+        <tr><td>水</td><td>2, 7</td><td>3</td><td>≥ 4 旺 ｜ ≤ 1 缺 ｜ = 0 极缺</td></tr>
+        <tr><td>木</td><td>4, 9</td><td>3</td><td>≥ 4 旺 ｜ ≤ 1 缺 ｜ = 0 极缺</td></tr>
+        <tr><td>火</td><td>3, 8</td><td>3</td><td>≥ 4 旺 ｜ ≤ 1 缺 ｜ = 0 极缺</td></tr>
+        <tr><td>土</td><td>5</td><td>3</td><td>≥ 4 旺 ｜ ≤ 1 缺 ｜ = 0 极缺</td></tr>
+      </tbody>
+    </table>
+
+    <h2>三、实战示范</h2>
+    <div class="example"><div class="example-lbl">案例：1985 年 10 月 15 日命盘</div>
+      <p>16 位 + Q = <code>6, 1, 1, 4, 4, 7, 5, 9, 8, 1, 8, 6, 3, 9, 6, 3, 4</code><br><br>分类：<br>• 金 (1, 6) = <strong>6 个 → 旺</strong><br>• 水 (2, 7) = <strong>1 个 → 缺</strong><br>• 木 (4, 9) = <strong>5 个 → 旺</strong><br>• 火 (3, 8) = <strong>4 个 → 旺</strong><br>• 土 (5) = <strong>1 个 → 缺</strong></p>
+    </div>
+
+    <h2>四、读懂五行分布</h2>
+    <div class="box"><div class="box-ttl">五行平衡 (3-3-3-3-3)</div><p>能量平稳，人生稳定，但<strong>缺少爆发力</strong>。</p></div>
+    <div class="box"><div class="box-ttl">某行特旺 (≥5)</div><p>天赋很明显，但容易<strong>过度消耗</strong>。要懂得控制和调和。</p></div>
+    <div class="box"><div class="box-ttl">某行极缺 (=0)</div><p><strong>这是命盘最重要的信号</strong> — 这个能量是你的盲点，需要主动补救。</p></div>
+
+    <h2>五、特别警示：水火并存</h2>
+    <div class="warn"><div class="warn-lbl">⚠ 重要警示</div>
+      <p><strong>水 + 火都偏多</strong>是命盘大警示，水火相战内耗。<br><br>• <strong>4 组并存</strong> (水4+火4)：内耗严重<br>• <strong>3 组</strong>：身体先出问题<br>• <strong>2 组</strong>：家庭关系紧张<br>• <strong>1 组</strong>：事业波折</p>
+    </div>
+
+    <h2>六、五行不平衡的影响</h2>
+    <table class="tbl">
+      <thead><tr><th>问题</th><th>影响</th></tr></thead>
+      <tbody>
+        <tr><td>土 = 0</td><td>稳定不足，做事缺底气</td></tr>
+        <tr><td>火旺 + 土 = 0</td><td>心脏、肠胃问题</td></tr>
+        <tr><td>金太旺</td><td>肺、大肠、皮肤问题</td></tr>
+        <tr><td>木太旺</td><td>肝胆问题、神经紧张</td></tr>
+        <tr><td>水太旺</td><td>感情波折、肾负担重</td></tr>
+      </tbody>
+    </table>
+
+    <div class="tip">✦ 下一节我们讲<strong style="color:#E8C96A">如何补救五行</strong>。</div>
+  </div>
+  <div class="lesson-nav">
+    <button class="lesson-nav-btn" onclick="goLesson('4-1')"><div class="lnb-lbl">← 上一节</div><div class="lnb-ttl">4.1 五行学说基础</div></button>
+    <button class="lesson-nav-btn lnb-r" onclick="goLesson('4-3')"><div class="lnb-lbl">下一节 →</div><div class="lnb-ttl">4.3 五行失衡与补救</div></button>
+  </div>
+</div>
+
+<div class="lesson" id="lesson-4-3">
+  <div class="lesson-head">
+    <div class="lesson-kick">第四篇 · 五行</div>
+    <div class="lesson-num">Lesson 4.3</div>
+    <h1 class="lesson-ttl">五行失衡的影响与补救</h1>
+    <p class="lesson-sub">分析完五行分布，下一步是<strong>给出实际建议</strong>。</p>
+  </div>
+  <div class="content">
+    <h2>一、五行补救原则</h2>
+    <div class="box"><div class="box-ttl">原则 1：缺什么 → 补什么</div><p>五行哪个缺 (= 0 或 1)，从颜色、方位、饮食等多个层面去补充。</p></div>
+    <div class="box"><div class="box-ttl">原则 2：太旺 → 泄之</div><p>五行哪个太旺 (≥ 5)，用相生的下一行去「泄」(消耗)。如金太旺 → 用水泄。</p></div>
+    <div class="box"><div class="box-ttl">原则 3：相克 → 通关</div><p>五行互克 (如水火)，用<strong>中间桥梁</strong>通关。如水克火 → 加木 (水生木，木生火)。</p></div>
+
+    <h2>二、五行调和大全</h2>
+    <h3>缺金 / 金弱</h3>
+    <table class="tbl"><tbody>
+      <tr><td><strong>颜色</strong></td><td>白色、银色、金色</td></tr>
+      <tr><td><strong>方位</strong></td><td>西方</td></tr>
+      <tr><td><strong>行业</strong></td><td>金融、机械、工程、医疗</td></tr>
+      <tr><td><strong>饰品</strong></td><td>金、银、白玉</td></tr>
+      <tr><td><strong>行为</strong></td><td>多决断、多管理、做权威性事</td></tr>
+    </tbody></table>
+
+    <h3>缺水 / 水弱</h3>
+    <table class="tbl"><tbody>
+      <tr><td><strong>颜色</strong></td><td>黑色、深蓝色</td></tr>
+      <tr><td><strong>方位</strong></td><td>北方</td></tr>
+      <tr><td><strong>行业</strong></td><td>贸易、媒体、餐饮、物流</td></tr>
+      <tr><td><strong>饮食</strong></td><td>多喝水、海鲜</td></tr>
+      <tr><td><strong>行为</strong></td><td>多沟通、多旅行、多游泳</td></tr>
+    </tbody></table>
+
+    <h3>缺木 / 木弱</h3>
+    <table class="tbl"><tbody>
+      <tr><td><strong>颜色</strong></td><td>绿色、青色</td></tr>
+      <tr><td><strong>方位</strong></td><td>东方</td></tr>
+      <tr><td><strong>行业</strong></td><td>教育、出版、文创、医疗</td></tr>
+      <tr><td><strong>饮食</strong></td><td>多吃绿叶菜、水果</td></tr>
+      <tr><td><strong>行为</strong></td><td>多读书、多种花草、亲近自然</td></tr>
+    </tbody></table>
+
+    <h3>缺火 / 火弱</h3>
+    <table class="tbl"><tbody>
+      <tr><td><strong>颜色</strong></td><td>红色、紫色、橙色</td></tr>
+      <tr><td><strong>方位</strong></td><td>南方</td></tr>
+      <tr><td><strong>行业</strong></td><td>表演、营销、运动、餐饮 (热)</td></tr>
+      <tr><td><strong>饮食</strong></td><td>红色食物、辣椒</td></tr>
+      <tr><td><strong>行为</strong></td><td>多运动、多表达、多笑</td></tr>
+    </tbody></table>
+
+    <h3>缺土 / 土弱</h3>
+    <table class="tbl"><tbody>
+      <tr><td><strong>颜色</strong></td><td>黄色、土黄色、咖啡色</td></tr>
+      <tr><td><strong>方位</strong></td><td>中央</td></tr>
+      <tr><td><strong>行业</strong></td><td>房地产、咨询、辅导、稳定行业</td></tr>
+      <tr><td><strong>饰品</strong></td><td>玉、陶瓷、黄水晶</td></tr>
+      <tr><td><strong>行为</strong></td><td>多稳重、做事有耐心、稳定作息</td></tr>
+    </tbody></table>
+
+    <h2>三、五行太旺如何泄</h2>
+    <table class="tbl">
+      <thead><tr><th>太旺</th><th>用什么泄</th><th>建议</th></tr></thead>
+      <tbody>
+        <tr><td>金太旺</td><td>水</td><td>多喝水、多沟通、放松</td></tr>
+        <tr><td>水太旺</td><td>木</td><td>多读书、多规划、多绿色</td></tr>
+        <tr><td>木太旺</td><td>火</td><td>多运动、多表达、多红色</td></tr>
+        <tr><td>火太旺</td><td>土</td><td>多稳重、多大地接触、多黄色</td></tr>
+        <tr><td>土太旺</td><td>金</td><td>多决断、多白色、多金属</td></tr>
+      </tbody>
+    </table>
+
+    <h2>四、综合实例</h2>
+    <div class="example"><div class="example-lbl">案例：水极缺 (0 个) + 火旺 (4 个)</div>
+      <p><strong>问题</strong>：水克火失衡 → 心脏、情绪、感情容易出问题<br><br><strong>补救</strong>：<br>• 颜色：穿黑色、深蓝色衣服<br>• 饮食：多喝水、吃海鲜<br>• 居家：北方放一盆水、鱼缸<br>• 行为：多游泳、多旅行海边<br>• 配偶/合伙人选择：找有水属性的人 (g = 2 或 7)<br><br><strong>避免</strong>：<br>• 不穿太多红色衣服<br>• 减少吃辛辣食物</p>
+    </div>
+
+    <div class="tip">✦ 五行调整不是一夜见效的事 — 需要<strong style="color:#E8C96A">长期坚持</strong>。3-6 个月你就能感受到能量的转变。</div>
+  </div>
+  <div class="lesson-nav">
+    <button class="lesson-nav-btn" onclick="goLesson('4-2')"><div class="lnb-lbl">← 上一节</div><div class="lnb-ttl">4.2 五行平衡分析</div></button>
+    <button class="lesson-nav-btn lnb-r" onclick="goLesson('5-1')"><div class="lnb-lbl">下一节 →</div><div class="lnb-ttl">5.1 生肖姓名学基础</div></button>
+  </div>
+</div>
+
+<div class="lesson" id="lesson-5-1">
+  <div class="lesson-head">
+    <div class="lesson-kick">第五篇 · 姓名</div>
+    <div class="lesson-num">Lesson 5.1</div>
+    <h1 class="lesson-ttl">生肖姓名学基础</h1>
+    <p class="lesson-sub">姓名是<strong>陪伴一辈子的能量符号</strong>。</p>
+  </div>
+  <div class="content">
+    <h2>一、生肖与五行</h2>
+    <table class="tbl">
+      <thead><tr><th>生肖</th><th>地支</th><th>五行</th><th>主导能量</th></tr></thead>
+      <tbody>
+        <tr><td>鼠</td><td>子</td><td>水</td><td>智慧、人脉、流动</td></tr>
+        <tr><td>牛</td><td>丑</td><td>土</td><td>稳重、根基、家业</td></tr>
+        <tr><td>虎</td><td>寅</td><td>木</td><td>权威、勇猛、生机</td></tr>
+        <tr><td>兔</td><td>卯</td><td>木</td><td>温和、细腻、灵巧</td></tr>
+        <tr><td>龙</td><td>辰</td><td>土</td><td>尊贵、变化、领导</td></tr>
+        <tr><td>蛇</td><td>巳</td><td>火</td><td>聪慧、内敛、深沉</td></tr>
+        <tr><td>马</td><td>午</td><td>火</td><td>开朗、行动、热情</td></tr>
+        <tr><td>羊</td><td>未</td><td>土</td><td>温和、知恩、稳定</td></tr>
+        <tr><td>猴</td><td>申</td><td>金</td><td>灵活、变通、果敢</td></tr>
+        <tr><td>鸡</td><td>酉</td><td>金</td><td>精明、果断、独立</td></tr>
+        <tr><td>狗</td><td>戌</td><td>土</td><td>忠诚、责任、稳重</td></tr>
+        <tr><td>猪</td><td>亥</td><td>水</td><td>沉稳、有福、流动</td></tr>
+      </tbody>
+    </table>
+
+    <h2>二、地支三合 (贵人组合)</h2>
+    <table class="tbl">
+      <thead><tr><th>三合局</th><th>生肖</th><th>五行局</th><th>意义</th></tr></thead>
+      <tbody>
+        <tr><td>申子辰</td><td>猴-鼠-龙</td><td>水局</td><td>旺智慧、财运、人脉</td></tr>
+        <tr><td>巳酉丑</td><td>蛇-鸡-牛</td><td>金局</td><td>旺权威、事业、财富</td></tr>
+        <tr><td>寅午戌</td><td>虎-马-狗</td><td>火局</td><td>旺名望、魄力、机遇</td></tr>
+        <tr><td>亥卯未</td><td>猪-兔-羊</td><td>木局</td><td>旺生机、学业、成长</td></tr>
+      </tbody>
+    </table>
+    <div class="tip">✦ 取名时<strong style="color:#E8C96A">用三合生肖的字根</strong>，是给名字增加贵人能量的重要方法。</div>
+
+    <h2>三、地支六合 (终身贵人)</h2>
+    <table class="tbl">
+      <thead><tr><th>六合对</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>子鼠 ↔ 丑牛</td><td>水土相融</td></tr>
+        <tr><td>寅虎 ↔ 亥猪</td><td>木水相融</td></tr>
+        <tr><td>卯兔 ↔ 戌狗</td><td>木土相融</td></tr>
+        <tr><td>辰龙 ↔ 酉鸡</td><td>土金相融</td></tr>
+        <tr><td>巳蛇 ↔ 申猴</td><td>火金相融</td></tr>
+        <tr><td>午马 ↔ 未羊</td><td>火土相融</td></tr>
+      </tbody>
+    </table>
+
+    <h2>四、地支相冲 (大忌)</h2>
+    <div class="warn"><div class="warn-lbl">⚠ 取名严格避开</div>
+      <p>子午冲 (鼠 ↔ 马) ｜ 丑未冲 (牛 ↔ 羊)<br>寅申冲 (虎 ↔ 猴) ｜ 卯酉冲 (兔 ↔ 鸡)<br>辰戌冲 (龙 ↔ 狗) ｜ 巳亥冲 (蛇 ↔ 猪)<br><br><strong>属鼠的人不能用「马、午」相关字根</strong>，否则一生奔波劳碌、人际不和。</p>
+    </div>
+
+    <h2>五、姓名三段式</h2>
+    <div class="box"><div class="box-ttl">姓 → 0-20 岁少年运</div><p>家庭出身、父母缘分、少年成长、头部健康</p></div>
+    <div class="box"><div class="box-ttl">名1 (第一字) → 21-40 岁中年运</div><p>事业发展、感情婚姻、人际、中年运势</p></div>
+    <div class="box"><div class="box-ttl">名2 (第二字) → 41-60 岁晚年运</div><p>财富积蓄、身体健康、子女缘分、晚年</p></div>
+  </div>
+  <div class="lesson-nav">
+    <button class="lesson-nav-btn" onclick="goLesson('4-3')"><div class="lnb-lbl">← 上一节</div><div class="lnb-ttl">4.3 五行失衡与补救</div></button>
+    <button class="lesson-nav-btn lnb-r" onclick="goLesson('5-2')"><div class="lnb-lbl">下一节 →</div><div class="lnb-ttl">5.2 起名五得</div></button>
+  </div>
+</div>
+
+<div class="lesson" id="lesson-5-2">
+  <div class="lesson-head">
+    <div class="lesson-kick">第五篇 · 姓名</div>
+    <div class="lesson-num">Lesson 5.2</div>
+    <h1 class="lesson-ttl">起名五得 (五福临门)</h1>
+    <p class="lesson-sub">好名字必须兼备<strong>五得</strong>：得食、得地、得位、得势、得福。</p>
+  </div>
+  <div class="content">
+    <h2>一、五得概览</h2>
+    <table class="tbl">
+      <thead><tr><th>五得</th><th>主管</th><th>关键字根</th></tr></thead>
+      <tbody>
+        <tr><td><strong>得食</strong></td><td>财运、衣食、福气</td><td>禾、米、豆、麦、艹、心、月</td></tr>
+        <tr><td><strong>得地</strong></td><td>住所、根基、资产</td><td>口、宀、门、广、户、山、林</td></tr>
+        <tr><td><strong>得位</strong></td><td>事业、地位、格局</td><td>王、大、君 (大生肖) / 小、士、臣 (小生肖)</td></tr>
+        <tr><td><strong>得势</strong></td><td>人缘、贵人、声望</td><td>衣、巾、糸、彡、亻、人</td></tr>
+        <tr><td><strong>得福</strong></td><td>安逸、享福、平安</td><td>夕、月 (夜行)、几、ㄙ (跷脚)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>二、得食详解</h2>
+    <h3>草食类 (适合鼠、牛、兔、马、羊、鸡、猪)</h3>
+    <ul>
+      <li><strong>字根</strong>：禾、米、豆、麦、艹</li>
+      <li><strong>吉字举例</strong>：秀、秋、科、程、和、芳、芸、芷、茵、茗、萱、莉、蓉、萍、英、薇</li>
+    </ul>
+    <h3>肉食类 (适合虎、蛇、狗)</h3>
+    <ul>
+      <li><strong>字根</strong>：心、忄、月</li>
+      <li><strong>吉字举例</strong>：志、念、忠、怡、恒、恩、悦、惠、慕、慧、忆、怀、悠</li>
+    </ul>
+    <h3>专属龙得食 (龙不食人间烟火)</h3>
+    <ul>
+      <li><strong>字根</strong>：日、月、云、雨、水</li>
+      <li><strong>吉字举例</strong>：明、昕、晨、景、曜、霖、雯、霏、涵、清、浩、泽、源</li>
+    </ul>
+
+    <h2>三、得地详解</h2>
+    <h3>通用字根 (除龙、虎外)</h3>
+    <ul>
+      <li><strong>字根</strong>：口、宀、门、广、户</li>
+      <li><strong>吉字举例</strong>：安、宇、宏、宁、宜、宥、家、宸、富、守、宙、容、庭、序</li>
+    </ul>
+    <h3>虎专属 (虎居山林)</h3>
+    <ul>
+      <li><strong>字根</strong>：山、林、木、丘</li>
+      <li><strong>吉字举例</strong>：岚、岩、峰、峻、嵩、林、森、楚、松、柏、柯、桂、桐、桦</li>
+    </ul>
+
+    <h2>四、得位详解</h2>
+    <h3>大生肖 (鼠、虎、龙、马) — 宜称王</h3>
+    <ul>
+      <li><strong>字根</strong>：王、大、君、帝、冠</li>
+      <li><strong>吉字举例</strong>：玲、珍、琳、琪、瑜、瑞、瑶、瑾、璇、冠、君、玺</li>
+    </ul>
+    <h3>小生肖 (牛、兔、蛇、羊、猴、鸡、狗、猪) — 宜辅佐</h3>
+    <ul>
+      <li><strong>字根</strong>：小、少、士、臣、亚、佐、佑</li>
+      <li><strong>吉字举例</strong>：少、士、臣、亚、佐、佑、仁、仕、壮、诚</li>
+    </ul>
+    <div class="warn"><div class="warn-lbl">⚠ 重要</div>
+      <p>小生肖<strong>不能用「王、大、帝」</strong>等霸气字！比如属牛叫「王某」，叫一辈子很累。</p>
+    </div>
+
+    <h2>五、得势详解</h2>
+    <h3>彩衣字根 (适合鼠、虎、马、蛇、猴、鸡)</h3>
+    <ul>
+      <li><strong>字根</strong>：衣、巾、糸、示、彡、羽</li>
+      <li><strong>吉字举例</strong>：依、衫、素、绮、缘、彤、彦、彬、彰、祯、祥、翊</li>
+    </ul>
+    <div class="warn"><div class="warn-lbl">⚠ 大忌</div><p><strong>牛、羊、猪忌用彩衣字根！</strong>会被视为祭品。</p></div>
+
+    <h2>六、得福详解</h2>
+    <h3>跷脚字根 (适合鼠、牛、羊、猪)</h3>
+    <ul><li><strong>吉字举例</strong>：宏、云、松、元、允、先、兆、全、公、典、共</li></ul>
+    <h3>夜字字根 (适合鼠、蛇、猪、兔)</h3>
+    <ul>
+      <li><strong>字根</strong>：夕、月</li>
+      <li><strong>吉字举例</strong>：夕、梦、汐、月、朋、朗、朔、望</li>
+    </ul>
+
+    <h2>七、综合应用</h2>
+    <div class="example"><div class="example-lbl">为属虎的人取名</div>
+      <p><strong>虎的特质</strong>：山林之王、食肉、宜称王、忌平原田口<br><br><strong>取名建议</strong>：<br>• 得食 → 心、忄、月 (肉食)<br>• 得地 → 山、林、木 (虎居山林)<br>• 得位 → 王、大、君 (大生肖称王)<br>• 得势 → 衣、巾 (彩衣)<br><br><strong>组合吉字</strong>：林思 (林=得地，思=心字底=得食)、岚瑞 (岚=山+雨=得地+龙食、瑞=王字旁=得位)</p>
+    </div>
+  </div>
+  <div class="lesson-nav">
+    <button class="lesson-nav-btn" onclick="goLesson('5-1')"><div class="lnb-lbl">← 上一节</div><div class="lnb-ttl">5.1 生肖姓名学基础</div></button>
+    <button class="lesson-nav-btn lnb-r" onclick="goLesson('5-3')"><div class="lnb-lbl">下一节 →</div><div class="lnb-ttl">5.3 12 生肖宜忌字</div></button>
+  </div>
+</div>
+
+<div class="lesson" id="lesson-5-3">
+  <div class="lesson-head">
+    <div class="lesson-kick">第五篇 · 姓名</div>
+    <div class="lesson-num">Lesson 5.3</div>
+    <h1 class="lesson-ttl">12 生肖宜忌字大全</h1>
+    <p class="lesson-sub">这是<strong>实战参考表</strong>。</p>
+  </div>
+  <div class="content">
+    <h2>子鼠</h2>
+    <table class="tbl"><tbody>
+      <tr><td><strong>✓ 宜</strong></td><td>王、大 (得位称王) ｜ 禾、米、艹 (得食) ｜ 口、宀 (得地) ｜ 衣、彡、巾 (得势)</td></tr>
+      <tr><td><strong>✗ 忌</strong></td><td>日、阳、光、山 (劳碌) ｜ 午、马、未、羊 (相冲) ｜ 人、彳、辶</td></tr>
+    </tbody></table>
+
+    <h2>丑牛</h2>
+    <table class="tbl"><tbody>
+      <tr><td><strong>✓ 宜</strong></td><td>艹、禾、米 (得食) ｜ 田、宀、门 (得地) ｜ 车 (得势尽责)</td></tr>
+      <tr><td><strong>✗ 忌</strong></td><td>王、玉、彩衣字根 (易成祭品) ｜ 日、山、心、忄 ｜ 未、羊、午、马 (相冲)</td></tr>
+    </tbody></table>
+
+    <h2>寅虎</h2>
+    <table class="tbl"><tbody>
+      <tr><td><strong>✓ 宜</strong></td><td>山、林、木 (得地) ｜ 心、忄、月 (得食肉) ｜ 王、大 (得位) ｜ 衣、彡 (得势)</td></tr>
+      <tr><td><strong>✗ 忌</strong></td><td>平、原、田、口 (虎落平阳) ｜ 日、光 ｜ 猴、申、蛇 (相冲)</td></tr>
+    </tbody></table>
+
+    <h2>卯兔</h2>
+    <table class="tbl"><tbody>
+      <tr><td><strong>✓ 宜</strong></td><td>口、宀 (得地) ｜ 艹、禾、米 (得食) ｜ 衣、彡 (得势)</td></tr>
+      <tr><td><strong>✗ 忌</strong></td><td>山、林、王、大 (压力) ｜ 日 ｜ 鸡、酉、龙、辰 (相冲)</td></tr>
+    </tbody></table>
+
+    <h2>辰龙</h2>
+    <table class="tbl"><tbody>
+      <tr><td><strong>✓ 宜</strong></td><td>日、月、云、雨、水 (得食得地) ｜ 王、大、君 (尊贵) ｜ 子、申 (三合)</td></tr>
+      <tr><td><strong>✗ 忌</strong></td><td>人、虫、弓、几 (降格) ｜ 田、口、宀、穴 (受困) ｜ 狗、戌、兔、卯</td></tr>
+    </tbody></table>
+
+    <h2>巳蛇</h2>
+    <table class="tbl"><tbody>
+      <tr><td><strong>✓ 宜</strong></td><td>口、宀、广 (得地藏身) ｜ 心、忄、月 (得食) ｜ 木、衣 (得势) ｜ 辶、廴、弓 (蜿蜒)</td></tr>
+      <tr><td><strong>✗ 忌</strong></td><td>日、光 (日晒) ｜ 山、艹、禾、米 ｜ 猪、亥、虎、寅 (相冲)</td></tr>
+    </tbody></table>
+
+    <h2>午马</h2>
+    <table class="tbl"><tbody>
+      <tr><td><strong>✓ 宜</strong></td><td>禾、米、麦、豆 (得食) ｜ 亻、龙 (得势贵人) ｜ 目 (人缘) ｜ 木、宀 (得地)</td></tr>
+      <tr><td><strong>✗ 忌</strong></td><td>山、田、日、水、氵 ｜ 鼠、子、牛、丑 (相冲)</td></tr>
+    </tbody></table>
+
+    <h2>未羊</h2>
+    <table class="tbl"><tbody>
+      <tr><td><strong>✓ 宜</strong></td><td>艹、禾、米 (得食) ｜ 几、ㄙ (得福跷脚) ｜ 亥、卯 (三合)</td></tr>
+      <tr><td><strong>✗ 忌</strong></td><td>王、大、彩衣 (祭品) ｜ 心、忄、水、氵 ｜ 鼠、子、牛、丑 (相冲)</td></tr>
+    </tbody></table>
+
+    <h2>申猴</h2>
+    <table class="tbl"><tbody>
+      <tr><td><strong>✓ 宜</strong></td><td>木、口 (得地) ｜ 亻、言 (得势人缘) ｜ 子、辰、水 (三合) ｜ 衣、彡 (彩衣升格)</td></tr>
+      <tr><td><strong>✗ 忌</strong></td><td>王、君、田、金 (重压) ｜ 酉、虎、寅、猪、亥 (相冲)</td></tr>
+    </tbody></table>
+
+    <h2>酉鸡</h2>
+    <table class="tbl"><tbody>
+      <tr><td><strong>✓ 宜</strong></td><td>禾、米、豆 (得食) ｜ 山、彡、糸 (得势) ｜ 干、立、中 (独立) ｜ 日 (司晨)</td></tr>
+      <tr><td><strong>✗ 忌</strong></td><td>大、王、多口、双人旁 ｜ 兔、卯、狗、戌 (相冲)</td></tr>
+    </tbody></table>
+
+    <h2>戌狗</h2>
+    <table class="tbl"><tbody>
+      <tr><td><strong>✓ 宜</strong></td><td>心、忄、月 (得食) ｜ 亻、人 (得势贵人) ｜ 宀、口、穴 (得地) ｜ 衣、彡 (彩衣)</td></tr>
+      <tr><td><strong>✗ 忌</strong></td><td>日、山、田、木 ｜ 龙、辰、鸡、酉 (相冲) ｜ 水、氵</td></tr>
+    </tbody></table>
+
+    <h2>亥猪</h2>
+    <table class="tbl"><tbody>
+      <tr><td><strong>✓ 宜</strong></td><td>宀、门 (得地得福) ｜ 禾、米、豆 (得食) ｜ 金 (五行相生) ｜ 口、宏 (得福安逸)</td></tr>
+      <tr><td><strong>✗ 忌</strong></td><td>王、大、彩衣 ｜ 刀、山、力 ｜ 蛇、巳、猴、申 (相冲)</td></tr>
+    </tbody></table>
+
+    <h2>女性专用禁忌</h2>
+    <div class="warn"><div class="warn-lbl">⚠ 女性取名特别忌讳</div>
+      <p><strong>刚强夺权类</strong>：忠、义、顺、强、淑、姿 — 易夺夫权<br><strong>虚幻不稳类</strong>：梦、露、霞、雪 — 福运不长久<br><strong>外貌美艳类</strong>：艳、丽、娇 — 容易招是非</p>
+    </div>
+
+    <div class="tip">✦ 取名是<strong style="color:#E8C96A">艺术 + 科学</strong>。</div>
+  </div>
+  <div class="lesson-nav">
+    <button class="lesson-nav-btn" onclick="goLesson('5-2')"><div class="lnb-lbl">← 上一节</div><div class="lnb-ttl">5.2 起名五得</div></button>
+    <button class="lesson-nav-btn lnb-r" onclick="goLesson('6-1')"><div class="lnb-lbl">下一节 →</div><div class="lnb-ttl">6.1 流年计算公式</div></button>
+  </div>
+</div>
+
+<div class="lesson" id="lesson-6-1">
+  <div class="lesson-head">
+    <div class="lesson-kick">第六篇 · 流年</div>
+    <div class="lesson-num">Lesson 6.1</div>
+    <h1 class="lesson-ttl">流年计算公式</h1>
+    <p class="lesson-sub">流年 = <strong>每一年带给你的能量</strong>。</p>
+  </div>
+  <div class="content">
+    <h2>一、流年公式</h2>
+    <div class="formula">流年 = R(R(a + b) + R(年前两位 + 年后两位))<div class="formula-cn">即：R(e + R(c+d 当年))</div></div>
+
+    <h2>二、计算步骤</h2>
+    <div class="box"><div class="box-ttl"><span class="box-num">1</span>第一步：用出生月日算 e</div>
+      <p><code>e = R(a + b) = R(R(出生日) + R(出生月))</code><br>注意：<strong>e 是固定的</strong>，每一年都用同一个 e。</p>
+    </div>
+    <div class="box"><div class="box-ttl"><span class="box-num">2</span>第二步：算当年的 c + d</div>
+      <p><code>例：2026 年</code><br>• 前两位 20 → R(20) = 2<br>• 后两位 26 → R(26) = 8<br>• R(2 + 8) = 1</p>
+    </div>
+    <div class="box"><div class="box-ttl"><span class="box-num">3</span>第三步：两者相加再 R</div>
+      <p><code>流年 = R(e + 当年R)</code></p>
+    </div>
+
+    <h2>三、完整示范：1985.10.15 看 2026 流年</h2>
+    <div class="example"><div class="example-lbl">第一步：算 e (固定)</div>
+      <p>• a = R(15) = 6<br>• b = R(10) = 1<br>• <strong>e = R(6 + 1) = 7</strong></p>
+    </div>
+    <div class="example"><div class="example-lbl">第二步：算 2026 当年 R</div>
+      <p>• R(20) = 2<br>• R(26) = R(2+6) = 8<br>• <strong>当年 R = R(2 + 8) = 1</strong></p>
+    </div>
+    <div class="example"><div class="example-lbl">第三步：算流年</div>
+      <p><strong>流年 = R(7 + 1) = 8</strong><br><br>✓ 这个人 2026 年走 <strong>8 号大底运</strong></p>
+    </div>
+
+    <h2>四、9 大流年特性速查</h2>
+    <table class="tbl">
+      <thead><tr><th>流年</th><th>名称</th><th>特性</th><th>注意</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1</strong></td><td>开始年</td><td>新阶段开启、积极开创</td><td>适合启动新事业</td></tr>
+        <tr><td><strong>2</strong></td><td>沟通年</td><td>关系修复、人脉拓展</td><td>多倾听、多表达</td></tr>
+        <tr><td><strong>3</strong></td><td>低运年</td><td>能量内耗、易冲动</td><td>⚠️ <strong>不可投资</strong></td></tr>
+        <tr><td><strong>4</strong></td><td>规划年</td><td>蓄势待发、做长期布局</td><td>多读书、多思考</td></tr>
+        <tr><td><strong>5</strong></td><td>转折年</td><td>大变化、外出机会</td><td>转折点要果敢</td></tr>
+        <tr><td><strong>6 ★</strong></td><td>财富年</td><td><strong>9 年才一次</strong></td><td>⭐ 重大投资好时机</td></tr>
+        <tr><td><strong>7</strong></td><td>高运年</td><td>贵人、机遇、桃花</td><td>把握不放弃</td></tr>
+        <tr><td><strong>8</strong></td><td>大底运</td><td>责任压顶、考验来临</td><td>⚠️ <strong>不可投资</strong></td></tr>
+        <tr><td><strong>9</strong></td><td>结果年</td><td>收尾、放手</td><td>放下旧的、迎接新的</td></tr>
+      </tbody>
+    </table>
+
+    <h2>五、特别警示</h2>
+    <div class="warn"><div class="warn-lbl">⚠ 重要警示</div>
+      <p><strong>3 号 & 8 号流年：不可大额投资！</strong><br><br><strong>6 号财富年：9 年才一次！</strong> 这是你重大投资、置业、扩张的最佳时机。<br><br><strong>7 号年可动婚但有无常</strong></p>
+    </div>
+
+    <div class="tip">⚙ 不想手算？使用<a onclick="goLesson('tool')" style="color:#E8C96A;cursor:pointer;text-decoration:underline">命盘速查工具</a>，输入生日自动看 5 年流年。</div>
+  </div>
+  <div class="lesson-nav">
+    <button class="lesson-nav-btn" onclick="goLesson('5-3')"><div class="lnb-lbl">← 上一节</div><div class="lnb-ttl">5.3 12 生肖宜忌字</div></button>
+    <button class="lesson-nav-btn lnb-r" onclick="goLesson('6-2')"><div class="lnb-lbl">下一节 →</div><div class="lnb-ttl">6.2 9 年周期理论</div></button>
+  </div>
+</div>
+
+<div class="lesson" id="lesson-6-2">
+  <div class="lesson-head">
+    <div class="lesson-kick">第六篇 · 流年</div>
+    <div class="lesson-num">Lesson 6.2</div>
+    <h1 class="lesson-ttl">9 年周期理论</h1>
+    <p class="lesson-sub">流年是<strong>9 年一个完整循环</strong>。</p>
+  </div>
+  <div class="content">
+    <h2>一、9 年周期总览</h2>
+    <div class="formula">1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 重新开始<div class="formula-cn">每个数字代表一个能量阶段</div></div>
+
+    <h2>二、3 大循环阶段</h2>
+    <div class="box"><div class="box-ttl">阶段 1：开拓期 (流年 1-3)</div>
+      <p><strong>1 开始 → 2 沟通 → 3 行动</strong><br>播种期。开新阶段、建立连接、启动行动。<br>⚠️ 但 3 号容易冲动失败 — 别在 3 号年做大决定。</p>
+    </div>
+    <div class="box"><div class="box-ttl">阶段 2：成长期 (流年 4-6)</div>
+      <p><strong>4 规划 → 5 转折 → 6 财富</strong><br>关键期。规划布局、勇敢转折、丰收成果。<br>⭐ 6 号是 9 年一次的财富年。</p>
+    </div>
+    <div class="box"><div class="box-ttl">阶段 3：完成期 (流年 7-9)</div>
+      <p><strong>7 高运 → 8 大底 → 9 结果</strong><br>收成期。把握高运、扛住压力、收尾完成。<br>⚠️ 8 号是大底运 — 别投资、要守。</p>
+    </div>
+
+    <h2>三、流年策略图</h2>
+    <table class="tbl">
+      <thead><tr><th>阶段</th><th>策略</th><th>关键行动</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1 开始年</strong></td><td>启动</td><td>新事业、新方向、新关系</td></tr>
+        <tr><td><strong>2 沟通年</strong></td><td>连接</td><td>修复关系、扩大人脉</td></tr>
+        <tr><td><strong>3 低运年</strong></td><td>守</td><td>沉淀、不冲动、不大投资</td></tr>
+        <tr><td><strong>4 规划年</strong></td><td>布局</td><td>读书、深思、长期规划</td></tr>
+        <tr><td><strong>5 转折年</strong></td><td>变</td><td>抓住外出/搬迁/换工作机会</td></tr>
+        <tr><td><strong>6 财富年 ★</strong></td><td>冲</td><td>大投资、置业、扩张</td></tr>
+        <tr><td><strong>7 高运年</strong></td><td>抓</td><td>抓贵人、抓机遇、抓桃花</td></tr>
+        <tr><td><strong>8 大底运</strong></td><td>稳</td><td>稳守、扛压、不冒险</td></tr>
+        <tr><td><strong>9 结果年</strong></td><td>放</td><td>收尾、放手、准备新周期</td></tr>
+      </tbody>
+    </table>
+
+    <h2>四、判断你目前在哪个阶段</h2>
+    <div class="example"><div class="example-lbl">案例：今年 6 号财富年</div>
+      <p><strong>这是 9 年一遇</strong>。如果你想买房、换车、扩张事业 — <strong>就是现在</strong>。</p>
+    </div>
+    <div class="example"><div class="example-lbl">案例：今年 8 号大底运</div>
+      <p><strong>不要冒险</strong>。这年也是<strong>磨砺品格</strong>的时候 — 扛过去，9 年下个周期会更强。</p>
+    </div>
+  </div>
+  <div class="lesson-nav">
+    <button class="lesson-nav-btn" onclick="goLesson('6-1')"><div class="lnb-lbl">← 上一节</div><div class="lnb-ttl">6.1 流年计算公式</div></button>
+    <button class="lesson-nav-btn lnb-r" onclick="goLesson('6-3')"><div class="lnb-lbl">下一节 →</div><div class="lnb-ttl">6.3 2026 流年深度分析</div></button>
+  </div>
+</div>
+
+<div class="lesson" id="lesson-6-3">
+  <div class="lesson-head">
+    <div class="lesson-kick">第六篇 · 流年</div>
+    <div class="lesson-num">Lesson 6.3</div>
+    <h1 class="lesson-ttl">2026 流年深度分析</h1>
+    <p class="lesson-sub">2026 是个特殊的年份。<strong>当年 R = 1</strong>，意味着大家都在经历某种「开始」的能量。</p>
+  </div>
+  <div class="content">
+    <h2>一、2026 整体能量</h2>
+    <div class="formula">2026 当年 R = R(20) + R(26) = R(2 + 8) = 1<div class="formula-cn">2026 是「1 号开始能量」之年</div></div>
+    <p>整个 2026，宇宙的整体能量是 <strong>开始、开创、领导</strong>。</p>
+
+    <h2>二、按你的主性格 g 看 2026</h2>
+    <table class="tbl">
+      <thead><tr><th>你的 g</th><th>2026 提示</th></tr></thead>
+      <tbody>
+        <tr><td><strong>g = 1</strong></td><td>2026 是你的本命能量年。该做就做，全力以赴。</td></tr>
+        <tr><td><strong>g = 2</strong></td><td>开始一段重要关系或合作。多说话，多连接。</td></tr>
+        <tr><td><strong>g = 3</strong></td><td>启动新项目，但要克制冲动。先沉淀再行动。</td></tr>
+        <tr><td><strong>g = 4</strong></td><td>启动你长期规划的事。这是一个完美的「开始」。</td></tr>
+        <tr><td><strong>g = 5</strong></td><td>大转折！换工作、搬家、出国都在这一年。</td></tr>
+        <tr><td><strong>g = 6</strong></td><td>新阶段，可能跟教育、咨询、家族有关。</td></tr>
+        <tr><td><strong>g = 7</strong></td><td>贵人来了！把握新机会，别太多疑慎。</td></tr>
+        <tr><td><strong>g = 8</strong></td><td>新责任降临。你要扛起更大的盘子。</td></tr>
+        <tr><td><strong>g = 9</strong></td><td>新创意、新作品。表达你独特的灵魂。</td></tr>
+      </tbody>
+    </table>
+
+    <h2>三、按你的流年看 2026</h2>
+    <div class="box"><div class="box-ttl">2026 流年 = 1 (开始年)</div><p>⭐ <strong>这是你 9 年新周期的开始</strong>。该启动了：新事业、新关系、新方向。</p></div>
+    <div class="box"><div class="box-ttl">2026 流年 = 3 (低运年)</div><p>⚠️ <strong>沉淀年</strong>。别投资、别冲动决定。</p></div>
+    <div class="box"><div class="box-ttl">2026 流年 = 6 (财富年) ★</div><p>⭐⭐⭐ <strong>9 年一次的财富年！</strong> 大投资、置业、扩张 — 就是今年。</p></div>
+    <div class="box"><div class="box-ttl">2026 流年 = 8 (大底运)</div><p>⚠️ <strong>压力之年</strong>。责任压顶。别冒险，稳守。</p></div>
+
+    <h2>四、2026 行业机遇</h2>
+    <ul>
+      <li><strong>金属性行业</strong>：金融、机械、医疗、独立咨询</li>
+      <li><strong>领导型职业</strong>：创业、独立工作室、个人 IP</li>
+      <li><strong>开创型项目</strong>：新品类、新平台、新模式</li>
+    </ul>
+
+    <h2>五、2026 注意事项</h2>
+    <div class="warn"><div class="warn-lbl">⚠ 2026 全年提醒</div>
+      <p>• 流年 3 或 8 的人，<strong>千万别投资</strong><br>• 流年 6 的人，<strong>这是 9 年最关键的一年</strong>，别错过<br>• 流年 9 的人，<strong>该结束的就结束</strong>，迎接 2027 新周期</p>
+    </div>
+  </div>
+  <div class="lesson-nav">
+    <button class="lesson-nav-btn" onclick="goLesson('6-2')"><div class="lnb-lbl">← 上一节</div><div class="lnb-ttl">6.2 9 年周期理论</div></button>
+    <button class="lesson-nav-btn lnb-r" onclick="goLesson('tool')"><div class="lnb-lbl">下一节 →</div><div class="lnb-ttl">命盘速查工具</div></button>
+  </div>
+</div>
+
+<div class="lesson" id="lesson-tool">
+  <div class="lesson-head">
+    <div class="lesson-kick">实用工具</div>
+    <div class="lesson-num">Tool</div>
+    <h1 class="lesson-ttl">命盘速查工具</h1>
+    <p class="lesson-sub">输入<strong>阳历生日</strong>，自动计算 16 位命盘 + Q + 主性格 + 五行平衡 + 流年。</p>
+  </div>
+  <div class="content">
+    <div class="tool-box">
+      <div class="tool-ttl">⚙ 输入生日</div>
+      <div class="tool-inputs">
+        <input type="number" class="tool-input" id="toolDay" min="1" max="31" placeholder="日 DD">
+        <input type="number" class="tool-input" id="toolMonth" min="1" max="12" placeholder="月 MM">
+        <input type="number" class="tool-input" id="toolYear" min="1900" max="2025" placeholder="年 YYYY">
+      </div>
+      <button class="tool-btn" onclick="generateChart()">生成完整命盘</button>
+      <div id="toolResult"></div>
+    </div>
+
+    <h2>使用说明</h2>
+    <div class="box"><div class="box-ttl">输入须知</div>
+      <p>① <strong>必须用阳历 (公历) 生日</strong>，不是农历<br>② 完整年份输入 (例：1985 不是 85)<br>③ 不知道阳历？查万年历或微信「我的资料」</p>
+    </div>
+
+    <h2>结果包含</h2>
+    <ul>
+      <li><strong>16 位主命盘</strong>：a-p 全部数字</li>
+      <li><strong>Q 本源梦想</strong>：你最深的渴望</li>
+      <li><strong>3 个隐藏号</strong>：潜藏天赋</li>
+      <li><strong>主性格 g</strong>：核心人格</li>
+      <li><strong>五行分布</strong>：金水木火土数量</li>
+      <li><strong>未来 5 年流年</strong>：2026-2030</li>
+    </ul>
+  </div>
+  <div class="lesson-nav">
+    <button class="lesson-nav-btn" onclick="goLesson('6-3')"><div class="lnb-lbl">← 上一节</div><div class="lnb-ttl">6.3 2026 流年深度分析</div></button>
+    <button class="lesson-nav-btn lnb-r" onclick="goLesson('home')"><div class="lnb-lbl">→ 返回</div><div class="lnb-ttl">首页 · 总览</div></button>
+  </div>
+</div>
+
+</main>
+</div>
+</div>
+
+<script>
+function checkPassword() {
+  var pwd = document.getElementById('gatePwd').value.trim();
+  var err = document.getElementById('gateErr');
+  if (pwd === '1313') {
+    document.getElementById('gate').classList.add('hidden');
+    document.getElementById('app').classList.add('show');
+    try { sessionStorage.setItem('learn_auth', '1'); } catch(e) {}
+  } else {
+    err.style.display = 'block';
+    document.getElementById('gatePwd').value = '';
+    setTimeout(function() { err.style.display = 'none'; }, 3000);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+    if (sessionStorage.getItem('learn_auth') === '1') {
+      document.getElementById('gate').classList.add('hidden');
+      document.getElementById('app').classList.add('show');
+    }
+  } catch(e) {}
+  var pwd = document.getElementById('gatePwd');
+  if (pwd) {
+    pwd.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') checkPassword();
+    });
+    pwd.focus();
+  }
+});
+
+function goLesson(id) {
+  var lessons = document.querySelectorAll('.lesson');
+  for (var i = 0; i < lessons.length; i++) lessons[i].classList.remove('show');
+  var target = document.getElementById('lesson-' + id);
+  if (target) {
+    target.classList.add('show');
+    window.scrollTo(0, 0);
+  }
+  var links = document.querySelectorAll('.side-link');
+  for (var j = 0; j < links.length; j++) {
+    links[j].classList.remove('active');
+    if (links[j].getAttribute('data-id') === id) links[j].classList.add('active');
+  }
+  if (window.innerWidth < 900) {
+    document.getElementById('sidebar').classList.remove('show');
+  }
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('show');
+}
+
+function R(n) {
+  if (n === 0) return 5;
+  while (n > 9) {
+    var s = String(n);
+    var sum = 0;
+    for (var i = 0; i < s.length; i++) sum += parseInt(s[i]);
+    n = sum;
+  }
+  return n;
+}
+
+function generateChart() {
+  var d = parseInt(document.getElementById('toolDay').value);
+  var m = parseInt(document.getElementById('toolMonth').value);
+  var y = parseInt(document.getElementById('toolYear').value);
+  if (!d || !m || !y) { alert('请输入完整的出生日期'); return; }
+  if (d<1||d>31||m<1||m>12||y<1900||y>2025) { alert('请输入有效的日期'); return; }
+  
+  var a = R(d), b = R(m);
+  var ys = String(y);
+  var c = R(parseInt(ys.substring(0,2)));
+  var dRaw = parseInt(ys.substring(2,4));
+  var dd = (dRaw === 0) ? 5 : R(dRaw);
+  var e = R(a+b), f = R(c+dd), g = R(e+f);
+  var h = R(e+g), i = R(f+g), j = R(h+i);
+  var k = R(a+e), l = R(b+e), mm = R(k+l);
+  var n = R(c+f), o = R(dd+f), p = R(n+o);
+  var Q = R(a+dd+g);
+  var h1 = R(e+e), h2 = R(f+f), h3 = R(g+g);
+  var inner = R(g+e+f), subc = R(g+a+dd);
+  
+  var nums = [a,b,c,dd,e,f,g,h,i,j,k,l,mm,n,o,p,Q];
+  var elem = {metal:0,water:0,wood:0,fire:0,earth:0};
+  for (var x = 0; x < nums.length; x++) {
+    var nn = nums[x];
+    if (nn===1||nn===6) elem.metal++;
+    else if (nn===2||nn===7) elem.water++;
+    else if (nn===4||nn===9) elem.wood++;
+    else if (nn===3||nn===8) elem.fire++;
+    else if (nn===5) elem.earth++;
+  }
+  
+  var lyArr = [];
+  for (var ly = 0; ly < 5; ly++) {
+    var year = 2026 + ly;
+    var yys = String(year);
+    var lyR = R(R(parseInt(yys.substring(0,2))) + R(parseInt(yys.substring(2,4))));
+    lyArr.push({year:year, liunian:R(e+lyR)});
+  }
+  
+  var gDesc = {
+    1:'领导者 (金) · 独立、果敢、有领导欲',
+    2:'沟通者 (水) · 细腻敏感，善协调',
+    3:'行动派 (火) · 反应快、冲劲足',
+    4:'规划者 (木) · 稳重可靠，追求安全',
+    5:'自由派 (土) · 多才多艺，热爱自由',
+    6:'智慧者 (金) · 有爱心、有智慧',
+    7:'思考者 (水) · 洞察力强、贵人多',
+    8:'责任者 (火) · 有担当、抗压强',
+    9:'成功者 (木) · 浪漫、多才'
+  };
+  var lyDesc = {
+    1:'⭐ 开始年 — 启动新事业',
+    2:'沟通年 — 修复关系',
+    3:'⚠️ 低运年 — 不可投资',
+    4:'规划年 — 长期布局',
+    5:'转折年 — 大变化',
+    6:'⭐⭐⭐ 财富年 — 9 年一次！',
+    7:'高运年 — 贵人桃花',
+    8:'⚠️ 大底运 — 不可投资',
+    9:'结果年 — 收尾完成'
+  };
+  
+  function elemStatus(count, base) {
+    if (count >= base+2) return '<span style="color:#E07B7B">过旺</span>';
+    if (count <= 1) return '<span style="color:#E07B7B">极缺 ⚠️</span>';
+    if (count < base) return '<span style="color:#FACC15">偏弱</span>';
+    return '<span style="color:#4A9D7A">平衡</span>';
+  }
+  
+  // 五行属性
+  function getElem(num) {
+    if (num===1||num===6) return '金';
+    if (num===2||num===7) return '水';
+    if (num===4||num===9) return '木';
+    if (num===3||num===8) return '火';
+    if (num===5) return '土';
+    return '';
+  }
+  
+  // 三个数字组合的吉凶分析
+  function analyzeCombo3(n1, n2, n3) {
+    var elems = [getElem(n1), getElem(n2), getElem(n3)];
+    var combo = n1+'-'+n2+'-'+n3;
+    
+    // 大吉组合
+    var greats = ['4-5-9','5-4-9','1-6-7','6-1-7','1-5-6','5-1-6','6-8-5','8-6-5','2-4-7','4-7-9','5-6-8'];
+    if (greats.indexOf(combo) >= 0) return {tag:'★ 大吉', color:'#4A9D7A', note:'大吉组合 — 顺生格局，能量流畅'};
+    
+    // 双火警示
+    var fireCount = (n1===3||n1===8?1:0)+(n2===3||n2===8?1:0)+(n3===3||n3===8?1:0);
+    if (fireCount >= 2 && (n1===n2||n2===n3||n1===n3)) return {tag:'⚠️ 火过旺', color:'#E07B7B', note:'双火警示 — 易冲动燃尽，需补水'};
+    
+    // 水火并存
+    var hasFire = elems.indexOf('火') >= 0;
+    var hasWater = elems.indexOf('水') >= 0;
+    if (hasFire && hasWater) return {tag:'⚠ 水火相战', color:'#FACC15', note:'水火并存 — 能量内耗，需通关'};
+    
+    // 同行强格
+    if (n1===n2 && n2===n3) return {tag:'同行极旺', color:'#FACC15', note:'三同行 — 能量极致但易过盛'};
+    
+    // 顺生
+    var sheng = {'金':'水','水':'木','木':'火','火':'土','土':'金'};
+    if (sheng[elems[0]] === elems[1] && sheng[elems[1]] === elems[2]) return {tag:'★ 顺生', color:'#4A9D7A', note:'三连相生 — 能量顺畅流动'};
+    if (sheng[elems[2]] === elems[1] && sheng[elems[1]] === elems[0]) return {tag:'★ 顺生', color:'#4A9D7A', note:'三连相生 — 能量顺畅流动'};
+    
+    // 默认中性
+    return {tag:'中性', color:'#C8BDA7', note:'看上下文与位置含义'};
+  }
+  
+  // ───── 渲染开始 (按 SHUYI 数易书 6.2 排版) ─────
+  var html = '<div style="margin-top:24px;padding-top:24px;border-top:1px solid rgba(212,184,120,0.2)">';
+  html += '<h3 style="color:#E8C96A;font-family:Noto Serif SC,serif;margin-bottom:14px">📊 16 位完整命盘</h3>';
+  
+  // SHUYI 标准格式：线性双行表（字母 + 数值）
+  html += '<div style="overflow-x:auto;margin-bottom:18px">';
+  html += '<table style="width:100%;border-collapse:collapse;font-family:Cormorant Garamond,serif;min-width:560px">';
+  // Letters row (dark navy bg with gold text)
+  html += '<tr style="background:#0F1F3D">';
+  html += '<th style="padding:10px 8px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:13px;letter-spacing:1px;width:60px">字母</th>';
+  var letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p'];
+  for (var li2 = 0; li2 < letters.length; li2++) {
+    html += '<th style="padding:10px 4px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:14px;text-transform:lowercase">'+letters[li2]+'</th>';
+  }
+  html += '</tr>';
+  // Values row (light bg with dark text - matching PDF)
+  html += '<tr style="background:#1A2C4E">';
+  html += '<th style="padding:10px 8px;color:#E8C96A;border:1px solid rgba(212,184,120,0.3);font-size:13px;letter-spacing:1px">数值</th>';
+  var values = [a,b,c,dd,e,f,g,h,i,j,k,l,mm,n,o,p];
+  for (var vi = 0; vi < values.length; vi++) {
+    var isG2 = letters[vi] === 'g';
+    html += '<td style="padding:10px 4px;color:'+(isG2?'#FFE89A':'#F5F0E8')+';border:1px solid rgba(212,184,120,0.3);text-align:center;font-size:18px;font-weight:700"'+(isG2?' title="主性格"':'')+'>'+values[vi]+'</td>';
+  }
+  html += '</tr>';
+  html += '</table>';
+  html += '</div>';
+  
+  html += '<p style="text-align:center;font-size:14px;color:#C8BDA7">本源梦想 <b style="color:#E8C96A">Q = '+Q+'</b> · 主性格 <b style="color:#FFE89A">g = '+g+'</b></p>';
+  html += '</div>';
+  
+  // 主性格 g
+  html += '<div style="background:rgba(212,184,120,0.08);border:1px solid #D4B878;padding:18px;margin-top:20px">';
+  html += '<h3 style="color:#E8C96A;font-family:Noto Serif SC,serif;margin-bottom:8px">★ 主性格 g = '+g+'</h3>';
+  html += '<p style="color:#F5F0E8">'+gDesc[g]+'</p></div>';
+  
+  // ═══ 13 组生命信息标准格式 (按 SHUYI PDF 6.3 排版) ═══
+  html += '<div style="margin-top:24px;padding-top:20px;border-top:1px solid rgba(212,184,120,0.3)">';
+  html += '<h3 style="color:#E8C96A;font-family:Noto Serif SC,serif;margin-bottom:14px">🔮 13 组生命信息标准格式</h3>';
+  html += '<p style="color:#8A7F6B;font-size:13px;margin-bottom:14px;font-style:italic">按数易文化 6.3 节标准排版 · 每组三位数 = 该面向的能量编码</p>';
+  
+  // 13 大组合 - 按 SHUYI PDF 标准 (父基因=abe 修正后)
+  var combos = [
+    {num:'1', name:'父基因', code:'abe', val:''+a+b+e, mean:'家庭背景、童年环境、与父亲关系'},
+    {num:'2', name:'母基因', code:'cdf', val:''+c+dd+f, mean:'情感来源、安全感、与母亲关系'},
+    {num:'3', name:'主性格', code:'efg', val:''+e+f+g, mean:'★ 核心三数 — 你这辈子的人生底色'},
+    {num:'4', name:'人生过程', code:'egh', val:''+e+g+h, mean:'内在思考、自我对话方式'},
+    {num:'5', name:'性格过程', code:'fgi', val:''+f+g+i, mean:'外在表现、别人看到的你'},
+    {num:'6', name:'子女下属', code:'ihj', val:''+i+h+j, mean:'与后辈关系、领导风格'},
+    {num:'7', name:'事业过程①', code:'aek', val:''+a+e+k, mean:'事业起点、方向'},
+    {num:'8', name:'事业过程②', code:'bel', val:''+b+e+l, mean:'事业发展、伙伴'},
+    {num:'9', name:'当下朋友', code:'klm', val:''+k+l+mm, mean:'人际圈子、贵人能量'},
+    {num:'10', name:'婚姻过程①', code:'cfn', val:''+c+f+n, mean:'情感本质、婚姻基础'},
+    {num:'11', name:'婚姻过程②', code:'dfo', val:''+dd+f+o, mean:'相处模式、婚姻发展'},
+    {num:'12', name:'未来财富/健康/子媳', code:'nop', val:''+n+o+p, mean:'中后期财富、健康、晚年'},
+    {num:'13', name:'隐藏号', code:'R(e+e)R(f+f)R(g+g)', val:''+h1+h2+h3, mean:'潜藏能量与天命功课'}
+  ];
+  
+  // 按 SHUYI PDF 标准排版：# / 组合名称 / 公式 / 示例 / 含义
+  html += '<div style="overflow-x:auto">';
+  html += '<table class="tbl" style="font-size:13px;min-width:560px">';
+  html += '<thead><tr>';
+  html += '<th style="text-align:center;width:40px">#</th>';
+  html += '<th>组合名称</th>';
+  html += '<th>公式</th>';
+  html += '<th style="text-align:center;width:90px">示例</th>';
+  html += '<th>含义</th>';
+  html += '</tr></thead><tbody>';
+  
+  for (var co = 0; co < combos.length; co++) {
+    var cb = combos[co];
+    var ana = analyzeCombo3(parseInt(cb.val[0]), parseInt(cb.val[1]), parseInt(cb.val[2]));
+    var isMain = cb.num === '3';  // 主性格特殊高亮
+    
+    html += '<tr'+(isMain?' style="background:rgba(212,184,120,0.06)"':'')+'>';
+    html += '<td style="text-align:center;color:#D4B878;font-family:Cormorant Garamond,serif;font-style:italic">'+cb.num+'</td>';
+    html += '<td><b style="color:'+(isMain?'#FFE89A':'#E8C96A')+'">'+cb.name+'</b></td>';
+    html += '<td style="font-family:Cormorant Garamond,serif;color:#C8BDA7">'+cb.code+'</td>';
+    html += '<td style="text-align:center;font-family:Cormorant Garamond,serif;font-size:20px;font-weight:700;color:'+(isMain?'#FFE89A':'#F5F0E8')+';letter-spacing:2px">'+cb.val+'</td>';
+    html += '<td style="color:#C8BDA7;font-size:12px">'+cb.mean+'<br><span style="color:'+ana.color+';font-size:11px;font-weight:600">'+ana.tag+'</span></td>';
+    html += '</tr>';
+  }
+  html += '</tbody></table>';
+  html += '</div>';
+  
+  // 隐藏号 + 内心 + 潜意识 (PDF 6.3 之后部分)
+  html += '<div style="margin-top:20px"><h4 style="color:#E8C96A;font-family:Noto Serif SC,serif;margin-bottom:10px;font-size:15px">深层数字</h4>';
+  html += '<table class="tbl" style="font-size:13px"><tbody>';
+  html += '<tr><td>内心数字 R(g+e+f)</td><td style="text-align:center"><b style="color:#E8C96A;font-size:18px;font-family:Cormorant Garamond,serif">'+inner+'</b></td><td style="font-size:12px">真正想要的</td></tr>';
+  html += '<tr><td>潜意识数字 R(g+a+d)</td><td style="text-align:center"><b style="color:#E8C96A;font-size:18px;font-family:Cormorant Garamond,serif">'+subc+'</b></td><td style="font-size:12px">不自觉的模式</td></tr>';
+  html += '</tbody></table></div>';
+  
+  html += '<p style="margin-top:14px;color:#8A7F6B;font-size:12px;font-style:italic">详细解读请查看课程 <a onclick="goLesson(\'3-1\')" style="color:#E8C96A;text-decoration:underline;cursor:pointer">3.1 节</a> 与 <a onclick="goLesson(\'3-2\')" style="color:#E8C96A;text-decoration:underline;cursor:pointer">3.2 节</a></p>';
+  html += '</div>';
+  
+  // 五行平衡
+  html += '<div style="margin-top:20px"><h3 style="color:#E8C96A;font-family:Noto Serif SC,serif;margin-bottom:14px">🌏 五行平衡</h3>';
+  html += '<table class="tbl"><tbody>';
+  html += '<tr><td>金 (1,6)</td><td><b>'+elem.metal+'</b></td><td>'+elemStatus(elem.metal,4)+'</td></tr>';
+  html += '<tr><td>水 (2,7)</td><td><b>'+elem.water+'</b></td><td>'+elemStatus(elem.water,3)+'</td></tr>';
+  html += '<tr><td>木 (4,9)</td><td><b>'+elem.wood+'</b></td><td>'+elemStatus(elem.wood,3)+'</td></tr>';
+  html += '<tr><td>火 (3,8)</td><td><b>'+elem.fire+'</b></td><td>'+elemStatus(elem.fire,3)+'</td></tr>';
+  html += '<tr><td>土 (5)</td><td><b>'+elem.earth+'</b></td><td>'+elemStatus(elem.earth,3)+'</td></tr>';
+  html += '</tbody></table></div>';
+  
+  if (elem.water >= 3 && elem.fire >= 3) {
+    html += '<div class="warn"><div class="warn-lbl">⚠ 水火并存警示</div>';
+    html += '<p>水 ('+elem.water+') 与火 ('+elem.fire+') 同时偏旺，能量内耗。请回到 4.2 课重点学习。</p></div>';
+  }
+  
+  // 流年
+  html += '<div style="margin-top:20px"><h3 style="color:#E8C96A;font-family:Noto Serif SC,serif;margin-bottom:14px">📅 流年运程 (未来 5 年)</h3>';
+  html += '<table class="tbl"><tbody>';
+  for (var li = 0; li < lyArr.length; li++) {
+    html += '<tr><td>'+lyArr[li].year+'</td><td><b>'+lyArr[li].liunian+' 号</b></td><td>'+lyDesc[lyArr[li].liunian]+'</td></tr>';
+  }
+  html += '</tbody></table></div>';
+  
+  document.getElementById('toolResult').innerHTML = html;
+}
+</script>
+
+</body>
+</html>
