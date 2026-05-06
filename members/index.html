@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>数易命盘分析系统 · 黄冠尊</title>
+<title>数易命盘分析系统 · 黄冠尊Wilson Ooi</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
@@ -281,45 +281,20 @@ body{font-family:"Noto Sans SC",sans-serif;background:var(--navy);color:var(--t1
 .mp-arrow{font-size:12px;color:rgba(33,150,243,.4);text-align:center;}
 
 
-/* ── NAME ANALYSIS ── */
-.na-zodiac{background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.05));border:1px solid rgba(201,168,76,.3);border-radius:12px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;}
-.na-zodiac-char{font-size:36px;line-height:1;}
-.na-zodiac-info{}
-.na-zodiac-name{font-family:"Noto Serif SC",serif;font-size:16px;font-weight:700;color:var(--gl);}
-.na-zodiac-sub{font-size:12px;color:var(--t3);margin-top:2px;}
-.na-part{border-radius:12px;padding:14px 16px;margin-bottom:10px;}
-.na-part.good{background:rgba(46,204,113,.07);border:1px solid rgba(46,204,113,.22);}
-.na-part.warn{background:rgba(239,83,80,.07);border:1px solid rgba(239,83,80,.22);}
-.na-part.ok{background:rgba(33,150,243,.07);border:1px solid rgba(33,150,243,.2);}
-.na-part.missing{background:rgba(255,193,7,.07);border:1px solid rgba(255,193,7,.2);}
-.na-part-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
-.na-part-title{font-size:13px;font-weight:700;color:var(--white);}
-.na-part-age{font-size:11px;color:var(--t3);}
-.na-char-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
-.na-char-box{border-radius:8px;padding:8px 12px;text-align:center;min-width:48px;}
-.na-char-box.cg{background:rgba(46,204,113,.12);border:1px solid rgba(46,204,113,.3);}
-.na-char-box.cb{background:rgba(239,83,80,.12);border:1px solid rgba(239,83,80,.3);}
-.na-char-box.cn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);}
-.na-char-val{font-family:"Noto Serif SC",serif;font-size:22px;font-weight:700;color:var(--white);}
-.na-items{font-size:12px;line-height:1.8;}
-.na-items.good{color:#81C784;}
-.na-items.bad{color:#EF9A9A;}
-.na-suggest{background:rgba(33,150,243,.08);border:1px solid rgba(33,150,243,.2);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--t2);line-height:1.8;margin-top:10px;}
-.na-suggest strong{color:var(--white);}
-.na-expert{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--gl);line-height:1.7;margin-top:8px;}
+
 
 </style>
 </head>
 <body>
 <div class="hdr">
-  <div><div class="logo">数字生命信息系统<span>黄冠尊 · 数字生命信息</span></div></div>
-  <div class="hdr-tag">生命信息分析</div>
+  <div><div class="logo">黄冠尊会员系统</div></div>
+  <div class="hdr-tag">数易命盘分析</div>
 </div>
 
 <!-- PASSWORD -->
 <div style="min-height:100vh;background:var(--navy);" id="pwPage"><div class="pw-wrap" id="pwWrap">
   <div class="pw-lock">🔐</div>
-  <h2 class="pw-title">数字生命信息系统</h2>
+  <h2 class="pw-title">黄冠尊自动系统</h2>
   <p class="pw-sub">此系统仅限授权学员使用<br>请输入访问密码</p>
   <div class="pw-card">
     <input class="pw-inp" id="pwInp" type="password" placeholder="输入密码" maxlength="10" onkeydown="if(event.key==='Enter')checkPw()">
@@ -333,22 +308,6 @@ body{font-family:"Noto Sans SC",sans-serif;background:var(--navy);color:var(--t1
   <h1 class="ititle">数易<span class="g">命盘分析</span></h1>
   <p class="isub">完整命盘 · 13组合 · 五行 · 流年</p>
   <div class="card">
-    <label class="lbl">👤 中文姓名</label>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:6px;">
-      <div>
-        <div style="font-size:11px;color:var(--t3);margin-bottom:5px;letter-spacing:1px;">姓</div>
-        <input class="inp" id="iSurname" placeholder="如：陈" style="margin:0;text-align:center;font-size:18px;">
-      </div>
-      <div>
-        <div style="font-size:11px;color:var(--t3);margin-bottom:5px;letter-spacing:1px;">名1（20-40岁）</div>
-        <input class="inp" id="iName1" placeholder="如：伟" style="margin:0;text-align:center;font-size:18px;">
-      </div>
-      <div>
-        <div style="font-size:11px;color:var(--t3);margin-bottom:5px;letter-spacing:1px;">名2（40岁+）</div>
-        <input class="inp" id="iName2" placeholder="如：明（可选）" style="margin:0;text-align:center;font-size:18px;">
-      </div>
-    </div>
-    <div style="font-size:11px;color:var(--t3);margin-bottom:16px;">例：姓「陈」名「伟明」→ 姓=陈，名1=伟，名2=明</div>
     <label class="lbl">📅 出生日期</label>
     <div class="dob-grid">
       <input class="inp" id="iDay" placeholder="日" type="number" min="1" max="31" style="margin:0">
@@ -385,7 +344,6 @@ body{font-family:"Noto Sans SC",sans-serif;background:var(--navy);color:var(--t1
     <div class="sec" id="missSec"><div class="sttl"><span>❌</span>缺失数字分析</div><div class="mgrid" id="mGrid"></div><div class="wbox" id="wBox" style="display:none"></div></div>
     <div class="sec"><div class="sttl"><span>☯</span>五行能量分析（16数）</div><div class="wxrow" id="wxRow"></div><table class="btbl" id="bTbl"></table><div class="wbox" id="wxW" style="display:none;margin-top:11px;"></div></div>
     <div class="sec"><div class="sttl"><span>📅</span>2026 流年运程</div><div class="lyhero" id="lyH"></div><div class="lynums" id="lyN"></div><div class="lyad" id="lyA"></div></div>
-    <div class="sec" id="nameSec"><div class="sttl"><span>📛</span>姓名生肖分析</div><div id="nameAnalysis"></div></div>
     <div class="sec"><div class="sttl"><span>🎯</span>四大重点分析</div><div class="pgrid" id="pGrid"></div></div>
   </div>
 </div>
@@ -518,384 +476,6 @@ const LY={
 };
 
 
-// ═══════════════════════════
-// SHENGXIAO NAME DATA (简化版)
-// ═══════════════════════════
-const ZODIAC_INFO = {
-  '鼠':{elem:'水', icon:'🐭',
-    xi:['艹草禾（得食）','宀门洞穴（得地）','夕月（得福）','王帝令冠将（得位-大生肖）','依袀礼宗帆楚羽（得势-彩衣）'],
-    ji:['日阳白光（劳碌，老鼠见太阳危机）','马午（相冲）','羊（相害）','文义女（绑腿）','阝拎耳朵','美英（开大大）']},
-  '牛':{elem:'土', icon:'🐮',
-    xi:['艹草禾（得食）','宀门洞穴（得地）','夕月（得福）','小丁兵千亚寸（得位-小生肖）'],
-    ji:['虎寅（刑冲）','彩衣依袀礼（不喜彩衣）','文义女（绑腿）','阝拎耳朵','美英（开大大）']},
-  '虎':{elem:'木', icon:'🐯',
-    xi:['志悦朔月（得食-肉食）','山丘林木（得地）','王帝令冠将（得位-大生肖）','依袀礼宗帆楚羽（得势-彩衣）'],
-    ji:['宀门洞穴（受困，虎忌洞穴）','平原沙（虎落平原被犬欺）','刀刃（林中见刀伤虎）','文义女（绑腿）','阝拎耳朵','美英（开大大）']},
-  '兔':{elem:'木', icon:'🐰',
-    xi:['艹草禾（得食）','宀门洞穴（得地）','夕月（得福）','小丁兵千亚寸（得位-小生肖）'],
-    ji:['山丘（刑伤，兔忌山）','文义女（绑腿）','阝拎耳朵','美英（开大大）']},
-  '龙':{elem:'木', icon:'🐲',
-    xi:['日月云雨（得食+得地+得势）','王帝令冠将（得位-大生肖）'],
-    ji:['人亻单人旁（降格，龙被人骑）','弓几虫（降格）','羊（天罗地网）','夕月跷脚（龙不喜跷脚）','文义女（绑腿）','阝拎耳朵','美英（开大大）']},
-  '蛇':{elem:'火', icon:'🐍',
-    xi:['志悦朔月（得食-肉食）','宀门洞穴（得地）','小丁兵千亚寸（得位-小生肖）'],
-    ji:['阳白光日（劳碌）','山（强出头）','夕月跷脚（蛇不喜跷脚）','文义女（绑腿）','阝拎耳朵','美英（开大大）']},
-  '马':{elem:'火', icon:'🐴',
-    xi:['艹草禾（得食）','宀门（得地）','王帝令冠将（得位-大生肖）','依袀礼宗帆楚羽（得势-彩衣）','伟单人旁（得势-逢人）'],
-    ji:['山（马上山寸步难行）','田甫（降格做耕马）','水氵（水火相冲）','夕月跷脚（马不喜跷脚）','文义女（绑腿）','阝拎耳朵','美英（开大大）']},
-  '羊':{elem:'火', icon:'🐑',
-    xi:['艹草禾（得食）','宀门洞穴（得地）','夕月（得福）','小丁兵千亚寸（得位-小生肖）'],
-    ji:['彩衣依袀礼（不喜彩衣）','文义女（绑腿）','阝拎耳朵','美英（开大大）']},
-  '猴':{elem:'金', icon:'🐵',
-    xi:['宀门洞穴（得地）','伟单人旁（得势-逢人）','小丁兵千亚寸（得位-小生肖）'],
-    ji:['田甫黄（刑伤，猴忌田）','阳（强出头）','夕月跷脚（猴不喜跷脚）','文义女（绑腿）','阝拎耳朵','美英（开大大）'],
-    note:'猴不看得食'},
-  '鸡':{elem:'金', icon:'🐔',
-    xi:['艹草禾（得食）','宀门洞穴（得地）','小丁兵千亚寸（得位）','兴泰（戴冠）','日阳（鸡喜太阳）'],
-    ji:['夕月跷脚（鸡不喜跷脚）','文义女（绑腿）','阝拎耳朵','美英（开大大）']},
-  '狗':{elem:'金', icon:'🐶',
-    xi:['志悦朔月（得食-肉食）','宀门洞穴（得地）','伟单人旁（得势-逢人）','小丁兵千亚寸（得位-小生肖）'],
-    ji:['阳白光（刑伤劳碌）','文义女（绑腿）','阝拎耳朵','美英（开大大）']},
-  '猪':{elem:'水', icon:'🐷',
-    xi:['艹草禾（得食）','宀门洞穴（得地）','夕月（得福）','小丁兵千亚寸（得位-小生肖）'],
-    ji:['山丘（刑伤）','彩衣依袀礼（不喜彩衣）','虎寅（刑冲）','文义女（绑腿）','阝拎耳朵','美英（开大大）']},
-};
-// ═══════════════════════════
-// FORBIDDEN CHARS (禁用字)
-// ═══════════════════════════
-const FORBIDDEN_CHARS = {
-  // 特定禁用字
-  specific: {
-    '婵':'女单为婵，一人孤单（外遇）',
-    '素':'纯白，任劳任怨，劳而无功，有福难享',
-    '燕':'北方水南方火，水火相冲，分飞燕',
-    '莲':'莲子心中苦，内心多委屈',
-    '國':'狗被困住为凶狗，破坏性强',
-    '正':'不上不下，情财多忘（政同）',
-    '凤':'雄鸟，劳碌格，夺夫权，女性不用',
-    '彦':'彩衣+多刀，不适合',
-    '娟':'真真假假，虚虚实实',
-    '琼':'真真假假，虚虚实实',
-    '淑':'古代三男之意，一生劳碌代夫劳',
-    '姿':'次女、第二个女人，妾格',
-    '军':'武器字，不吉',
-    '光':'武器/太阳字',
-    '刀':'武器字',
-    '雪':'变幻不定，孤独格',
-    '叉':'武器字',
-    '风':'变幻不定，孤独格',
-    '冰':'孤独格',
-    '寒':'变幻不定，孤独格',
-    '丽':'武器字（刀）',
-    '欲':'不雅',
-    '炎':'武器/火',
-    '秀':'武器字',
-    '华':'武器字',
-    '朱':'武器字',
-    '艳':'不适合',
-    '平':'受制字（虎忌平原）',
-    '池':'不适合',
-    '品':'三个口，是非多',
-    '晶':'三个日，过强',
-    '磊':'三个石，过重',
-    '梅':'春梅短暂，福不耐久',
-    '海':'水太多',
-    '霞':'变幻不定，孤独格',
-    '梦':'变幻不定，孤独格',
-    '露':'变幻不定，孤独格',
-    '春':'短暂，福不耐久',
-    '夏':'短暂，福不耐久',
-    '秋':'短暂，福不耐久',
-    '冬':'短暂，福不耐久',
-    '兰':'短暂，福不耐久',
-    '竹':'短暂，福不耐久',
-    '菊':'短暂，福不耐久',
-    '矛':'武器字',
-    '芬':'武器字',
-    '利':'武器字（刀）',
-    '莉':'武器字（刀）',
-    '智':'武器字',
-    '顺':'女性忌用，夺夫权',
-    '伐':'武器字',
-    '鑫':'三个金，过强',
-    '晓':'武器字',
-    '辉':'武器字',
-  },
-  // 女性特别禁用
-  female_forbidden: ['忠','义','顺','强','淑','姿','凤','婵'],
-  female_reason: '代夫劳、夺夫权，女性不适合用',
-  // 武器类（所有生肖注意）
-  weapon_chars: ['刀','矛','利','莉','丽','智','顺','伐','彦','鑫','晓','辉','芬'],
-  weapon_reason: '武器字，名字含武器对身体不利',
-  // 孤独格
-  lonely_chars: ['霞','梦','露','风','雪','寒','燕'],
-  lonely_reason: '变幻不定，孤独格',
-  // 季节花草（短暂）
-  season_chars: ['春','夏','秋','冬','梅','兰','竹','菊'],
-  season_reason: '短暂，福不耐久',
-};
-
-// ═══════════════════════════
-// NAME PART BODY MAP
-// ═══════════════════════════
-const NAME_BODY_MAP = {
-  surname: {age:'0–20岁', body:'头部', inherit:'父母先天继承', icon:'○'},
-  name1:   {age:'21–40岁', body:'颈部以下·肚脐以上', affect:'事业·感情', icon:'↑'},
-  name2:   {age:'41–60岁', body:'肚脐以下', affect:'健康·财富·子女', icon:'∧'},
-};
-
-
-
-// ═══════════════════════════════════════
-// CHAR-ROOTS DATABASE + ANALYSIS ENGINE
-// Each char lists its key radicals
-// ═══════════════════════════════════════
-
-// Root definitions: what each root means for each zodiac
-const ROOT_DEFS = {
-  '艹': {tag:'得食', good:['牛','羊','马','鼠','兔','鸡','猪']},
-  '禾': {tag:'得食', good:['牛','羊','马','鼠','兔','鸡','猪']},
-  '米': {tag:'得食', good:['牛','羊','马','鼠','兔','鸡','猪']},
-  '豆': {tag:'得食', good:['牛','羊','马','鼠','兔','鸡','猪']},
-  '麦': {tag:'得食', good:['牛','羊','马','鼠','兔','鸡','猪']},
-  '忄': {tag:'得食', good:['虎','蛇','狗']},
-  '月肉':{tag:'得食', good:['虎','蛇','狗']},
-  '日': {tag:'得食', good:['龙','鸡','马'], bad:['鼠','狗','蛇'], badtag:'劳碌字'},
-  '云': {tag:'得食', good:['龙']},
-  '雨': {tag:'得食/得地', good:['龙']},
-  '宀': {tag:'得地', good:['牛','羊','马','鼠','兔','鸡','猪','蛇','猴','狗'], bad:['虎'], badtag:'受困（虎忌洞穴）'},
-  '口': {tag:'得地', good:['牛','羊','马','鼠','兔','鸡','猪','蛇','猴','狗']},
-  '门': {tag:'得地', good:['牛','羊','马','鼠','兔','鸡','猪','蛇','猴','狗']},
-  '山': {tag:'得地', good:['虎'], bad:['猪','兔'], badtag:'受制（猪兔忌山）'},
-  '林': {tag:'得地', good:['虎']},
-  '木': {tag:'得地', good:['虎']},
-  '王': {tag:'得位', good:['鼠','虎','龙','马']},
-  '君': {tag:'得位', good:['鼠','虎','龙','马']},
-  '帝': {tag:'得位', good:['鼠','虎','龙','马']},
-  '令': {tag:'得位', good:['鼠','虎','龙','马']},
-  '大': {tag:'得位', good:['鼠','虎','龙','马'], bad:['兔','蛇','羊','猴','鸡','狗','猪','牛'], badtag:'强出头（小生肖忌大字）'},
-  '小': {tag:'得位', good:['兔','蛇','羊','猴','鸡','狗','猪','牛']},
-  '丁': {tag:'得位', good:['兔','蛇','羊','猴','鸡','狗','猪','牛']},
-  '兴': {tag:'得位', good:['鸡']},
-  '泰': {tag:'得位', good:['鸡']},
-  '亻': {tag:'得势', good:['马','猴','狗'], bad:['龙'], badtag:'降格（龙被人骑）'},
-  '彡': {tag:'得势（彩衣）', good:['鼠','虎','马']},
-  '巾': {tag:'得势（彩衣）', good:['鼠','虎','马']},
-  '糸': {tag:'得势（彩衣）', good:['鼠','虎','马']},
-  '羽': {tag:'得势', good:['鼠','虎','马','龙']},
-  '夕': {tag:'得福', good:['鼠','牛','羊','猪'], bad:['蛇','鸡','龙','马'], badtag:'不喜跷脚'},
-  '月': {tag:'得福', good:['鼠','牛','羊','猪','龙'], bad:['蛇','鸡','马'], badtag:'不喜跷脚'},
-  // ── 忌用（所有生肖）──
-  '文': {tag:'绑腿', bad:['all']},
-  '义': {tag:'绑腿', bad:['all']},
-  '女': {tag:'绑腿', bad:['all']},
-  '阝': {tag:'拎耳朵', bad:['all']},
-  '刀': {tag:'武器', bad:['all']},
-  '刂': {tag:'武器', bad:['all']},
-  '矛': {tag:'武器', bad:['all']},
-  '弓': {tag:'降格', bad:['龙']},
-  '虫': {tag:'降格', bad:['龙']},
-  '羊': {tag:'天罗地网', bad:['龙','牛','狗']},
-  '平': {tag:'受制（虎落平原）', bad:['虎']},
-  '田': {tag:'刑伤', bad:['猴','马']},
-  '氵': {tag:'水火冲', bad:['马']},
-  '光': {tag:'劳碌', bad:['鼠','狗','蛇']},
-};
-
-// Char → roots mapping (300+ common name chars)
-const CHAR_ROOTS = {
-  // A
-  '安':['宀'],'翱':['羽'],
-  // B
-  '彬':['木','彡'],'博':['口'],'冰':['氵'],
-  // C
-  '彩':['彡'],'灿':['火'],'昌':['日'],'晨':['日'],'晴':['日'],
-  '春':['艹'],'聪':[],'才':[],
-  // D
-  '达':['阝'],'大':['大'],'栋':['木'],'豆':['豆'],'东':[],
-  '典':[],'鼎':[],'丹':[],'道':[],
-  // E
-  '恩':['忄'],
-  // F
-  '帆':['巾'],'芳':['艹'],'菲':['艹'],'峰':['山'],
-  '福':['宀'],'富':['宀'],'飞':[],'凡':[],
-  // G
-  '刚':['刂'],'格':['木'],'根':['木'],'宫':['宀'],
-  '光':['光'],'桂':['木'],'贵':[],'国':['口'],
-  '高':[],'功':[],'广':[],
-  // H
-  '海':['氵'],'涵':['氵'],'翰':['羽'],'昊':['日','大'],
-  '浩':['氵'],'和':['禾','口'],'恒':['忄'],'弘':['弓'],
-  '宏':['宀','夕'],'鸿':['氵'],'华':['艹'],'辉':['光'],
-  '慧':['忄'],'惠':['忄'],'豪':['宀'],'环':['王'],
-  '煌':['火'],'汇':['氵'],'虎':['虎'],
-  // J
-  '嘉':['口'],'家':['宀'],'健':['亻'],'江':['氵'],
-  '杰':['木'],'洁':['氵'],'晶':['日'],'俊':['亻'],
-  '建':[],'均':[],'君':['口'],'静':[],
-  '菊':['艹'],'菁':['艹'],
-  // K
-  '凯':['山'],'坤':[],
-  // L
-  '岚':['山'],'朗':['月'],'磊':['石'],'棱':['木'],
-  '丽':['刂'],'莉':['艹','刂'],'亮':[],'林':['木','林'],
-  '灵':[],'龙':['龙'],'隆':['阝'],'露':['雨'],
-  '禄':['禾'],'绿':['糸'],'乐':[],'莲':['艹'],
-  '柳':['木'],'璐':['王'],'柔':['木'],'罗':[],
-  // M
-  '玫':['王'],'美':['大'],'梦':['夕'],'明':['日','月'],
-  '铭':[],'茗':['艹'],'茂':['艹'],'穆':['禾'],
-  '敏':[],'民':[],'沐':['氵'],'牧':[],
-  // N
-  '宁':['宀'],'娜':['女'],'南':[],'诺':[],
-  // P
-  '朋':['月'],'平':['平'],'萍':['艹','平'],
-  '培':[],'鹏':[],
-  // Q
-  '琦':['王'],'琪':['王'],'启':['口'],
-  '谦':[],'乔':[],'晴':['日'],'秋':['禾'],
-  '群':['君'],'强':['弓'],'清':['氵'],'钱':[],
-  // R
-  '荣':['艹'],'如':['女'],'瑞':['王'],'润':['氵'],
-  '容':['宀'],'茹':['艹'],'睿':[],'仁':['亻'],
-  // S
-  '山':['山'],'善':['羊'],'盛':[],'诗':[],
-  '仕':['亻'],'树':['木'],'顺':['顺'],'思':['忄'],
-  '松':['木'],'苏':['艹'],'书':[],'淑':['氵'],
-  '帅':['巾'],'时':['日'],'世':[],'硕':['石'],
-  '烁':['火'],'舒':[],'尚':[],'升':[],
-  // T
-  '泰':['泰'],'桃':['木'],'腾':['月'],'恬':['忄'],
-  '彤':['彡'],'桐':['木'],'庭':['宀'],'涛':['氵'],
-  '田':['田'],
-  // W
-  '威':[],'伟':['亻'],'文':['文'],'闻':['门'],
-  '武':[],'悟':['忄'],'翁':[],'午':[],
-  '雯':['雨','文'],
-  // X
-  '贤':[],'翔':['羽','羊'],'晓':['日'],'雪':['雨'],
-  '旭':['日'],'轩':[],'宣':['宀'],'希':['巾'],
-  '熙':['火'],'霞':['雨'],'星':['日'],'兴':['兴'],
-  '秀':['禾'],'萱':['艹'],'向':['口'],'行':[],
-  // Y
-  '阳':['阝','日'],'洋':['氵'],'瑶':['王'],'义':['义'],
-  '仪':['亻'],'毅':[],'英':['艹'],'颖':['禾'],
-  '勇':[],'宇':['宀'],'育':['月'],'媛':['女'],
-  '云':['云'],'昱':['日'],'怡':['忄'],'依':['亻','巾'],
-  '悦':['忄'],'莹':['艹'],'薇':['艹'],
-  // Z
-  '泽':['氵'],'章':[],'哲':['口'],'志':['忄'],
-  '智':['忄','日'],'忠':['忄'],'宗':['宀','巾'],
-  '珍':['王'],'珠':['王'],'竹':['竹'],'梓':['木'],
-  '紫':['糸'],'字':['宀'],'总':['忄'],'正':['正'],
-  '郑':['阝'],'芝':['艹'],'振':[],'仲':['亻'],
-  '周':[],'朱':[],'张':['弓'],'赵':[],
-  '婵':['女'],'素':['糸'],'燕':['火'],'莲':['艹'],
-  '珊':['王'],'玲':['王'],'铃':['令'],'兰':['艹'],
-  '舒':[],'霜':['雨'],'婷':['女'],'雅':[],
-  '颜':[],'杨':['木'],'叶':['木'],'雄':[],
-  '飞':[],'宝':['宀'],'晗':['日'],'旻':['日'],
-  '暄':['日'],'昶':['日'],'炜':['火'],'烨':['火'],
-  '睿':[],'锐':[],'泓':['氵'],'淳':['氵'],
-  '琛':['王'],'琰':['王'],'瑜':['王'],'璇':['王'],
-  '玺':['王'],'珮':['王'],'玢':['王'],'珉':['王'],
-  '洛':['氵'],'泠':['氵'],'涌':['氵'],'沁':['氵'],
-  '滢':['氵'],'溪':['氵'],'澈':['氵'],
-  '苑':['艹'],'蓁':['艹'],'苡':['艹'],'荷':['艹'],
-  '蕊':['艹'],'蔓':['艹'],'苔':['艹'],'芮':['艹'],
-  '苒':['艹'],'茴':['艹'],'莜':['艹'],'荃':['艹'],
-  '菡':['艹'],'葵':['艹'],'蕾':['艹'],'蕙':['艹'],
-};
-
-// ── Main analysis function ──
-function analyzeCharByRadicals(ch, zodiac){
-  var findings = [];
-  var roots = CHAR_ROOTS[ch];
-  if(!roots) return findings;
-
-  roots.forEach(function(root){
-    var def = ROOT_DEFS[root];
-    if(!def) return;
-
-    // Good for this zodiac?
-    if(def.good && (def.good.includes(zodiac) || def.good.includes('all'))){
-      findings.push({type:'good', tag:def.tag, reason: getGoodReason(root, zodiac)});
-    }
-    // Bad for this zodiac?
-    if(def.bad && (def.bad.includes(zodiac) || def.bad.includes('all'))){
-      findings.push({type:'bad', tag:def.badtag||def.tag, reason: getBadReason(root, zodiac)});
-    }
-  });
-  return findings;
-}
-
-function getGoodReason(root, zodiac){
-  var reasons = {
-    '艹':'草字头，草食动物得食，财源丰足',
-    '禾':'禾苗五谷，得食财源稳',
-    '米':'米粮字根，草食动物得食',
-    '豆':'豆类五谷，得食',
-    '麦':'麦粮字根，草食动物得食',
-    '忄':'心旁（肉），肉食动物得食，财源充足',
-    '月肉':'月旁（肉），肉食动物得食',
-    '日':'龙得日月云雨，气场强大；鸡喜太阳；马喜晴天',
-    '云':'龙得云雨，如龙升天，五福俱全',
-    '雨':'龙得云雨，财运亨通',
-    '宀':'洞穴宝盖，得地有家，留得住财',
-    '口':'有门有家，得地稳定',
-    '门':'门栏字根，有家有地',
-    '山':'虎在山林，威猛自在，得地',
-    '林':'虎得森林，如鱼得水',
-    '木':'木林字根，虎得地自在',
-    '王':'帝王字根，大生肖得位掌权，事业有高度',
-    '君':'君主字根，领导气质，大生肖得位',
-    '帝':'皇帝字根，最强得位字根',
-    '令':'发号施令，大生肖得位',
-    '大':'大生肖得位，气势恢宏',
-    '小':'小生肖用小字根，低调得位',
-    '丁':'小字根，小生肖安分得位',
-    '兴':'鸡戴冠，得位升格',
-    '泰':'鸡戴冠字根，得位',
-    '亻':'单人旁，逢人得势得贵人',
-    '彡':'彩衣字根，得势升格有人脉',
-    '巾':'布帛彩衣，得势',
-    '糸':'丝线彩衣，得势',
-    '羽':'羽毛彩衣，得势飞升',
-    '夕':'跷脚字根，得福享福',
-    '月':'月字跷脚，得福享福',
-  };
-  return reasons[root] || root + '字根，与生肖相合';
-}
-
-function getBadReason(root, zodiac){
-  var reasons = {
-    '日':'太阳字根，属' + zodiac + '白天暴露劳碌不停',
-    '宀':'虎忌洞穴，洞穴困虎，事业受困',
-    '山':'猪兔逢山刑伤，山路难走',
-    '大':'小生肖用大字，扛不住压力，强出头',
-    '亻':'人旁，龙被人骑，格局下降',
-    '夕':'蛇鸡龙马不喜跷脚，能量流失',
-    '月':'蛇鸡马不喜跷脚字',
-    '文':'交叉字根，绑腿，行动力受限，下半身健康差',
-    '义':'交叉字根，绑腿',
-    '女':'女字交叉，绑腿，婚姻卡',
-    '阝':'拎耳朵字根，没有生肖喜欢',
-    '刀':'武器字根，是非冲突，婚姻不和',
-    '刂':'立刀武器字根，冲突是非',
-    '矛':'矛武器字根，人际破裂',
-    '弓':'弓字根，龙降格，龙游浅水被虾戏',
-    '虫':'虫字根，龙降格',
-    '羊':'羊字根，龙与牛羊狗天罗地网，互相牵制',
-    '平':'平原字根，虎落平原被犬欺，受制',
-    '田':'田字根，猴马刑伤，降格做耕马/耕牛',
-    '氵':'水字根，马忌水，水火相冲',
-    '光':'光字根，劳碌，属' + zodiac + '见光过劳',
-  };
-  return reasons[root] || root + '字根，与生肖相冲';
-}
-
-
-
 function renderMp(d){
   var box=function(lbl,val,gold){
     return '<div style="background:rgba(0,0,0,.4);border:1.5px solid '+(gold?'rgba(201,168,76,.5)':'rgba(33,150,243,.35)')+';border-radius:8px;padding:8px 4px;text-align:center;flex:1;min-width:0;">'+
@@ -961,7 +541,7 @@ function renderMp(d){
 
 function checkPw(){
   var pw = document.getElementById('pwInp').value;
-  if(pw==='1313'){
+  if(pw==='1331'){
     document.getElementById('pwPage').style.display='none';
     document.getElementById('inpPage').style.display='block';
   } else {
@@ -1059,308 +639,12 @@ function buildFindingsHtml(findings, zodiac){
 }
 
 
-function renderNameAnalysis(d, nameSecEl, naEl) {
-  if(!d.surname && !d.name1){ nameSecEl.style.display='none'; return; }
-
-  var zInfo = ZODIAC_INFO[d.zodiac] || {};
-  var icon = zInfo.icon || '🌟';
-
-  // ── All name chars combined (no split by name part) ──
-  var fullName = (d.surname||'') + (d.name1||'') + (d.name2||'');
-  var allChars = fullName.split('');
-
-  // ── Radical analysis per char ──
-  var charData = allChars.map(function(ch){
-    return { ch: ch, findings: analyzeCharByRadicals(ch, d.zodiac) };
-  });
-
-  // ── Five Blessings check ──
-  var hasFood = false, hasGround = false, hasPosition = false, hasInfluence = false, hasFu = false;
-  var isBigZodiac = ['鼠','虎','龙','马'].includes(d.zodiac);
-
-  charData.forEach(function(item){
-    item.findings.forEach(function(f){
-      if(f.type==='good'){
-        if(f.tag==='得食') hasFood = true;
-        if(f.tag==='得地') hasGround = true;
-        if(f.tag==='得位') hasPosition = true;
-        if(f.tag==='得势') hasInfluence = true;
-        if(f.tag==='得福') hasFu = true;
-      }
-    });
-  });
-
-  // ── Forbidden char classification ──
-  var issues = {
-    laolü:   [], // 劳碌 - 太阳字
-    piaofu:  [], // 漂浮 - 不稳定
-    wuqi:    [], // 武器/攻击
-    duanfu:  [], // 短命福 - 季节
-    kefu:    [], // 克夫 (女性)
-    gudü:    [], // 孤独
-    bound:   [], // 绑腿
-    degrade: [], // 降格
-    special: [], // 特殊禁用字
-  };
-
-  var LAOLU_CHARS    = ['日','阳','白','光','明','昌','晶','晟','晓','辉','耀','旭','昱','昊','旺'];
-  var PIAOFU_CHARS   = ['霞','梦','露','风','雪','寒','冰','雾','云','飘'];
-  var WUQI_CHARS     = ['刀','刃','利','刚','剑','锋','刻','矛','戈','伐','戟','兵'];
-  var DUANFU_CHARS   = ['春','夏','秋','冬','梅','兰','竹','菊','桃','杏'];
-  var KEFU_CHARS     = ['忠','义','强','凤','淑','顺','勇'];
-  var GUDU_CHARS     = ['婵','素','莲','燕','孤','寡'];
-  var BOUND_CHARS    = ['文','义','女','美','英'];
-  var DEGRADE_ROOTS  = ['陈','邱','邓','郑','阿','那','邦','郭']; // 拎耳朵阝
-
-  allChars.forEach(function(ch){
-    // 劳碌 - bad for certain zodiacs
-    if(LAOLU_CHARS.includes(ch)){
-      if(['鼠','狗','蛇'].includes(d.zodiac)) issues.laolü.push(ch);
-    }
-    // 漂浮
-    if(PIAOFU_CHARS.includes(ch)) issues.piaofu.push(ch);
-    // 武器
-    if(WUQI_CHARS.includes(ch)) issues.wuqi.push(ch);
-    // 短命福
-    if(DUANFU_CHARS.includes(ch)) issues.duanfu.push(ch);
-    // 克夫
-    if(KEFU_CHARS.includes(ch)) issues.kefu.push(ch);
-    // 孤独
-    if(GUDU_CHARS.includes(ch)) issues.gudü.push(ch);
-    // 绑腿
-    if(BOUND_CHARS.includes(ch)) issues.bound.push(ch);
-    // 拎耳朵
-    if(DEGRADE_ROOTS.includes(ch)) issues.degrade.push(ch);
-    // 特殊禁用
-    if(FORBIDDEN_CHARS.specific[ch]) issues.special.push({char:ch, reason:FORBIDDEN_CHARS.specific[ch]});
-    // 龙降格
-    if(d.zodiac==='龙'){
-      if(['伟','仁','仲','信','俊','健','弓','张','弦','虫','蛇','蟠'].includes(ch)) issues.degrade.push(ch+'(龙忌)');
-    }
-  });
-
-  var totalIssues = issues.laolü.length + issues.piaofu.length + issues.wuqi.length +
-    issues.duanfu.length + issues.kefu.length + issues.gudü.length +
-    issues.bound.length + issues.degrade.length + issues.special.length;
-
-  // ── Score ──
-  var goodCount = charData.reduce(function(s,item){
-    return s + item.findings.filter(function(f){ return f.type==='good'; }).length;
-  }, 0);
-  var blessings = [hasFood,hasGround,hasPosition,hasInfluence,hasFu].filter(Boolean).length;
-  var score = Math.max(0, Math.min(100, 50 + (blessings*8) + (goodCount*3) - (totalIssues*10)));
-  var scoreColor = score>=75?'#2ECC71':score>=50?'#F39C12':'#E74C3C';
-  var scoreLabel = score>=75?'整体良好':score>=50?'有待改善':'需要注意';
-
-  // ── Build output ──
-  var h = [];
-
-  // ══ HEADER ══
-  h.push('<div style="background:linear-gradient(135deg,rgba(7,22,40,.95),rgba(4,13,26,.98));border:1px solid rgba(201,168,76,.3);border-radius:16px;padding:20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">');
-  h.push('<div style="display:flex;align-items:center;gap:14px;">');
-  h.push('<div style="font-size:52px;line-height:1;">' + icon + '</div>');
-  h.push('<div>');
-  h.push('<div style="font-size:17px;font-weight:700;color:var(--gl);">生肖 ' + d.zodiac + '（五行属' + (zInfo.elem||'') + '）</div>');
-  h.push('<div style="font-size:14px;color:var(--white);margin-top:6px;letter-spacing:1px;">「' + fullName + '」</div>');
-  h.push('<div style="font-size:11px;color:var(--t3);margin-top:4px;">命占3分（先天）· 名占7分（后天）· 越常用能量越强</div>');
-  h.push('</div></div>');
-  // Score
-  h.push('<div style="text-align:center;background:rgba(0,0,0,.35);border:1.5px solid ' + scoreColor + '55;border-radius:14px;padding:14px 22px;">');
-  h.push('<div style="font-size:10px;color:var(--t3);letter-spacing:1.5px;margin-bottom:4px;">配合指数</div>');
-  h.push('<div style="font-size:44px;font-weight:700;color:' + scoreColor + ';line-height:1;">' + score + '</div>');
-  h.push('<div style="font-size:11px;color:' + scoreColor + ';margin-top:5px;">' + scoreLabel + '</div>');
-  h.push('</div></div>');
-
-  // ══ FIVE BLESSINGS SUMMARY ══
-  h.push('<div style="background:rgba(0,0,0,.2);border:1px solid rgba(201,168,76,.15);border-radius:14px;padding:16px;margin-bottom:16px;">');
-  h.push('<div style="font-size:13px;font-weight:700;color:var(--gl);margin-bottom:12px;letter-spacing:.5px;">五福临门检测</div>');
-  h.push('<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">');
-  var blessData = [
-    {label:'得食', has:hasFood, good:'有食物，赚钱有来源', bad:'名字没有"食物"，赚钱靠拼'},
-    {label:'得地', has:hasGround, good:'有地基，留得住财', bad:'没有"容器"，钱来了留不住'},
-    {label:'得位', has:hasPosition, good:'位置对了，事业有高度', bad:'位置不对，' + (isBigZodiac?'大生肖没帝王气':'小生肖扛不住大字')},
-    {label:'得势', has:hasInfluence, good:'有贵人，有人帮', bad:'一个人拼，没人带'},
-    {label:'得福', has:hasFu, good:'有福享，不只是忙', bad:'命中一直忙，享福难'},
-  ];
-  blessData.forEach(function(b){
-    h.push('<div style="text-align:center;background:' + (b.has?'rgba(46,204,113,.1)':'rgba(239,83,80,.08)') + ';border:1px solid ' + (b.has?'rgba(46,204,113,.3)':'rgba(239,83,80,.2)') + ';border-radius:10px;padding:10px 6px;">');
-    h.push('<div style="font-size:18px;">' + (b.has?'✦':'✧') + '</div>');
-    h.push('<div style="font-size:12px;font-weight:700;color:' + (b.has?'#81C784':'#EF9A9A') + ';margin:4px 0;">' + b.label + '</div>');
-    h.push('<div style="font-size:10px;color:' + (b.has?'#81C784':'#EF9A9A') + ';line-height:1.4;">' + (b.has?'✅':'❌') + '</div>');
-    h.push('</div>');
-  });
-  h.push('</div>');
-
-  // Blessing insights
-  var insights = [];
-  if(!hasFood) insights.push({type:'bad', text:'你不是赚不到钱，是名字没有"食物"，只能靠拼命。'});
-  if(!hasGround) insights.push({type:'bad', text:'你有赚钱能力，但名字没有"地基"，所以留不住钱。'});
-  if(!hasPosition) insights.push({type:'bad', text: isBigZodiac ? '你是大生肖，名字要有帝王字根才能发挥格局。' : '你是小生肖，名字用大字会扛不住，形成压力。'});
-  if(!hasInfluence) insights.push({type:'bad', text:'名字没有"贵人结构"，这辈子最辛苦是没人帮你。'});
-  if(!hasFu) insights.push({type:'bad', text:'没有得福结构，人生模式是一直忙、很少享受。'});
-  if(blessings >= 4) insights.push({type:'good', text:'五福临门达' + blessings + '项，名字能量结构良好！'});
-  else if(blessings >= 2) insights.push({type:'ok', text:'五福命中' + blessings + '项，仍有' + (5-blessings) + '项可以强化。'});
-
-  if(insights.length > 0){
-    h.push('<div style="margin-top:12px;display:flex;flex-direction:column;gap:6px;">');
-    insights.forEach(function(ins){
-      var c = ins.type==='good'?'#81C784':ins.type==='ok'?'#FFE082':'#EF9A9A';
-      var ic = ins.type==='good'?'✦':ins.type==='ok'?'◆':'⚠';
-      h.push('<div style="font-size:13px;color:' + c + ';line-height:1.7;padding:8px 12px;background:rgba(0,0,0,.2);border-radius:8px;border-left:3px solid ' + c + ';">' + ic + ' ' + ins.text + '</div>');
-    });
-    h.push('</div>');
-  }
-  h.push('</div>');
-
-  // ══ CHAR BY CHAR ANALYSIS ══
-  h.push('<div style="margin-bottom:16px;">');
-  h.push('<div style="font-size:13px;font-weight:700;color:var(--gl);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(201,168,76,.15);">🔎 逐字深度拆析</div>');
-
-  charData.forEach(function(item){
-    var goods = item.findings.filter(function(f){ return f.type==='good'; });
-    var bads  = item.findings.filter(function(f){ return f.type==='bad'; });
-    var forbReason = FORBIDDEN_CHARS.specific[item.ch];
-    var isLaolu  = LAOLU_CHARS.includes(item.ch) && ['鼠','狗','蛇'].includes(d.zodiac);
-    var isPiaofu = PIAOFU_CHARS.includes(item.ch);
-    var isWuqi   = WUQI_CHARS.includes(item.ch);
-    var isDuanfu = DUANFU_CHARS.includes(item.ch);
-    var isBound  = BOUND_CHARS.includes(item.ch);
-    var isKefu   = KEFU_CHARS.includes(item.ch);
-    var isGudu   = GUDU_CHARS.includes(item.ch);
-
-    var hasAnyBad = bads.length>0 || forbReason || isLaolu || isPiaofu || isWuqi || isDuanfu || isBound || isKefu || isGudu;
-    var hasAnyGood = goods.length > 0;
-
-    var leftColor = hasAnyGood && !hasAnyBad ? '#2ECC71' : hasAnyBad ? '#E74C3C' : '#334466';
-    var bg = hasAnyGood && !hasAnyBad ? 'rgba(46,204,113,.07)' : hasAnyBad ? 'rgba(239,83,80,.07)' : 'rgba(255,255,255,.03)';
-    var border = hasAnyGood && !hasAnyBad ? 'rgba(46,204,113,.3)' : hasAnyBad ? 'rgba(239,83,80,.3)' : 'rgba(255,255,255,.08)';
-
-    h.push('<div style="background:' + bg + ';border:1px solid ' + border + ';border-left:3px solid ' + leftColor + ';border-radius:10px;padding:14px;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start;">');
-    // Char
-    h.push('<div style="text-align:center;flex-shrink:0;min-width:44px;">');
-    h.push('<div style="font-size:38px;color:var(--white);font-weight:700;line-height:1;">' + item.ch + '</div>');
-    var charLabel = hasAnyGood&&!hasAnyBad ? '吉' : hasAnyBad ? '注意' : '待析';
-    var charLabelColor = hasAnyGood&&!hasAnyBad ? '#81C784' : hasAnyBad ? '#EF9A9A' : 'var(--t3)';
-    h.push('<div style="font-size:10px;color:' + charLabelColor + ';margin-top:4px;font-weight:700;">' + charLabel + '</div>');
-    h.push('</div>');
-    // Analysis
-    h.push('<div style="flex:1;min-width:0;">');
-
-    // Good findings
-    goods.forEach(function(f){
-      h.push('<div style="font-size:13px;color:#81C784;line-height:1.7;margin-bottom:4px;">✦ <span style="background:rgba(46,204,113,.15);padding:1px 7px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">' + f.tag + '</span>' + f.reason + '</div>');
-    });
-
-    // Bad findings from radicals
-    bads.forEach(function(f){
-      h.push('<div style="font-size:13px;color:#EF9A9A;line-height:1.7;margin-bottom:4px;">⚠ <span style="background:rgba(239,83,80,.15);padding:1px 7px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">' + f.tag + '</span>' + f.reason + '</div>');
-    });
-
-    // Specific forbidden
-    if(forbReason) h.push('<div style="font-size:13px;color:#EF9A9A;line-height:1.7;margin-bottom:4px;">⚠ <span style="background:rgba(239,83,80,.15);padding:1px 7px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">禁用字</span>' + forbReason + '</div>');
-    if(isLaolu)  h.push('<div style="font-size:13px;color:#EF9A9A;line-height:1.7;margin-bottom:4px;">⚠ <span style="background:rgba(239,83,80,.15);padding:1px 7px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">劳碌字</span>含太阳字根，属' + d.zodiac + '白天暴露劳碌不停</div>');
-    if(isPiaofu) h.push('<div style="font-size:13px;color:#EF9A9A;line-height:1.7;margin-bottom:4px;">⚠ <span style="background:rgba(255,152,0,.15);padding:1px 7px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">漂浮字</span>人生不稳定，情绪财运都飘</div>');
-    if(isWuqi)   h.push('<div style="font-size:13px;color:#EF9A9A;line-height:1.7;margin-bottom:4px;">⚠ <span style="background:rgba(239,83,80,.15);padding:1px 7px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">武器字</span>带刀剑字根，婚姻冲突、人际破裂</div>');
-    if(isDuanfu) h.push('<div style="font-size:13px;color:#FFE082;line-height:1.7;margin-bottom:4px;">⚠ <span style="background:rgba(255,193,7,.15);padding:1px 7px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">短暂福</span>季节花草，福气来了就走，难以持久</div>');
-    if(isBound)  h.push('<div style="font-size:13px;color:#EF9A9A;line-height:1.7;margin-bottom:4px;">⚠ <span style="background:rgba(239,83,80,.15);padding:1px 7px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">绑腿字</span>交叉字根，行动力受限，婚姻容易卡</div>');
-    if(isKefu)   h.push('<div style="font-size:13px;color:#EF9A9A;line-height:1.7;margin-bottom:4px;">⚠ <span style="background:rgba(239,83,80,.15);padding:1px 7px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">克夫字</span>女性用此字容易代夫劳、抢夫权</div>');
-    if(isGudu)   h.push('<div style="font-size:13px;color:#EF9A9A;line-height:1.7;margin-bottom:4px;">⚠ <span style="background:rgba(239,83,80,.15);padding:1px 7px;border-radius:4px;font-size:10px;font-weight:700;margin-right:6px;">孤独字</span>内心孤独，无人真正懂你</div>');
-
-    if(!hasAnyGood && !hasAnyBad && !forbReason && !isLaolu && !isPiaofu && !isWuqi && !isDuanfu && !isBound && !isKefu && !isGudu){
-      h.push('<div style="font-size:12px;color:var(--t3);line-height:1.7;">◇ 此字需专业老师结合字形笔画做完整拆析</div>');
-    }
-    h.push('</div></div>');
-  });
-  h.push('</div>');
-
-  // ══ CONCLUSION: 有什么 / 缺什么 / 建议 ══
-  h.push('<div style="background:rgba(0,0,0,.2);border:1px solid rgba(201,168,76,.2);border-radius:14px;padding:16px;margin-bottom:14px;">');
-  h.push('<div style="font-size:13px;font-weight:700;color:var(--gl);margin-bottom:12px;">📋 综合结论</div>');
-
-  // 有什么
-  var haveList = [];
-  if(hasFood) haveList.push('得食结构（赚钱有来源）');
-  if(hasGround) haveList.push('得地结构（留得住财）');
-  if(hasPosition) haveList.push('得位结构（事业有高度）');
-  if(hasInfluence) haveList.push('得势结构（有贵人助）');
-  if(hasFu) haveList.push('得福结构（有福可享）');
-  goodCount > 0 && haveList.push('字根与生肖有正向配合');
-
-  // 缺什么
-  var lackList = [];
-  if(!hasFood) lackList.push('得食（财源食物）');
-  if(!hasGround) lackList.push('得地（留财容器）');
-  if(!hasPosition) lackList.push('得位（事业高度）');
-  if(!hasInfluence) lackList.push('得势（贵人人脉）');
-  if(!hasFu) lackList.push('得福（享福结构）');
-
-  // 问题
-  var problemList = [];
-  if(issues.laolü.length>0) problemList.push('劳碌字「' + issues.laolü.join('') + '」— 容易过劳');
-  if(issues.wuqi.length>0)  problemList.push('武器字「' + issues.wuqi.join('') + '」— 冲突是非');
-  if(issues.piaofu.length>0)problemList.push('漂浮字「' + issues.piaofu.join('') + '」— 人生不稳');
-  if(issues.bound.length>0) problemList.push('绑腿字「' + issues.bound.join('') + '」— 行动受限');
-  if(issues.duanfu.length>0)problemList.push('季节字「' + issues.duanfu.join('') + '」— 福不持久');
-  if(issues.kefu.length>0)  problemList.push('克夫字「' + issues.kefu.join('') + '」— 婚姻有功课');
-  if(issues.gudü.length>0)  problemList.push('孤独字「' + issues.gudü.join('') + '」— 内心孤独');
-  if(issues.special.length>0) issues.special.forEach(function(s){ problemList.push('禁用字「' + s.char + '」— ' + s.reason); });
-
-  if(haveList.length>0){
-    h.push('<div style="margin-bottom:10px;">');
-    h.push('<div style="font-size:12px;font-weight:700;color:#81C784;margin-bottom:6px;">✔ 名字拥有</div>');
-    haveList.forEach(function(item){ h.push('<div style="font-size:13px;color:#81C784;line-height:1.8;padding-left:8px;">• ' + item + '</div>'); });
-    h.push('</div>');
-  }
-  if(lackList.length>0){
-    h.push('<div style="margin-bottom:10px;">');
-    h.push('<div style="font-size:12px;font-weight:700;color:#EF9A9A;margin-bottom:6px;">❌ 名字缺少</div>');
-    lackList.forEach(function(item){ h.push('<div style="font-size:13px;color:#EF9A9A;line-height:1.8;padding-left:8px;">• ' + item + '</div>'); });
-    h.push('</div>');
-  }
-  if(problemList.length>0){
-    h.push('<div style="margin-bottom:10px;">');
-    h.push('<div style="font-size:12px;font-weight:700;color:#FFE082;margin-bottom:6px;">⚠️ 发现问题</div>');
-    problemList.forEach(function(item){ h.push('<div style="font-size:13px;color:#FFE082;line-height:1.8;padding-left:8px;">• ' + item + '</div>'); });
-    h.push('</div>');
-  }
-  h.push('</div>');
-
-  // ══ ZODIAC PREFS ══
-  h.push('<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">');
-  h.push('<div style="background:rgba(46,204,113,.07);border:1px solid rgba(46,204,113,.22);border-radius:12px;padding:14px;">');
-  h.push('<div style="font-size:12px;font-weight:700;color:#81C784;margin-bottom:10px;">✦ 属' + d.zodiac + '喜用字根</div>');
-  (zInfo.xi||[]).forEach(function(x){ h.push('<div style="font-size:12px;color:#81C784;line-height:1.9;opacity:.9;">• ' + x + '</div>'); });
-  if(zInfo.note) h.push('<div style="font-size:11px;color:var(--gold);margin-top:8px;padding:6px 8px;background:rgba(201,168,76,.08);border-radius:6px;">⚠ ' + zInfo.note + '</div>');
-  h.push('</div>');
-  h.push('<div style="background:rgba(239,83,80,.07);border:1px solid rgba(239,83,80,.22);border-radius:12px;padding:14px;">');
-  h.push('<div style="font-size:12px;font-weight:700;color:#EF9A9A;margin-bottom:10px;">✧ 属' + d.zodiac + '忌用字根</div>');
-  (zInfo.ji||[]).forEach(function(x){ h.push('<div style="font-size:12px;color:#EF9A9A;line-height:1.9;opacity:.9;">• ' + x + '</div>'); });
-  h.push('</div></div>');
-
-  // ══ NO NAME2 ══
-  if(!d.name2){
-    h.push('<div style="background:rgba(255,193,7,.07);border:1px solid rgba(255,193,7,.25);border-radius:12px;padding:16px;margin-bottom:14px;">');
-    h.push('<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><span style="font-size:20px;">⚠️</span><span style="font-size:13px;font-weight:700;color:var(--white);">建议补充名二 — 41–60岁晚运仍未启动</span></div>');
-    h.push('<div style="font-size:13px;color:var(--t2);line-height:1.9;">名二掌管 <strong style="color:var(--white);">41–60岁</strong> 的健康、财富与子女运势。没有名二等于晚运没有方向盘。<br><span style="color:var(--gold);">越早用越好 — 签名、名片、社媒、注册均可启动能量。</span></div>');
-    h.push('</div>');
-  }
-
-  // ══ EXPERT NOTE ══
-  h.push('<div style="background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.03));border:1px solid rgba(201,168,76,.25);border-radius:12px;padding:16px;">');
-  h.push('<div style="font-size:13px;font-weight:700;color:var(--gl);margin-bottom:8px;">⭐ 专业建议</div>');
-  h.push('<div style="font-size:12px;color:var(--t2);line-height:1.9;">以上为系统依据字根规则的初步分析，旨在帮助你了解名字与生肖的配合度。<br>真正完整的姓名学必须综合：<strong style="color:var(--white);">字形结构 · 字义内涵 · 字音配合 · 五行补充 · 笔画深度拆析</strong><br><br>建议咨询<strong style="color:var(--white);">专业姓名学老师</strong>进行深入评估，以获得最准确的改善方向与建议。</div>');
-  h.push('</div>');
-
-  naEl.innerHTML = h.join('');
-  nameSecEl.style.display = 'block';
-}
-
 function renderReport(d){
   RES=d;
   const md=d.md;
-  document.getElementById('rAv').textContent=d.name.charAt(0).toUpperCase()||'?';
-  document.getElementById('rNm').textContent=d.name;
-  document.getElementById('rDt').textContent=`出生：${d.day}/${d.month}/${d.year}　|　姓：${d.surname}　名1：${d.name1}${d.name2?' 名2：'+d.name2:''}`;
+  document.getElementById('rAv').textContent=d.g;
+  document.getElementById('rNm').textContent='命盘报告';
+  document.getElementById('rDt').textContent=`出生：${d.day}/${d.month}/${d.year}　|　生肖：${d.zodiac}`;
 
   document.getElementById('rEl').textContent=`主性格 ${d.g}号（${md.nm}）· 五行属${md.el}`;
   document.getElementById('rMN').textContent=d.g;
@@ -1458,11 +742,6 @@ function renderReport(d){
 
   // Pillars
 
-  // ── Name Analysis ──
-  const nameSecEl = document.getElementById('nameSec');
-  const naEl = document.getElementById('nameAnalysis');
-  renderNameAnalysis(d, nameSecEl, naEl);
-
   document.getElementById('pGrid').innerHTML=`
     <div class="pil pc"><div class="phdr"><span class="pico">💼</span><span class="pnm">事业</span></div><div class="ptxt">${carT(d)}</div></div>
     <div class="pil pl"><div class="phdr"><span class="pico">💕</span><span class="pnm">感情家庭</span></div><div class="ptxt">${lovT(d)}</div></div>
@@ -1535,14 +814,13 @@ function helT(d){
 }
 
 function doCalc(){
-  const surname=document.getElementById('iSurname').value.trim();
-  const name1=document.getElementById('iName1').value.trim();
-  const name2=document.getElementById('iName2').value.trim();
-  const name = surname + name1 + name2 || surname + name1;
+  const surname='';
+  const name1='';
+  const name2='';
+  const name = '';
   let day=parseInt(document.getElementById('iDay').value);
   const month=parseInt(document.getElementById('iMon').value);
   const year=parseInt(document.getElementById('iYr').value);
-  if(!surname||!name1){alert('请输入姓和名1');return;}
   if(!day||!month||!year||day<1||day>31||month<1||month>12||year<1900){alert('请输入正确的出生日期');return;}
    document.getElementById('inpPage').style.display='none';
   document.getElementById('loading').classList.add('on');
