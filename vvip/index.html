@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>黄冠尊 · 数易命盘 + 生肖姓名分析 · VIP会员系统 · 黄冠尊</title>
+<title>黄冠尊 · 数易命盘 + 生肖姓名分析 · VVIP会员系统 · 黄冠尊</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
@@ -203,33 +203,87 @@ body{font-family:"Noto Sans SC",sans-serif;background:#040D1A !important;color:v
 <!-- INPUT -->
 <div id="inpPage" style="display:none;min-height:100vh;background:#040D1A !important;"><div class="inp-wrap">
   <h1 class="ititle">数易<span class="g">命盘分析</span></h1>
-  <p class="isub">完整命盘 · 13组合 · 五行 · 流年 · 生肖姓名五得 · 逐字深度分析</p>
-  <div class="card">
-    <label class="lbl">👤 中文姓名</label>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:6px;">
-      <div>
-        <div style="font-size:11px;color:var(--t3);margin-bottom:5px;letter-spacing:1px;">姓</div>
-        <input class="inp" id="iSurname" placeholder="如：陈" style="margin:0;text-align:center;font-size:18px;">
-      </div>
-      <div>
-        <div style="font-size:11px;color:var(--t3);margin-bottom:5px;letter-spacing:1px;">名1（21-40岁）</div>
-        <input class="inp" id="iName1" placeholder="如：伟" style="margin:0;text-align:center;font-size:18px;">
-      </div>
-      <div>
-        <div style="font-size:11px;color:var(--t3);margin-bottom:5px;letter-spacing:1px;">名2（41-60岁）</div>
-        <input class="inp" id="iName2" placeholder="如：明（可选）" style="margin:0;text-align:center;font-size:18px;">
-      </div>
+
+  <!-- 模式选择 -->
+  <div style="display:flex;gap:10px;margin-bottom:20px;">
+    <div id="modePersonal" onclick="switchMode('personal')" style="flex:1;text-align:center;padding:14px 10px;border-radius:14px;border:2px solid var(--gold);background:rgba(201,168,76,.12);color:var(--gl);font-size:13px;font-weight:700;cursor:pointer;transition:all .3s;">
+      🔮 个人命盘
     </div>
-    <div style="font-size:11px;color:var(--t3);margin-bottom:16px;">💡 系统自动以康熙字典正体字计算笔画</div>
-    <label class="lbl">📅 出生日期</label>
-    <div class="dob-grid">
-      <input class="inp" id="iDay" placeholder="日" type="number" min="1" max="31" style="margin:0">
-      <input class="inp" id="iMon" placeholder="月" type="number" min="1" max="12" style="margin:0">
-      <input class="inp" id="iYr" placeholder="如 1999" type="number" min="1900" max="2030" style="margin:0">
+    <div id="modeCoupleBtn" onclick="switchMode('couple')" style="flex:1;text-align:center;padding:14px 10px;border-radius:14px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.04);color:var(--t3);font-size:13px;font-weight:700;cursor:pointer;transition:all .3s;">
+      💑 夫妻密码
     </div>
-    <div class="hint">例：01 / 01 / 1999</div>
-    <button class="bcalc" onclick="doCalc()">🔮 生成完整命盘报告</button>
   </div>
+
+  <!-- 个人命盘输入 -->
+  <div id="inputPersonal">
+    <p class="isub">完整命盘 · 13组合 · 五行 · 流年 · 生肖姓名五得 · 逐字深度分析</p>
+    <div class="card">
+      <label class="lbl">👤 中文姓名</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:6px;">
+        <div>
+          <div style="font-size:11px;color:var(--t3);margin-bottom:5px;letter-spacing:1px;">姓</div>
+          <input class="inp" id="iSurname" placeholder="如：陈" style="margin:0;text-align:center;font-size:18px;">
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--t3);margin-bottom:5px;letter-spacing:1px;">名1（21-40岁）</div>
+          <input class="inp" id="iName1" placeholder="如：伟" style="margin:0;text-align:center;font-size:18px;">
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--t3);margin-bottom:5px;letter-spacing:1px;">名2（41-60岁）</div>
+          <input class="inp" id="iName2" placeholder="如：明（可选）" style="margin:0;text-align:center;font-size:18px;">
+        </div>
+      </div>
+      <div style="font-size:11px;color:var(--t3);margin-bottom:16px;">💡 系统自动以康熙字典正体字计算笔画</div>
+      <label class="lbl">⚧ 性别（影响姓名分析）</label>
+      <div style="display:flex;gap:12px;margin-bottom:16px;">
+        <label style="flex:1;cursor:pointer;">
+          <input type="radio" name="gender" id="gMale" value="male" checked style="display:none;">
+          <div id="gMaleBtn" onclick="setGender('male')" style="text-align:center;padding:12px;border-radius:10px;border:2px solid var(--blue);background:rgba(33,150,243,.15);color:var(--pale);font-size:14px;font-weight:700;cursor:pointer;">👨 男</div>
+        </label>
+        <label style="flex:1;cursor:pointer;">
+          <input type="radio" name="gender" id="gFemale" value="female" style="display:none;">
+          <div id="gFemaleBtn" onclick="setGender('female')" style="text-align:center;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.04);color:var(--t3);font-size:14px;font-weight:700;cursor:pointer;">👩 女</div>
+        </label>
+      </div>
+      <label class="lbl">📅 出生日期</label>
+      <div class="dob-grid">
+        <input class="inp" id="iDay" placeholder="日" type="number" min="1" max="31" style="margin:0">
+        <input class="inp" id="iMon" placeholder="月" type="number" min="1" max="12" style="margin:0">
+        <input class="inp" id="iYr" placeholder="如 1999" type="number" min="1900" max="2030" style="margin:0">
+      </div>
+      <div class="hint">例：01 / 01 / 1999</div>
+      <button class="bcalc" onclick="doCalc()">🔮 生成完整命盘报告</button>
+    </div>
+  </div>
+
+  <!-- 夫妻密码输入 -->
+  <div id="inputCouple" style="display:none;">
+    <p class="isub">夫妻 · 长辈小辈 · 合作伙伴 · 五行密码解析</p>
+    <div class="card">
+      <!-- 夫/大 -->
+      <div style="background:rgba(33,150,243,.08);border:1px solid rgba(33,150,243,.25);border-radius:12px;padding:14px;margin-bottom:14px;">
+        <div style="font-size:13px;font-weight:700;color:var(--pale);margin-bottom:12px;">👨 夫 / 大（长辈 / 男方）</div>
+        <input class="inp" id="cNameA" placeholder="姓名（可选）" style="margin-bottom:10px;font-size:16px;">
+        <div class="dob-grid">
+          <input class="inp" id="cDayA" placeholder="日" type="number" min="1" max="31" style="margin:0">
+          <input class="inp" id="cMonA" placeholder="月" type="number" min="1" max="12" style="margin:0">
+          <input class="inp" id="cYrA"  placeholder="年" type="number" min="1900" max="2030" style="margin:0">
+        </div>
+      </div>
+      <!-- 妻/小 -->
+      <div style="background:rgba(239,83,80,.08);border:1px solid rgba(239,83,80,.25);border-radius:12px;padding:14px;margin-bottom:16px;">
+        <div style="font-size:13px;font-weight:700;color:#EF9A9A;margin-bottom:12px;">👩 妻 / 小（小辈 / 女方）</div>
+        <input class="inp" id="cNameB" placeholder="姓名（可选）" style="margin-bottom:10px;font-size:16px;">
+        <div class="dob-grid">
+          <input class="inp" id="cDayB" placeholder="日" type="number" min="1" max="31" style="margin:0">
+          <input class="inp" id="cMonB" placeholder="月" type="number" min="1" max="12" style="margin:0">
+          <input class="inp" id="cYrB"  placeholder="年" type="number" min="1900" max="2030" style="margin:0">
+        </div>
+      </div>
+      <button class="bcalc" onclick="doCouple()">💑 生成夫妻密码报告</button>
+    </div>
+  </div>
+
 </div></div>
 
 <!-- LOADING -->
@@ -237,6 +291,14 @@ body{font-family:"Noto Sans SC",sans-serif;background:#040D1A !important;color:v
   <div class="spin"></div>
   <div style="font-family:'Noto Serif SC',serif;font-size:17px;color:var(--gl);">正在计算命盘…</div>
   <div style="font-size:13px;color:var(--t3);margin-top:8px;">解析16位数字 · 推演13组合 · 分析五行 · 逐字深度拆析</div>
+</div>
+
+<!-- 夫妻密码结果 -->
+<div class="result" id="coupleWrap" style="display:none;">
+  <div class="actbar">
+    <button class="bact breset" onclick="coupleReset()">🔄 重新计算</button>
+  </div>
+  <div class="report" id="coupleReport"></div>
 </div>
 
 <!-- RESULT -->
@@ -252,10 +314,14 @@ body{font-family:"Noto Sans SC",sans-serif;background:#040D1A !important;color:v
     </div>
     <div class="sec"><div class="sttl"><span>🔢</span>命盘图 · 16位数字</div><div class="mp" id="mpEl"></div></div>
     <div class="sec"><div class="sttl"><span>🔍</span>13数字组合解说</div><div class="cgrid" id="cGrid"></div></div>
+    <!-- 天人地三通 -->
+    <div class="sec" id="tjdSec" style="display:none;"><div class="sttl"><span>☯</span>天人地 · 三通分析</div><div id="tjdBoard"></div></div>
     <div class="sec"><div class="sttl"><span>💫</span>主性格解读</div><div class="tgrid" id="tGrid"></div></div>
     <div class="sec" id="missSec"><div class="sttl"><span>❌</span>缺失数字分析</div><div class="mgrid" id="mGrid"></div><div class="wbox" id="wBox" style="display:none"></div></div>
     <div class="sec"><div class="sttl"><span>☯</span>五行能量分析（16数）</div><div class="wxrow" id="wxRow"></div><table class="btbl" id="bTbl"></table><div class="wbox" id="wxW" style="display:none;margin-top:11px;"></div></div>
+    <div class="sec" id="smallWxSec" style="display:none;"><div class="sttl"><span>🔬</span>小五行 · 因果规律（efghi）</div><div id="smallWxBoard"></div></div>
     <div class="sec"><div class="sttl"><span>📅</span>2026 流年运程</div><div class="lyhero" id="lyH"></div><div class="lynums" id="lyN"></div><div class="lyad" id="lyA"></div></div>
+    <div class="sec" id="zodiacSec" style="display:none;"><div class="sttl"><span>🐉</span>生肖关系总览</div><div id="zodiacChart"></div></div>
     <div class="sec" id="nameSec"><div class="sttl"><span>📛</span>姓名生肖分析</div><div id="nameAnalysis"></div></div>
     <div class="sec"><div class="sttl"><span>🎯</span>四大重点分析</div><div class="pgrid" id="pGrid"></div></div>
   </div>
@@ -438,7 +504,38 @@ function getStroke(ch){
   return info ? (info.stroke || 0) : 0;
 }
 
-function compute(name,day,month,year,surname,name1,name2){
+// 从合并后的a,b,c,d直接计算命盘（夫妻合并用）
+function computeFromABCD(a,b,c,d){
+  var e=R(a+b),f=R(c+d),g=R(e+f);
+  var h=R(e+g),i=R(f+g),j=R(h+i);
+  var k=R(a+e),l=R(b+e),m2=R(k+l);
+  var n2=R(c+f),o=R(d+f),p=R(n2+o);
+  var Q=R(a+d+g);
+  var all16=[a,b,c,d,e,f,g,h,i,j,k,l,m2,n2,o,p];
+  var wxMap={'金':[1,6],'水':[2,7],'木':[4,9],'火':[3,8],'土':[5]};
+  var wx={'金':0,'水':0,'木':0,'火':0,'土':0};
+  all16.forEach(function(num){
+    Object.keys(wxMap).forEach(function(el){
+      if(wxMap[el].includes(num)) wx[el]++;
+    });
+  });
+  var pres=new Set([a,b,c,d,e,f,g]);
+  var miss=[];
+  for(var x=1;x<=9;x++){if(!pres.has(x))miss.push(x);}
+  // 13组合
+  var c13names=['父基因','母基因','共同主性格','人生过程(内)','人生过程(外)','子女下属',
+    '事业过程①','事业过程②','当下朋友','婚姻过程①','婚姻过程②','未来财富/健康','隐藏号'];
+  var c13keys=[''+a+b+e,''+c+d+f,''+e+f+g,''+e+g+h,''+f+g+i,''+i+h+j,
+    ''+a+e+k,''+b+e+l,''+k+l+m2,''+c+f+n2,''+d+f+o,''+n2+o+p,
+    ''+R(e+e)+''+R(f+f)+''+R(g+g)];
+  var c13=c13names.map(function(nm,idx){
+    return {nm:nm, key:c13keys[idx], hi:idx===2};
+  });
+  return {a:a,b:b,c:c,d:d,e:e,f:f,g:g,h:h,i:i,j:j,k:k,l:l,m2:m2,n2:n2,o:o,p:p,
+          Q:Q,all16:all16,wx:wx,pres:pres,miss:miss,c13:c13};
+}
+
+function compute(name,day,month,year,surname,name1,name2,gender){
   var a=R(day),b=R(month);
   var ji=parseInt(String(year).slice(0,2));
   var ni=parseInt(String(year).slice(2));
@@ -500,7 +597,7 @@ function compute(name,day,month,year,surname,name1,name2){
     gEl:gEl,
     lyA:lyA,lyB:lyB,lyG:lyG, md:md, lyd:lyd,
     wxMap:wxMap, c13:c13, lyC:lyC, lyY:lyY,
-    inner_num:inner_num, subcon_num:subcon_num
+    inner_num:inner_num, subcon_num:subcon_num, gender:gender||'male'
   };
 }
 
@@ -617,6 +714,9 @@ function renderReport(d){
     return h;
   }).join('');
 
+  // ── 天人地三通 ──
+  renderTJD(d);
+
   // Traits
   var traitHtml=
     '<div class="tbox tp"><div class="tttl">✦ 正面特质</div><div class="tbody">'+md.pos.split('、').join('<br>')+'</div></div>'+
@@ -719,6 +819,9 @@ function renderReport(d){
   });
   var wxw=document.getElementById('wxW');
   if(ww.length){wxw.innerHTML=ww.join('<br>');wxw.style.display='block';}else wxw.style.display='none';
+
+  // ── 小五行（因果规律）──
+  renderSmallWx(d);
 
   // Liunian
   var ly=d.lyd;
@@ -894,6 +997,9 @@ function renderReport(d){
   var nameSecEl = document.getElementById('nameSec');
   var naEl = document.getElementById('nameAnalysis');
 
+  // ── 生肖关系总览（任何情况都显示）──
+  renderZodiacChart(d);
+
   // ── 高分名字预设分析（硬编码）──
   var fullNameCheck = (d.surname||'') + (d.name1||'') + (d.name2||'');
   if (PRESET_NAMES[fullNameCheck]) {
@@ -1006,10 +1112,113 @@ function helT(d){
 // ═══════════════════════════════════════════════════════════════
 // 事件函数
 // ═══════════════════════════════════════════════════════════════
+function switchMode(mode) {
+  var personal = document.getElementById('inputPersonal');
+  var couple = document.getElementById('inputCouple');
+  var btnP = document.getElementById('modePersonal');
+  var btnC = document.getElementById('modeCoupleBtn');
+  if (mode === 'personal') {
+    personal.style.display = 'block';
+    couple.style.display = 'none';
+    btnP.style.border = '2px solid var(--gold)';
+    btnP.style.background = 'rgba(201,168,76,.12)';
+    btnP.style.color = 'var(--gl)';
+    btnC.style.border = '1px solid rgba(255,255,255,.15)';
+    btnC.style.background = 'rgba(255,255,255,.04)';
+    btnC.style.color = 'var(--t3)';
+  } else {
+    personal.style.display = 'none';
+    couple.style.display = 'block';
+    btnC.style.border = '2px solid #EF9A9A';
+    btnC.style.background = 'rgba(239,83,80,.1)';
+    btnC.style.color = '#EF9A9A';
+    btnP.style.border = '1px solid rgba(255,255,255,.15)';
+    btnP.style.background = 'rgba(255,255,255,.04)';
+    btnP.style.color = 'var(--t3)';
+  }
+}
+
+function doCouple() {
+  var dayA=parseInt(document.getElementById('cDayA').value);
+  var monA=parseInt(document.getElementById('cMonA').value);
+  var yrA=parseInt(document.getElementById('cYrA').value);
+  var dayB=parseInt(document.getElementById('cDayB').value);
+  var monB=parseInt(document.getElementById('cMonB').value);
+  var yrB=parseInt(document.getElementById('cYrB').value);
+  var nameA=document.getElementById('cNameA').value.trim()||'夫/大';
+  var nameB=document.getElementById('cNameB').value.trim()||'妻/小';
+  if(!dayA||!monA||!yrA||!dayB||!monB||!yrB) {
+    alert('请填写两人的完整出生日期');return;
+  }
+
+  // ── 合并算法：日月年各自相加，取mod100再R ──
+  function cR(x, y) {
+    var s = (x + y) % 100;
+    if (s === 0) return 5;
+    return R(s);
+  }
+  var cA = cR(dayA, dayB);                              // 合并日
+  var cB = cR(monA, monB);                              // 合并月
+  var cC = cR(Math.floor(yrA/100), Math.floor(yrB/100)); // 合并年前两位
+  var cD0 = (yrA % 100) + (yrB % 100);
+  var cD = cD0 === 0 ? 5 : R(cD0 % 100 === 0 ? cD0 % 100 === 0 && cD0 > 0 ? 5 : 5 : cD0 % 100);
+  // 简洁写法
+  var ydA = yrA % 100, ydB = yrB % 100;
+  cD = R(((ydA + ydB) % 100) || 5);
+
+  document.getElementById('inpPage').style.display='none';
+  document.getElementById('loading').classList.add('on');
+  setTimeout(function(){
+    try{
+      // 个人命盘（用于b和c值取夫妻密码）
+      var dA=compute(nameA,dayA,monA,yrA,'','','','male');
+      var dB=compute(nameB,dayB,monB,yrB,'','','','female');
+      // 合并命盘（用于五行分析）
+      var dC=computeFromABCD(cA,cB,cC,cD);
+      renderCouple(dA,dB,dC,nameA,nameB);
+      document.getElementById('loading').classList.remove('on');
+      var cw=document.getElementById('coupleWrap');
+      cw.style.display='block';
+      cw.classList.add('on');
+      cw.scrollIntoView({behavior:'smooth'});
+    }catch(err){
+      document.getElementById('loading').classList.remove('on');
+      document.getElementById('inpPage').style.display='block';
+      alert('计算出错：'+err.message);
+      console.error(err);
+    }
+  },600);
+}
+
+function setGender(g) {
+  var mBtn = document.getElementById('gMaleBtn');
+  var fBtn = document.getElementById('gFemaleBtn');
+  if (!mBtn || !fBtn) return;
+  if (g === 'male') {
+    document.getElementById('gMale').checked = true;
+    mBtn.style.border = '2px solid var(--blue)';
+    mBtn.style.background = 'rgba(33,150,243,.15)';
+    mBtn.style.color = 'var(--pale)';
+    fBtn.style.border = '1px solid rgba(255,255,255,.15)';
+    fBtn.style.background = 'rgba(255,255,255,.04)';
+    fBtn.style.color = 'var(--t3)';
+  } else {
+    document.getElementById('gFemale').checked = true;
+    fBtn.style.border = '2px solid #EF9A9A';
+    fBtn.style.background = 'rgba(239,83,80,.12)';
+    fBtn.style.color = '#EF9A9A';
+    mBtn.style.border = '1px solid rgba(255,255,255,.15)';
+    mBtn.style.background = 'rgba(255,255,255,.04)';
+    mBtn.style.color = 'var(--t3)';
+  }
+}
+
 function doCalc(){
   var surname=document.getElementById('iSurname').value.trim();
   var name1=document.getElementById('iName1').value.trim();
   var name2=document.getElementById('iName2').value.trim();
+  var gender = document.querySelector('input[name="gender"]:checked') ?
+    document.querySelector('input[name="gender"]:checked').value : 'male';
   var name = surname + name1 + name2;
   var day=parseInt(document.getElementById('iDay').value);
   var month=parseInt(document.getElementById('iMon').value);
@@ -1020,7 +1229,7 @@ function doCalc(){
   document.getElementById('loading').classList.add('on');
   setTimeout(function(){
     try {
-      var data=compute(name,day,month,year,surname,name1,name2);
+      var data=compute(name,day,month,year,surname,name1,name2,gender);
       renderReport(data);
       document.getElementById('loading').classList.remove('on');
       document.getElementById('resultWrap').classList.add('on');
@@ -1032,6 +1241,477 @@ function doCalc(){
       console.error('Error:', err);
     }
   },900);
+}
+
+function coupleReset(){
+  document.getElementById('coupleWrap').classList.remove('on');
+  document.getElementById('coupleWrap').style.display='none';
+  document.getElementById('inpPage').style.display='block';
+  switchMode('couple');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderCouple(dA, dB, dC, nameA, nameB) {
+  var wrap = document.getElementById('coupleWrap');
+  var report = document.getElementById('coupleReport');
+  wrap.style.display = 'block';
+
+  // 夫妻密码 = b(大/夫) : c(小/妻)
+  var bCode = dA.b; // 大的b值
+  var cCode = dB.c; // 小的c值
+  var coupleCode = bCode + ':' + cCode;
+
+  function numElem(n){
+    if(n===1||n===6)return'金';if(n===2||n===7)return'水';
+    if(n===3||n===8)return'火';if(n===4||n===9)return'木';return'土';
+  }
+  var ELEM_COLOR={'金':'#FFD700','水':'#64B5F6','木':'#81C784','火':'#EF9A9A','土':'#FFE082'};
+
+  var bEl=numElem(bCode), cEl=numElem(cCode);
+
+  // 夫妻密码解说数据库
+  var COUPLE_DB = {
+    // 倒生（夫惯妻）
+    '1:2':{type:'倒生',label:'金生水',color:'#64B5F6',icon:'💧',
+      pheno:'夫惯妻，日子容易往下走。夫的能量不断滋养妻，妻容易越来越依赖。',
+      way:'妻子要识惯，懂得回馈；丈夫要有尺度，惯妻但不可以惯无底线。'},
+    '6:2':{type:'倒生',label:'金生水',color:'#64B5F6',icon:'💧',
+      pheno:'夫惯妻，日子容易往下走。夫的能量不断滋养妻，妻容易越来越依赖。',
+      way:'妻子要识惯，懂得回馈；丈夫要有尺度，惯妻但不可以惯无底线。'},
+    '2:4':{type:'倒生',label:'水生木',color:'#81C784',icon:'🌱',
+      pheno:'夫惯妻，夫的能量滋养妻成长，妻越来越强，夫容易越来越弱。',
+      way:'妻子要识惯，懂得回馈，反哺丈夫；丈夫不要无底线付出，要保留自己的能量。'},
+    '7:4':{type:'倒生',label:'水生木',color:'#81C784',icon:'🌱',
+      pheno:'夫惯妻，夫的能量滋养妻成长，妻越来越强，夫容易越来越弱。',
+      way:'妻子要识惯，懂得回馈，反哺丈夫；丈夫不要无底线付出，要保留自己的能量。'},
+    '4:3':{type:'倒生',label:'木生火',color:'#EF9A9A',icon:'🔥',
+      pheno:'夫惯妻，夫燃烧自己点亮妻，妻光芒越来越大，夫容易精力透支。',
+      way:'妻子要识惯，懂得感恩，不要无限索取；丈夫要懂得蓄能，不可以燃烧殆尽。'},
+    '9:3':{type:'倒生',label:'木生火',color:'#EF9A9A',icon:'🔥',
+      pheno:'夫惯妻，夫燃烧自己点亮妻，妻光芒越来越大，夫容易精力透支。',
+      way:'妻子要识惯，懂得感恩，不要无限索取；丈夫要懂得蓄能，不可以燃烧殆尽。'},
+    // 相旺（同气）
+    '2:2':{type:'相旺',label:'水水相旺',color:'#64B5F6',icon:'🌊',
+      pheno:'互相支持，互相理解，容易互相宠坏对方，为小事吵架。桃花旺，感情旺但也容易因感情起波折。',
+      way:'大事不擅自决定，多多商量；小事不斤斤计较，多多包容，夫唱妇随，风生水起。'},
+    '7:2':{type:'相旺',label:'水水相旺',color:'#64B5F6',icon:'🌊',
+      pheno:'互相支持，互相理解，为小事吵架。妻子要主动融入丈夫的圈子，才能越过越旺。',
+      way:'妻子要融入老公圈子，夫唱妇随；大事多商量，小事多包容。'},
+    '4:4':{type:'相旺',label:'木木成林',color:'#81C784',icon:'🌳',
+      pheno:'互相支持，同道同行，容易互相宠坏，为小事争执。两人都有主见，容易各说各的。',
+      way:'大事不擅自决定，多多商量；小事不斤斤计较，多多包容，夫唱妇随，风生水起。'},
+    '9:4':{type:'相旺',label:'木木成林',color:'#81C784',icon:'🌳',
+      pheno:'互相支持，同道同行，容易互相宠坏，为小事争执。两人都有主见，容易各说各的。',
+      way:'大事不擅自决定，多多商量；小事不斤斤计较，多多包容，夫唱妇随，风生水起。'},
+    '3:3':{type:'相旺',label:'火火相旺',color:'#EF9A9A',icon:'🔥',
+      pheno:'互相激励，爆发力强，感情热烈，容易互相宠坏，也容易因小事爆发大吵。',
+      way:'大事不擅自决定，多多商量；小事不斤斤计较，多多包容，夫唱妇随，风生水起。'},
+    '8:3':{type:'相旺',label:'火火相旺',color:'#EF9A9A',icon:'🔥',
+      pheno:'互相激励，爆发力强，感情热烈，容易互相宠坏，也容易因小事爆发大吵。',
+      way:'大事不擅自决定，多多商量；小事不斤斤计较，多多包容，夫唱妇随，风生水起。'},
+    // 水火冲（爆力）
+    '3:2':{type:'相冲',label:'水火冲',color:'#FF7043',icon:'⚡',
+      pheno:'忽好忽坏，容易吵吵闹闹，情绪起伏大，两人容易互相激怒。',
+      way:'遇事不争对错，吵架不翻旧账，互相尊重，以礼相让。'},
+    '2:3':{type:'相冲',label:'水火冲',color:'#FF7043',icon:'⚡',
+      pheno:'忽好忽坏，容易吵吵闹闹，情绪起伏大，两人容易互相激怒。',
+      way:'遇事不争对错，吵架不翻旧账，互相尊重，以礼相让。'},
+    '8:2':{type:'相冲',label:'水火冲（强）',color:'#FF7043',icon:'⚡',
+      pheno:'妻子服从丈夫，日子才能越过越旺；若妻子不服，会影响双方身体健康。',
+      way:'妻子要举案齐眉，丈夫要克制收敛，懂得尺度，互相尊重。'},
+    '7:3':{type:'相冲',label:'水火冲（强）',color:'#FF7043',icon:'⚡',
+      pheno:'妻子服从丈夫，日子才能越过越旺；若妻子不服，会影响双方身体健康。',
+      way:'妻子要举案齐眉，丈夫要克制收敛，懂得尺度，互相尊重。'},
+    // 相生（妻旺夫）
+    '4:2':{type:'相生',label:'旺夫型',color:'#2ECC71',icon:'💚',
+      pheno:'妻子生丈夫，旺夫型，妻子越贤惠，家庭越旺，越过越有钱。',
+      way:'你懂我早出晚归的劳累，我知你三餐琐碎和带娃的疲惫，温柔贤惠，夫妻同心。'},
+    '3:4':{type:'相生',label:'旺夫型',color:'#2ECC71',icon:'💚',
+      pheno:'妻子生丈夫，旺夫型，妻子越贤惠，家庭越旺，越过越有钱。',
+      way:'你懂我早出晚归的劳累，我知你三餐琐碎和带娃的疲惫，温柔贤惠，夫妻同心。'},
+    '9:2':{type:'相生',label:'旺夫提升妻',color:'#2ECC71',icon:'💫',
+      pheno:'妻子生丈夫，旺夫，容易消耗妻子的身体健康，需要提升妻子的能量。',
+      way:'丈夫是一家栋梁，要明理有志气；妻子如水，随遇而安，随贫随富，能育万物不与万物相争。'},
+    '8:4':{type:'相生',label:'旺夫提升妻',color:'#2ECC71',icon:'💫',
+      pheno:'妻子生丈夫，旺夫，容易消耗妻子的身体健康，需要提升妻子的能量。',
+      way:'丈夫是一家栋梁，要明理有志气；妻子如水，随遇而安，随贫随富，能育万物不与万物相争。'},
+    '5:3':{type:'相生',label:'旺夫提升妻',color:'#2ECC71',icon:'💫',
+      pheno:'妻子生丈夫，旺夫，容易消耗妻子的身体健康，需要提升妻子的能量。',
+      way:'丈夫是一家栋梁，要明理有志气；妻子如水，随遇而安，随贫随富，能育万物不与万物相争。'},
+    // 夫克妻
+    '5:2':{type:'克妻',label:'夫克妻（需注意）',color:'#FFA726',icon:'⚠️',
+      pheno:'克者为财，如果克过了，会对妻子的身体有影响，需要提高妻子的能量。',
+      way:'丈夫要示弱，妻子要提升能量，方能和平相处，家才能越来越旺。'},
+    '6:4':{type:'克妻',label:'夫克妻（需注意）',color:'#FFA726',icon:'⚠️',
+      pheno:'克者为财，如果克过了，会对妻子的身体有影响，需要提高妻子的能量。',
+      way:'丈夫要示弱，妻子要提升能量，方能和平相处，家才能越来越旺。'},
+    '1:4':{type:'克妻',label:'夫克妻（需注意）',color:'#FFA726',icon:'⚠️',
+      pheno:'克者为财，如果克过了，会对妻子的身体有影响，需要提高妻子的能量。',
+      way:'丈夫要示弱，妻子要提升能量，方能和平相处，家才能越来越旺。'},
+    // 妻克夫
+    '1:3':{type:'克夫',label:'妻克夫（沟通为财）',color:'#CE93D8',icon:'💜',
+      pheno:'克者为财，妻子克丈夫，若处理好反而是沟通型的财富组合。',
+      way:'妻子不要挑剔丈夫，只提合理化建议；夫妻和平相处，家才能越来越旺。'},
+    '6:3':{type:'克夫',label:'妻克夫（沟通为财）',color:'#CE93D8',icon:'💜',
+      pheno:'克者为财，妻子克丈夫，若处理好反而是沟通型的财富组合。',
+      way:'妻子不要挑剔丈夫，只提合理化建议；夫妻和平相处，家才能越来越旺。'},
+    '5:4':{type:'克夫',label:'妻克夫（沟通为财）',color:'#CE93D8',icon:'💜',
+      pheno:'克者为财，妻子克丈夫，若处理好反而是沟通型的财富组合。',
+      way:'妻子不要挑剔丈夫，只提合理化建议；夫妻和平相处，家才能越来越旺。'},
+  };
+
+  var info = COUPLE_DB[coupleCode];
+  if (!info) {
+    // 没有在数据库里的组合，给通用提示
+    info = {type:'中性',label:bEl+'·'+cEl,color:'var(--t2)',icon:'🔯',
+      pheno:'此组合五行关系：'+bEl+'（夫b='+bCode+'） 与 '+cEl+'（妻c='+cCode+'），建议联系黄冠尊老师进行深度分析。',
+      way:'五行相处之道：互相理解，互相支持，大事商量，小事包容。'};
+  }
+
+  var TYPE_LABEL = {'倒生':'惯妻型','相旺':'相旺型','相冲':'相冲型','相生':'旺夫型','克妻':'克妻型','克夫':'克夫型','中性':'中性型'};
+  var typeLabel = TYPE_LABEL[info.type] || info.type;
+
+  var h = '<div style="padding:30px 26px;">';
+
+  // ── 头部 ──
+  h += '<div style="text-align:center;margin-bottom:24px;">';
+  h += '<div style="font-size:12px;color:var(--t3);letter-spacing:3px;margin-bottom:8px;">夫妻密码 · 五行组合分析</div>';
+  h += '<div style="display:flex;justify-content:center;align-items:center;gap:16px;margin-bottom:10px;">';
+  // 夫
+  h += '<div style="text-align:center;">';
+  h += '<div style="font-size:11px;color:var(--pale);margin-bottom:4px;">👨 '+nameA+'</div>';
+  h += '<div style="font-family:Cinzel,serif;font-size:52px;font-weight:700;color:'+ELEM_COLOR[bEl]+';line-height:1;">'+bCode+'</div>';
+  h += '<div style="font-size:12px;color:'+ELEM_COLOR[bEl]+';margin-top:4px;">b值 · 五行'+bEl+'</div>';
+  h += '</div>';
+  // 密码
+  h += '<div style="font-size:28px;font-weight:700;color:var(--gold);">:</div>';
+  // 妻
+  h += '<div style="text-align:center;">';
+  h += '<div style="font-size:11px;color:#EF9A9A;margin-bottom:4px;">👩 '+nameB+'</div>';
+  h += '<div style="font-family:Cinzel,serif;font-size:52px;font-weight:700;color:'+ELEM_COLOR[cEl]+';line-height:1;">'+cCode+'</div>';
+  h += '<div style="font-size:12px;color:'+ELEM_COLOR[cEl]+';margin-top:4px;">c值 · 五行'+cEl+'</div>';
+  h += '</div>';
+  h += '</div>';
+  h += '<div style="display:inline-block;padding:6px 20px;border-radius:20px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);font-size:13px;color:var(--gold);font-weight:700;">';
+  h += info.icon+' '+info.label+' · '+typeLabel+'</div>';
+  h += '</div>';
+
+  // ── 现象 ──
+  h += '<div style="background:rgba(0,0,0,.2);border:1px solid '+info.color+'44;border-left:4px solid '+info.color+';border-radius:12px;padding:16px;margin-bottom:12px;">';
+  h += '<div style="font-size:12px;font-weight:700;color:'+info.color+';margin-bottom:8px;">🔍 关系现象</div>';
+  h += '<div style="font-size:13px;color:var(--t2);line-height:1.9;">'+info.pheno+'</div>';
+  h += '</div>';
+
+  // ── 夫妻之道 ──
+  h += '<div style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.25);border-radius:12px;padding:16px;margin-bottom:20px;">';
+  h += '<div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:8px;">💑 夫妻之道</div>';
+  h += '<div style="font-size:13px;color:var(--t2);line-height:1.9;">'+info.way+'</div>';
+  h += '</div>';
+
+  // ── 两人16位命盘 ──
+  h += '<div style="font-size:13px;font-weight:700;color:var(--pale);margin-bottom:14px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);">📊 两人命盘数字对照</div>';
+  h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">';
+
+  function miniBoard(data, label, color) {
+    var nums = [data.a,data.b,data.c,data.d,data.e,data.f,data.g,data.h,data.i,data.j,data.k,data.l,data.m2,data.n2,data.o,data.p];
+    var labels = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p'];
+    var s = '<div style="background:rgba(0,0,0,.2);border:1px solid '+color+'44;border-radius:12px;padding:12px;">';
+    s += '<div style="font-size:11px;font-weight:700;color:'+color+';margin-bottom:10px;">'+label+'</div>';
+    s += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;">';
+    nums.forEach(function(n,i){
+      var isKey = (i===1||i===5||i===6); // b,f,g
+      s += '<div style="text-align:center;padding:5px 2px;background:'+(isKey?'rgba(201,168,76,.1)':'rgba(255,255,255,.03)')+';border-radius:6px;border:1px solid '+(isKey?'rgba(201,168,76,.3)':'rgba(255,255,255,.07)')+'">';
+      s += '<div style="font-size:9px;color:var(--t3);">'+labels[i]+'</div>';
+      s += '<div style="font-size:14px;font-weight:700;color:'+(isKey?'var(--gold)':'var(--t2)')+';">'+n+'</div>';
+      s += '</div>';
+    });
+    s += '</div>';
+    s += '<div style="font-size:10px;color:var(--t3);margin-top:8px;text-align:center;">Q='+data.Q+' · 主性格g='+data.g+' · 生肖'+data.zodiac+'</div>';
+    s += '</div>';
+    return s;
+  }
+
+  h += miniBoard(dA, '👨 '+nameA, '#64B5F6');
+  h += miniBoard(dB, '👩 '+nameB, '#EF9A9A');
+  h += '</div>';
+
+  // ── 合并命盘16位数字 ──
+  h += '<div style="font-size:13px;font-weight:700;color:var(--pale);margin-bottom:12px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);">🔢 夫妻合并命盘（共同abcd推算）</div>';
+  h += '<div style="background:rgba(0,0,0,.2);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:14px;margin-bottom:12px;">';
+  // 公式说明
+  h += '<div style="font-size:11px;color:var(--t3);margin-bottom:12px;line-height:1.8;">';
+  h += '合并算法：日/月/年各自相加取后两位再化简<br>';
+  h += '<span style="color:var(--gl);">a='+dC.a+'  b='+dC.b+'  c='+dC.c+'  d='+dC.d+'</span>  →  e='+dC.e+'  f='+dC.f+'  <span style="color:var(--gold);font-weight:700;">g='+dC.g+'（共同主性格）</span>';
+  h += '</div>';
+  // 16位数字格
+  var nums16=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p'];
+  var vals16=[dC.a,dC.b,dC.c,dC.d,dC.e,dC.f,dC.g,dC.h,dC.i,dC.j,dC.k,dC.l,dC.m2,dC.n2,dC.o,dC.p];
+  h += '<div style="display:grid;grid-template-columns:repeat(8,1fr);gap:4px;">';
+  vals16.forEach(function(n,i){
+    var isKey = [4,5,6].indexOf(i)!==-1; // e,f,g
+    h += '<div style="text-align:center;padding:6px 2px;background:'+(isKey?'rgba(201,168,76,.12)':'rgba(255,255,255,.03)')+';border-radius:6px;border:1px solid '+(isKey?'rgba(201,168,76,.3)':'rgba(255,255,255,.07)')+'">';
+    h += '<div style="font-size:9px;color:var(--t3);">'+nums16[i]+'</div>';
+    h += '<div style="font-size:16px;font-weight:700;color:'+(isKey?'var(--gold)':'var(--t2)')+';">'+n+'</div>';
+    h += '</div>';
+  });
+  h += '</div>';
+  h += '<div style="font-size:10px;color:var(--t3);margin-top:10px;text-align:center;">Q='+dC.Q+'（家庭本源梦想） · 共同主性格g='+dC.g+'</div>';
+  h += '</div>';
+
+  // ── 家庭五行能量（从合并命盘dC计算）──
+  var wxCombined = dC.wx;
+  var wxTotal = wxCombined['金']+wxCombined['水']+wxCombined['木']+wxCombined['火']+wxCombined['土'];
+  var wxBalC = {'金':4,'水':3,'木':3,'火':3,'土':3};
+
+  var wxData2 = [{k:'金'},{k:'水'},{k:'木'},{k:'火'},{k:'土'}];
+  var chColor3 = {'金':'#FFD700','水':'#64B5F6','木':'#81C784','火':'#EF9A9A','土':'#FFE082'};
+  var bgMap3 = {'金':'rgba(255,215,0,.07)','水':'rgba(33,150,243,.09)','木':'rgba(76,175,80,.07)','火':'rgba(239,83,80,.07)','土':'rgba(255,193,7,.06)'};
+
+  h += '<div style="font-size:13px;font-weight:700;color:var(--pale);margin-bottom:12px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);">☯ 家庭五行能量（合并16数 · 共'+wxTotal+'数）</div>';
+  h += '<div style="background:rgba(0,0,0,.2);border:1px solid rgba(201,168,76,.2);border-radius:14px;padding:14px;margin-bottom:12px;">';
+  // 五行起点说明
+  var wxElemMap2 = {1:'金',2:'水',3:'火',4:'木',5:'土',6:'金',7:'水',8:'火',9:'木'};
+  var masterElemC = wxElemMap2[dC.g];
+  h += '<div style="font-size:11px;color:var(--t3);margin-bottom:10px;">共同主性格 <strong style="color:var(--gold);">g='+dC.g+'（五行'+masterElemC+'）</strong>，自身从<strong style="color:'+({金:'#FFD700',水:'#64B5F6',木:'#81C784',火:'#EF9A9A',土:'#FFE082'})[masterElemC]+'">'+masterElemC+'</strong>开始排列 · 基准 4|3|3|3|3</div>';
+
+  // 五行格子（夫妻合并）
+  h += '<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:12px;">';
+  wxData2.forEach(function(w) {
+    var v = wxCombined[w.k];
+    var b = wxBalC[w.k];
+    var isZero = v === 0;
+    var statusText = v > b ? '过旺' : v === b ? '平衡' : v > 0 ? '偏弱' : '极缺';
+    var statusColor = v > b ? '#FFB347' : v === b ? '#81C784' : v > 0 ? '#FFE082' : '#EF9A9A';
+    // 夫/妻各贡献
+    var aV = dA.wx[w.k], bV = dB.wx[w.k];
+    h += '<div style="text-align:center;background:'+bgMap3[w.k]+';border:1px solid '+chColor3[w.k]+'33;border-radius:10px;padding:10px 4px;">';
+    h += '<div style="font-family:\'Noto Serif SC\',serif;font-size:22px;font-weight:700;color:'+chColor3[w.k]+';margin-bottom:3px;">'+w.k+'</div>';
+    h += '<div style="font-family:Cinzel,serif;font-size:22px;font-weight:700;color:'+(isZero?'#EF9A9A':'var(--white)')+';">'+v+(isZero?' ⚠':'')+'</div>';
+    h += '<div style="font-size:9px;color:var(--t3);margin-top:2px;">夫'+aV+' + 妻'+bV+'</div>';
+    h += '<div style="font-size:9px;color:'+statusColor+';font-weight:700;margin-top:2px;">'+statusText+'</div>';
+    h += '<div style="font-size:9px;color:var(--t3);">基准'+b+'</div>';
+    h += '</div>';
+  });
+  h += '</div>';
+
+  // 条形图
+  var posNames5C = ['自身','子女/财富','事业/伴侣','官鬼/疾病','贵人/父母'];
+  var wxCycle2 = ['金','水','木','火','土'];
+  // 从夫的主性格出发
+  var wxElemMap2 = {1:'金',2:'水',3:'火',4:'木',5:'土',6:'金',7:'水',8:'火',9:'木'};
+  var masterElemC = wxElemMap2[dC.g];
+  var startIdxC = wxCycle2.indexOf(masterElemC);
+  var posElemsC = wxCycle2.slice(startIdxC).concat(wxCycle2.slice(0,startIdxC));
+  var piBalsC = [4,3,3,3,3];
+
+  h += '<div style="display:grid;gap:4px;">';
+  posElemsC.forEach(function(ek, i) {
+    var v = wxCombined[ek], b = piBalsC[i];
+    var pct = Math.min(100, (v/b)*100);
+    var col = v > b ? '#FFB347' : v === b ? '#64B5F6' : v > 0 ? '#FFE082' : '#EF9A9A';
+    var bt = v > b ? '过旺' : v === b ? '平衡' : v > 0 ? '偏弱' : '极缺';
+    var bdgBg = v > b ? 'rgba(255,167,38,.2)' : v === b ? 'rgba(46,204,113,.2)' : v > 0 ? 'rgba(255,193,7,.2)' : 'rgba(239,83,80,.2)';
+    h += '<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(0,0,0,.15);border-radius:8px;">';
+    h += '<div style="font-size:10px;color:var(--t3);min-width:60px;">'+posNames5C[i]+'</div>';
+    h += '<div style="font-size:11px;color:'+chColor3[ek]+';min-width:20px;font-weight:700;text-align:center;">'+ek+'</div>';
+    h += '<div style="flex:1;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;">';
+    h += '<div style="height:100%;width:'+pct+'%;background:'+col+';border-radius:3px;"></div></div>';
+    h += '<div style="font-size:10px;color:var(--t2);min-width:24px;text-align:right;">'+v+'/'+b+'</div>';
+    h += '<div style="font-size:9px;padding:2px 6px;border-radius:8px;background:'+bdgBg+';color:'+col+';font-weight:700;">'+bt+'</div>';
+    h += '</div>';
+  });
+  h += '</div>';
+
+  // ── 夫妻五行专属解说 ──
+  var posVals = posElemsC.map(function(ek){ return wxCombined[ek]; });
+  var selfV  = posVals[0]; // 自身
+  var caiV   = posVals[1]; // 子女/财富
+  var yeV    = posVals[2]; // 事业/伴侣
+  var guiV   = posVals[3]; // 官鬼/疾病
+  var fuV    = posVals[4]; // 贵人/父母
+
+  h += '<div style="margin-top:14px;">';
+  h += '<div style="font-size:12px;font-weight:700;color:var(--gl);margin-bottom:10px;">📖 夫妻五行专属解说</div>';
+
+  // 五格逐一解说
+  var posItems = [
+    { name:'自身（夫妻能量根基）', v:selfV, bal:4,
+      rules:[
+        { cond: selfV===0, color:'#EF9A9A', text:'自身为0：根基完全缺失，婚姻容易受外界影响，东西很难控制，稳定性极低。' },
+        { cond: selfV<4, color:'#FFE082', text:'自身弱（'+selfV+'/4）：婚姻容易受到别人影响，根基不牢，东西很难控制，感情缺乏安全感。' },
+        { cond: selfV===4, color:'#81C784', text:'自身平衡（4/4）：家庭根基稳健，两人能相互扶持，感情有一定的稳定性。' },
+        { cond: selfV>4, color:'#64B5F6', text:'自身强（'+selfV+'/4）：会经历很多过程，容易掌控，能一起共患难，感情越磨越深。' },
+      ]
+    },
+    { name:'子女/财富（经济价值）', v:caiV, bal:3,
+      rules:[
+        { cond: caiV===0, color:'#EF9A9A', text:'财富为0：很容易欠钱，投资失败，钱辛苦拿还留不住，现金流极度不足，财务压力大。' },
+        { cond: caiV<3, color:'#FFE082', text:'财富弱（'+caiV+'/3）：现金流不够，钱来钱去，财富积累困难，数字少于3都属弱。' },
+        { cond: caiV===3, color:'#81C784', text:'财富平衡（3/3）：家庭收支正常，基本不缺钱，稳健积累。' },
+        { cond: caiV>3 && selfV>=caiV, color:'#2ECC71', text:'财富强且自身足够撑（'+caiV+'/3）：财富大、享钱，不缺钱，自身能驾驭财富，越过越好。' },
+        { cond: caiV>3 && selfV<caiV, color:'#FFA726', text:'财大压身警示！财富（'+caiV+'）大过自身（'+selfV+'）：钱多了反而是负担，容易守不住，需提升自身能量。' },
+      ]
+    },
+    { name:'事业/伴侣（事业·情绪价值）', v:yeV, bal:3,
+      rules:[
+        { cond: yeV===0, color:'#EF9A9A', text:'事业为0：阻碍很多，双方容易一方赚钱一方不赚钱，情绪焦虑，意外和官非多，一方身体容易出问题。' },
+        { cond: yeV<3, color:'#FFE082', text:'事业弱（'+yeV+'/3）：很难找到满意工作，夫妻关系弱，容易因钱或工作产生矛盾。' },
+        { cond: yeV===3, color:'#81C784', text:'事业平衡（3/3）：家庭事业正常运转，夫妻感情稳定，有共同目标。' },
+        { cond: yeV>3, color:'#2ECC71', text:'事业强（'+yeV+'/3）：容易赚到钱，事业心强，主财大，两人事业互相成就。' },
+      ]
+    },
+    { name:'官鬼/疾病（名声·地位·家族权利）', v:guiV, bal:3,
+      rules:[
+        { cond: guiV===0, color:'#EF9A9A', text:'官鬼为0：容易被人看不起，官非多，容易借钱，家里人容易生病，无名望地位。' },
+        { cond: guiV<3, color:'#FFE082', text:'官鬼弱（'+guiV+'/3）：名声和地位有限，家族话语权不足，健康需注意。' },
+        { cond: guiV===3, color:'#81C784', text:'官鬼平衡（3/3）：家庭有一定的社会地位和名望，健康稳定。' },
+        { cond: guiV>3, color:'#2ECC71', text:'官鬼强（'+guiV+'/3）：家族你说了算，掌控权强，名望高，有身份地位，得到尊重。' },
+      ]
+    },
+    { name:'贵人/父母（福气·传承）', v:fuV, bal:3,
+      rules:[
+        { cond: fuV===0, color:'#EF9A9A', text:'贵人为0：孩子得不到父母财富，守不住家业，建议多买保险、地产，累积资产，防止遗产流失。' },
+        { cond: fuV<=1, color:'#FFA726', text:'贵人弱（'+fuV+'/3）：很会赚但没福气，多买保险、地产，累积资产，孩子可能不管你，财富难传承。' },
+        { cond: fuV===3, color:'#81C784', text:'贵人平衡（3/3）：家庭有稳定的贵人和福气，子女与父母关系和谐。' },
+        { cond: fuV>3, color:'#2ECC71', text:'贵人强（'+fuV+'/3）：越过越幸福，越住越有钱，子女孝顺，福气旺，家族兴旺。' },
+      ]
+    },
+  ];
+
+  posItems.forEach(function(pos) {
+    var matched = null;
+    for (var ri = pos.rules.length-1; ri >= 0; ri--) {
+      if (pos.rules[ri].cond) { matched = pos.rules[ri]; break; }
+    }
+    var col = matched ? matched.color : '#81C784';
+    var txt = matched ? matched.text : pos.name+'：正常范围。';
+    h += '<div style="display:flex;gap:10px;padding:10px;background:rgba(0,0,0,.15);border-radius:10px;border-left:3px solid '+col+';margin-bottom:6px;">';
+    h += '<div style="min-width:70px;font-size:10px;color:var(--t3);line-height:1.5;">'+pos.name.split('（')[0]+'<br><span style="color:'+col+';font-weight:700;font-size:12px;">'+pos.v+'/'+pos.bal+'</span></div>';
+    h += '<div style="font-size:12px;color:var(--t2);line-height:1.7;">'+txt+'</div>';
+    h += '</div>';
+  });
+
+  // ── 13组合特殊警示 ──
+  var c13Warns = [];
+  // 父基因官非号
+  var parentKey = dC.c13[0].key;
+  var officialKeys = ['168','618','861','816','681','186','267','726','672','627','276','762'];
+  if (officialKeys.indexOf(parentKey) !== -1) {
+    c13Warns.push('⚠ 父基因含官非号（'+parentKey+'）：两人不能在同一公司，否则容易有官非纠纷。');
+  }
+  // 主性格特殊号
+  var mainKey = dC.c13[2].key;
+  var dryDadKeys=['584','854']; var layFlatKeys=['729','279'];
+  var pressKidKeys=['393','933','483','843','753','663','967','696'];
+  var noToolKeys=['257'];
+  var attractKeys=['786'];
+  if(dryDadKeys.indexOf(mainKey)!==-1) c13Warns.push('⚠ 共同主性格'+mainKey+'：家庭需要拜干爸/干妈借运，化解能量。');
+  if(layFlatKeys.indexOf(mainKey)!==-1) c13Warns.push('⚠ 共同主性格'+mainKey+'（躺平号）：容易两人都躺平，缺乏动力，需要外部激励。');
+  if(pressKidKeys.indexOf(mainKey)!==-1) c13Warns.push('⚠ 共同主性格'+mainKey+'：注意压孩子的运势，需化解，帮孩子提升能量。');
+  if(noToolKeys.indexOf(mainKey)!==-1) c13Warns.push('⚠ 共同主性格257：不能随便配工具，选择工具需谨慎。');
+  if(attractKeys.indexOf(mainKey)!==-1) c13Warns.push('💡 共同主性格786：异性贵人比较好，多接触异性贵人对家庭有帮助。');
+
+  // 2&7 桃花
+  if(wxCombined['水']===2 || wxCombined['水']===7) {
+    c13Warns.push('💡 夫妻秘密2&7：感情很好但容易招桃花，需各自设定边界。');
+  }
+
+  if(c13Warns.length) {
+    h += '<div style="background:rgba(255,193,7,.07);border:1px solid rgba(255,193,7,.2);border-radius:10px;padding:12px;margin-top:10px;">';
+    h += '<div style="font-size:11px;font-weight:700;color:var(--gold);margin-bottom:8px;">⚡ 特别提示</div>';
+    c13Warns.forEach(function(w){ h += '<div style="font-size:12px;color:var(--t2);line-height:1.8;margin-bottom:4px;">'+w+'</div>'; });
+    h += '</div>';
+  }
+
+  // ── 流年建议 ──
+  h += '<div style="background:rgba(33,150,243,.06);border:1px solid rgba(33,150,243,.2);border-radius:10px;padding:12px;margin-top:10px;">';
+  h += '<div style="font-size:11px;font-weight:700;color:var(--pale);margin-bottom:8px;">📅 结婚/重要决策 · 流年建议</div>';
+  h += '<div style="font-size:12px;color:var(--t2);line-height:1.9;">';
+  h += '💍 <strong style="color:var(--gl);">流年2&7 结婚最好</strong>，感情磁场最强<br>';
+  h += '🔄 <strong style="color:#FFE082;">转折年（流年1/5/9）</strong>：适合重大决定和转变<br>';
+  h += '💰 <strong style="color:#2ECC71;">财富年（流年6）</strong>：适合家庭投资、置产、生意部署<br>';
+  h += '<span style="font-size:11px;color:var(--t3);">※ 以上建议结合双方个人流年综合判断</span>';
+  h += '</div></div>';
+
+  h += '</div>';
+
+  // 967/696 孩子运警示（从合并命盘检测）
+  var childWarn = false;
+  var codes967 = ['967','696'];
+  if (dC.c13) {
+    dC.c13.forEach(function(c){ if(codes967.indexOf(c.key)!==-1) childWarn=true; });
+  }
+  if (childWarn) {
+    h += '<div style="background:rgba(255,167,38,.08);border:1px solid rgba(255,167,38,.3);border-radius:12px;padding:14px;margin-bottom:14px;">';
+    h += '<div style="font-size:12px;font-weight:700;color:#FFA726;margin-bottom:6px;">⚠️ 967/696 · 注意孩子运势</div>';
+    h += '<div style="font-size:12px;color:var(--t2);line-height:1.8;">合并命盘中含有967/696组合，需留意对孩子运势的影响，建议咨询黄冠尊老师。</div>';
+    h += '</div>';
+  }
+
+  // ── 13组合解说（从合并命盘计算）──
+  h += '<div style="font-size:13px;font-weight:700;color:var(--pale);margin-bottom:12px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);">🔍 家庭13数字组合解说</div>';
+
+  var c13namesC = ['父基因','母基因','共同主性格','人生过程(内)','人生过程(外)','子女下属',
+    '事业过程①','事业过程②','当下朋友','婚姻过程①','婚姻过程②','未来财富/健康','隐藏号'];
+  var c13keysC = [
+    ''+dC.a+dC.b+dC.e,
+    ''+dC.c+dC.d+dC.f,
+    ''+dC.e+dC.f+dC.g,
+    ''+dC.e+dC.g+dC.h,
+    ''+dC.f+dC.g+dC.i,
+    ''+dC.i+dC.h+dC.j,
+    ''+dC.a+dC.e+dC.k,
+    ''+dC.b+dC.e+dC.l,
+    ''+dC.k+dC.l+dC.m2,
+    ''+dC.c+dC.f+dC.n2,
+    ''+dC.d+dC.f+dC.o,
+    ''+dC.n2+dC.o+dC.p,
+    ''+R(dC.e+dC.e)+''+R(dC.f+dC.f)+''+R(dC.g+dC.g)
+  ];
+
+  function findCD81couple(key) {
+    if (!CD81) return null;
+    if (CD81[key]) return CD81[key];
+    var rev = key.split('').reverse().join('');
+    if (CD81[rev]) return CD81[rev];
+    var found = null;
+    Object.keys(CD81).forEach(function(k){
+      if(k.indexOf(key)!==-1 || k.indexOf(rev)!==-1) found = CD81[k];
+    });
+    return found;
+  }
+
+  h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
+  c13namesC.forEach(function(nm, idx) {
+    var key = c13keysC[idx];
+    var isHi = idx === 2; // 共同主性格高亮
+    var info = findCD81couple(key);
+    var border = isHi ? 'var(--gold)' : 'rgba(33,150,243,.3)';
+    h += '<div style="background:rgba(0,0,0,.2);border:1px solid '+border+';border-left:3px solid '+border+';border-radius:10px;padding:12px;">';
+    h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">';
+    h += '<div style="font-size:11px;color:var(--t3);">'+nm+'</div>';
+    h += '<div style="font-family:Cinzel,serif;font-size:18px;font-weight:700;color:'+(isHi?'var(--gold)':'var(--blue)')+';">'+key+'</div>';
+    h += '</div>';
+    if (info) {
+      if (info.title) h += '<div style="font-size:11px;font-weight:700;color:var(--gold);margin-bottom:5px;">'+info.title+'</div>';
+      if (info.core) h += '<div style="font-size:11px;color:var(--white);line-height:1.7;margin-bottom:4px;padding:5px 8px;background:rgba(201,168,76,.07);border-radius:5px;"><span style="color:var(--gold);font-weight:700;">核心：</span>'+info.core+'</div>';
+      if (info.pos) h += '<div style="font-size:11px;color:#81C784;margin-bottom:3px;"><span style="font-weight:700;">✦ 正面：</span>'+info.pos+'</div>';
+      if (info.neg) h += '<div style="font-size:11px;color:#EF9A9A;margin-bottom:3px;"><span style="font-weight:700;">⚠ 负面：</span>'+info.neg+'</div>';
+      if (info.advice) h += '<div style="font-size:11px;color:var(--t2);border-top:1px solid rgba(255,255,255,.07);padding-top:4px;margin-top:3px;"><span style="color:var(--gl);font-weight:700;">💡 建议：</span>'+info.advice+'</div>';
+    } else {
+      h += '<div style="font-size:11px;color:var(--t3);">结合家庭命盘综合判断。</div>';
+    }
+    h += '</div>';
+  });
+  h += '</div>';
+
+  // 底部
+  h += '<div style="text-align:center;padding:16px 0;border-top:1px solid rgba(255,255,255,.07);margin-top:16px;">';
+  h += '<div style="font-size:11px;color:var(--t3);">如需深度夫妻命盘解读，联系 <span style="color:var(--gold);">黄冠尊老师</span> 进行专业咨询</div>';
+  h += '</div>';
+
+  h += '</div>';
+  report.innerHTML = h;
 }
 
 function doReset(){
@@ -1291,6 +1971,22 @@ const CD81 = {
     neg: '821在主性格位置有特别禁忌——女性不可以在手腕上戴东西，男性不可以戴戒指（会影响运势）。821男性注意前列腺和骨骼健康。',
     special: '821先行动再说话，以身作则用结果证明一切。【特别禁忌】女性：手腕勿戴饰物；男性：勿戴戒指（影响运势）。821男性要特别注意前列腺和骨骼健康。',
     advice: '不能出现在主性格位置（容易影响判断）。发挥独立创业的优势，但学会团队合作，不要事事独扛。'
+  },
+  '382': {
+    title: '水火冲号 · 解决问题高手',
+    core: '沟通能力强，是解决问题的高手。但内部水火相冲，极容易内耗，情绪管理是一生的功课。',
+    pos: '积极行动，创造力强，善于化困难为机遇，在团队中是协调者和救火队长。',
+    neg: '情绪化，没耐性，容易冲动决策。内耗严重，外表能干但内心长期疲惫。婚姻波折大。',
+    special: '382偏沟通见长：先说话再行动，擅长语言化解冲突，但水火相冲同样内耗重，情绪出口必须有。',
+    advice: '情绪管理是这组人最重要的功课。每天给自己减压的出口（运动、冥想），避免把工作压力带回家。'
+  },
+  '382': {
+    title: '水火冲号 · 解决问题高手',
+    core: '沟通能力强，是解决问题的高手。但内部水火相冲，极容易内耗，情绪管理是一生的功课。',
+    pos: '积极行动，创造力强，善于化困难为机遇，在团队中是协调者和救火队长。',
+    neg: '情绪化，没耐性，容易冲动决策。内耗严重，外表能干但内心长期疲惫。婚姻波折大。',
+    special: '382先说再动：擅长语言化解冲突，但水火相冲同样内耗重，情绪出口必须有。',
+    advice: '情绪管理是这组人最重要的功课。每天给自己减压的出口（运动、冥想），避免把工作压力带回家。'
   },
   '832': {
     title: '水火冲号 · 解决问题高手',
@@ -1678,7 +2374,7 @@ const CHAR_DB_V4 = {
 '孳':{radicals:['子'],shape:['子鼠'],elem:'水',meaning:'繁殖',stroke:13,zodiac_good:['鼠']},
 '孺':{radicals:['子'],shape:['子鼠'],elem:'金',meaning:'幼小',stroke:17,zodiac_good:['鼠']},
 '孫':{radicals:['子'],shape:['子鼠'],elem:'金',meaning:'孙子',stroke:10,zodiac_good:['鼠']},
-'好':{radicals:['女','子'],shape:['子鼠','绑腿'],elem:'水',meaning:'好字',stroke:6,zodiac_good:['鼠'],warn:'含女字有绑腿之嫌'},
+'好':{radicals:['女','子'],shape:['子鼠','绑腿','女字旁左阳'],elem:'水',meaning:'好字',stroke:6,zodiac_good:['鼠'],warn:'含女字有绑腿之嫌'},
 '李':{radicals:['木','子'],shape:['子鼠'],elem:'木',meaning:'李姓/李子',stroke:7,zodiac_good:['鼠','兔','虎']},
 '郭':{radicals:['阝右'],shape:['阝右邑'],elem:'木',meaning:'城郭',stroke:15,zodiac_good:['猴','鸡','狗']},
 
@@ -1694,7 +2390,7 @@ const CHAR_DB_V4 = {
 '物':{radicals:['牛'],shape:['丑牛'],elem:'水',meaning:'事物',stroke:8,zodiac_good:['牛']},
 '犁':{radicals:['牛'],shape:['丑牛'],elem:'木',meaning:'犁地',stroke:11,zodiac_good:['牛']},
 '犀':{radicals:['牛'],shape:['丑牛'],elem:'水',meaning:'犀牛',stroke:12,zodiac_good:['牛']},
-'姓':{radicals:['女'],shape:['绑腿'],elem:'水',meaning:'姓氏',stroke:8,warn:'含女字绑腿'},
+'姓':{radicals:['女'],shape:['绑腿','女字旁左阳'],elem:'水',meaning:'姓氏',stroke:8,warn:'含女字绑腿'},
 '浩':{radicals:['氵'],shape:['水'],elem:'水',meaning:'浩瀚',stroke:11,zodiac_good:['牛','猪','鼠']},
 '皓':{radicals:['白'],shape:['日'],elem:'火',meaning:'洁白',stroke:12,zodiac_good:['牛','猪']},
 '紐':{radicals:['糸'],shape:['彩衣'],elem:'水',meaning:'纽扣，牛丑六合字',stroke:10,zodiac_good:['牛','鼠']},
@@ -1803,13 +2499,13 @@ const CHAR_DB_V4 = {
 
 // ─── 羊(未) ───
 '美':{radicals:['羊'],shape:['未羊','开大大'],elem:'水',meaning:'美丽',stroke:9,zodiac_bad:['鼠'],warn:'开大大气散，鼠忌（羊字根）'},
-'姜':{radicals:['女','羊'],shape:['未羊','绑腿'],elem:'土',meaning:'姓姜',stroke:9,zodiac_good:['羊'],warn:'含女字绑腿'},
+'姜':{radicals:['女','羊'],shape:['未羊','绑腿','女字旁左阳'],elem:'土',meaning:'姓姜',stroke:9,zodiac_good:['羊'],warn:'含女字绑腿'},
 '羚':{radicals:['羊'],shape:['未羊'],elem:'木',meaning:'羚羊',stroke:11,zodiac_good:['羊'],zodiac_bad:['鼠']},
 '善':{radicals:['羊'],shape:['未羊'],elem:'土',meaning:'善良',stroke:12,zodiac_good:['羊'],zodiac_bad:['鼠']},
 '義':{radicals:['羊'],shape:['未羊'],elem:'金',meaning:'义气',stroke:13,zodiac_good:['羊'],zodiac_bad:['鼠'],warn:'女性忌用（义字强势夺权）'},
 '羣':{radicals:['羊'],shape:['未羊'],elem:'金',meaning:'群体',stroke:13,zodiac_good:['羊'],zodiac_bad:['鼠']},
 '羲':{radicals:['羊'],shape:['未羊'],elem:'木',meaning:'伏羲',stroke:16,zodiac_good:['羊']},
-'妹':{radicals:['女'],shape:['绑腿'],elem:'木',meaning:'妹妹',stroke:8,warn:'含女字'},
+'妹':{radicals:['女'],shape:['绑腿','女字旁左阳'],elem:'木',meaning:'妹妹',stroke:8,warn:'含女字'},
 '儀':{radicals:['亻','羊'],shape:['人','未羊'],elem:'木',meaning:'仪态',stroke:15,zodiac_good:['羊','马','猴','狗'],zodiac_bad:['鼠']},
 '詳':{radicals:['言','羊'],shape:['未羊'],elem:'金',meaning:'详细',stroke:13,zodiac_good:['羊'],zodiac_bad:['鼠']},
 '祥':{radicals:['示','羊'],shape:['彩衣','未羊'],elem:'金',meaning:'吉祥',stroke:11,zodiac_good:['羊'],zodiac_bad:['鼠']},
@@ -2573,7 +3269,7 @@ const CHAR_DB_V4 = {
 '入':{radicals:['入'],shape:['绑腿'],elem:'木',meaning:'进入',stroke:2,warn:'绑腿字'},
 '大':{radicals:['大'],shape:['王帝','绑腿'],elem:'木',meaning:'大（大生肖格）',stroke:3,warn:'小生肖扛不住'},
 '少':{radicals:['少'],shape:['绑腿'],elem:'金',meaning:'少年',stroke:4,warn:'绑腿字'},
-'妙':{radicals:['女'],shape:['绑腿'],elem:'金',meaning:'美妙',stroke:7,warn:'含女字绑腿'},
+'妙':{radicals:['女'],shape:['绑腿','女字旁左阳'],elem:'金',meaning:'美妙',stroke:7,warn:'含女字绑腿'},
 '夕':{radicals:['夕'],shape:['绑腿'],elem:'金',meaning:'夕阳',stroke:3,warn:'夕字形绑腿'},
 '外':{radicals:['夕'],shape:['绑腿'],elem:'水',meaning:'外面',stroke:5,warn:'含夕字绑腿'},
 '步':{radicals:['步'],shape:['绑腿'],elem:'土',meaning:'步伐',stroke:7,warn:'绑腿字'},
@@ -2631,7 +3327,7 @@ const CHAR_DB_V4 = {
 '姿':{radicals:['女'],shape:['绑腿'],elem:'水',meaning:'姿态',stroke:9,warn:'字义次女，感情退位'},
 '伶':{radicals:['亻','令'],shape:['人','王帝'],elem:'火',meaning:'伶俐',stroke:7,warn:'伶仃孤独，表象美好心实委屈'},
 '燕':{radicals:['火'],shape:['孤独'],elem:'土',meaning:'燕子',stroke:16,warn:'水火相冲，孤独格'},
-'婵':{radicals:['女'],shape:['绑腿','孤独'],elem:'金',meaning:'婵娟',stroke:15,warn:'孤单格（外遇）'},
+'婵':{radicals:['女'],shape:['绑腿','孤独','女字旁左阳'],elem:'金',meaning:'婵娟',stroke:15,warn:'孤单格（外遇）'},
 '蓮':{radicals:['艹'],shape:['艸','孤独'],elem:'火',meaning:'莲花',stroke:17,warn:'莲子心中苦，孤独'},
 '鳳':{radicals:['鸟'],shape:['酉鸡'],elem:'金',meaning:'凤凰',stroke:14,warn:'女性忌：凤为雄鸟，夺夫权'},
 '淑':{radicals:['氵','又'],shape:['水','奔跑'],elem:'水',meaning:'淑女',stroke:12,warn:'古意三男，代夫劳'},
@@ -2738,6 +3434,102 @@ const CHAR_DB_V4 = {
   '马':{radicals:['午'],shape:['午马'],elem:'火',meaning:'马，姓马',stroke:10,zodiac_good:['马','虎','狗']},
   '柏':{radicals:['木'],shape:['木'],elem:'木',meaning:'柏树，常青',stroke:9,zodiac_good:['兔','虎','龙']},
   '悅':{radicals:['忄'],shape:['肉'],elem:'金',meaning:'喜悦',stroke:11,zodiac_good:['虎','蛇','狗']},
+
+  // ── 补充常用取名字（第二批）──
+
+  // 男名常用字
+  '杰':{radicals:['木'],shape:['木'],elem:'木',meaning:'才能出众，俊杰',stroke:8,zodiac_good:['兔','虎','龙','猪','羊']},
+  '轩':{radicals:['车'],shape:['开大大'],elem:'木',meaning:'气宇轩昂，高雅',stroke:10,zodiac_good:['虎','马','狗','龙']},
+  '睿':{radicals:['目'],shape:['肉'],elem:'水',meaning:'睿智聪明，明察秋毫',stroke:14,zodiac_good:['鼠','猪','牛','猴']},
+  '博':{radicals:['十'],shape:['开大大'],elem:'木',meaning:'博学多才，宽广',stroke:12,zodiac_good:['虎','马','狗','龙']},
+  '涛':{radicals:['氵'],shape:['水'],elem:'水',meaning:'波涛壮阔，气势磅礴',stroke:13,zodiac_good:['鼠','猪','牛','龙','猴']},
+  '鹏':{radicals:['鸟'],shape:['羽鸟'],elem:'火',meaning:'鲲鹏展翅，志向远大',stroke:19,zodiac_good:['蛇','马','虎','狗']},
+  '锋':{radicals:['钅'],shape:['金'],elem:'金',meaning:'锋芒毕露，才华横溢',stroke:12,zodiac_good:['猴','鸡','牛','蛇']},
+  '伟':{radicals:['亻'],shape:['人'],elem:'木',meaning:'伟大，伟岸',stroke:6,zodiac_good:['虎','兔','龙','猪']},
+  '勇':{radicals:['力'],shape:['武器'],elem:'金',meaning:'勇敢，英勇',stroke:9,zodiac_good:['猴','鸡','狗','虎']},
+  '晖':{radicals:['日'],shape:['日阳'],elem:'火',meaning:'阳光照耀，光辉',stroke:12,zodiac_good:['蛇','马','虎','狗']},
+  '飞':{radicals:['飞'],shape:['羽鸟'],elem:'木',meaning:'飞翔，奋发',stroke:3,zodiac_good:['虎','马','龙','鸡']},
+  '斌':{radicals:['文'],shape:['文义'],elem:'木',meaning:'文武兼备，才华出众',stroke:12,zodiac_good:['兔','虎','龙','猪']},
+  '亮':{radicals:['亠'],shape:['开大大'],elem:'火',meaning:'明亮，光亮',stroke:9,zodiac_good:['蛇','马','虎','狗']},
+  '辉':{radicals:['光'],shape:['日阳'],elem:'火',meaning:'光辉灿烂，辉煌',stroke:13,zodiac_good:['蛇','马','虎','狗']},
+  '鑫':{radicals:['金'],shape:['金'],elem:'金',meaning:'财源广进，兴旺',stroke:24,zodiac_good:['猴','鸡','牛','蛇','鼠']},
+  '磊':{radicals:['石'],shape:['土'],elem:'土',meaning:'磊落正直，光明磊落',stroke:15,zodiac_good:['牛','龙','羊','狗']},
+  '帅':{radicals:['巾'],shape:['彩衣'],elem:'火',meaning:'英俊帅气，统帅',stroke:9,zodiac_good:['马','虎','狗','蛇']},
+  '晟':{radicals:['日'],shape:['日阳'],elem:'火',meaning:'光明兴盛，繁荣',stroke:11,zodiac_good:['蛇','马','虎','狗']},
+  '熙':{radicals:['火'],shape:['火'],elem:'火',meaning:'和乐，兴盛光明',stroke:16,zodiac_good:['虎','马','狗','蛇']},
+  '烨':{radicals:['火'],shape:['火'],elem:'火',meaning:'火光明亮，炫目辉煌',stroke:13,zodiac_good:['虎','马','狗','蛇']},
+  '煊':{radicals:['火'],shape:['火'],elem:'火',meaning:'光明温暖，旺盛',stroke:13,zodiac_good:['虎','马','狗','蛇']},
+  '龙':{radicals:['龙'],shape:['辰龙'],elem:'土',meaning:'龙，尊贵祥瑞',stroke:5,zodiac_good:['鼠','猴','龙']},
+  '虎':{radicals:['虎'],shape:['寅虎'],elem:'木',meaning:'老虎，威猛',stroke:8,zodiac_good:['马','狗','虎']},
+
+  // 女名常用字
+  '欣':{radicals:['欠'],shape:['开大大'],elem:'木',meaning:'欣喜，喜悦',stroke:8,zodiac_good:['兔','虎','猪','羊']},
+  '蕊':{radicals:['艹'],shape:['五谷草'],elem:'木',meaning:'花蕊，美丽',stroke:18,zodiac_good:['兔','猪','羊','牛']},
+  '洁':{radicals:['氵'],shape:['水'],elem:'水',meaning:'洁净，清洁',stroke:9,zodiac_good:['鼠','猪','牛','猴']},
+  '娟':{radicals:['女'],shape:['女','女字旁左阳'],elem:'土',meaning:'娟秀，美好',stroke:10,zodiac_good:['牛','龙','羊','狗']},
+  '婷':{radicals:['女'],shape:['女','女字旁左阳'],elem:'土',meaning:'婷婷玉立，美丽端庄',stroke:12,zodiac_good:['牛','龙','羊','狗']},
+  '莹':{radicals:['艹'],shape:['五谷草','玉玻璃'],elem:'木',meaning:'晶莹剔透，光洁',stroke:11,zodiac_good:['兔','猪','羊','牛']},
+  '颖':{radicals:['页'],shape:['五谷草'],elem:'木',meaning:'聪颖，才智出众',stroke:13,zodiac_good:['兔','猪','羊','龙']},
+  '瑶':{radicals:['王'],shape:['玉玻璃'],elem:'金',meaning:'美玉，珍贵',stroke:14,zodiac_good:['猴','鸡','牛','蛇','龙']},
+  '筠':{radicals:['竹'],shape:['竹'],elem:'木',meaning:'竹子，清雅',stroke:13,zodiac_good:['兔','虎','龙','猪']},
+  '媛':{radicals:['女'],shape:['女','女字旁左阳'],elem:'土',meaning:'美女，才貌双全',stroke:12,zodiac_good:['牛','龙','羊','狗']},
+  '嫣':{radicals:['女'],shape:['女','女字旁左阳'],elem:'土',meaning:'嫣然，美丽妩媚',stroke:14,zodiac_good:['牛','龙','羊','狗']},
+  '莲':{radicals:['艹'],shape:['五谷草','水'],elem:'木',meaning:'莲花，出淤泥而不染',stroke:13,zodiac_good:['兔','猪','羊'],warn:'女性用注意孤鸾格（莲子心中苦）'},
+  '兰':{radicals:['艹'],shape:['五谷草'],elem:'木',meaning:'兰花，高洁雅致',stroke:5,zodiac_good:['兔','猪','羊','牛']},
+  '梅':{radicals:['木'],shape:['木'],elem:'木',meaning:'梅花，坚强高洁',stroke:11,zodiac_good:['兔','虎','龙','猪'],warn:'女性慎用（孤独奋斗象）'},
+  '竹':{radicals:['竹'],shape:['竹'],elem:'木',meaning:'竹子，坚韧气节',stroke:6,zodiac_good:['兔','虎','龙','猪']},
+  '荣':{radicals:['艹'],shape:['五谷草'],elem:'木',meaning:'荣耀，繁荣昌盛',stroke:9,zodiac_good:['兔','猪','羊','牛']},
+  '蔓':{radicals:['艹'],shape:['五谷草'],elem:'木',meaning:'蔓延，生长',stroke:15,zodiac_good:['兔','猪','羊','牛']},
+
+  // 品德字
+  '宁':{radicals:['宀'],shape:['洞穴'],elem:'水',meaning:'安宁，宁静',stroke:5,zodiac_good:['鼠','猪','牛','龙']},
+  '平':{radicals:['干'],shape:['开大大'],elem:'木',meaning:'平安，平稳',stroke:5,zodiac_good:['兔','虎','马','龙']},
+  '顺':{radicals:['页'],shape:['开大大'],elem:'金',meaning:'顺利，顺从',stroke:12,zodiac_good:['猴','鸡','牛','蛇']},
+  '寿':{radicals:['寸'],shape:['洞穴'],elem:'土',meaning:'长寿，福寿',stroke:7,zodiac_good:['牛','龙','羊','狗']},
+  '贵':{radicals:['贝'],shape:['开大大'],elem:'金',meaning:'贵重，尊贵',stroke:9,zodiac_good:['猴','鸡','龙','蛇']},
+  '德':{radicals:['彳'],shape:['人'],elem:'土',meaning:'道德，品德高尚',stroke:15,zodiac_good:['牛','龙','羊','狗']},
+  '礼':{radicals:['礻'],shape:['彩衣'],elem:'火',meaning:'礼仪，有礼貌',stroke:5,zodiac_good:['马','虎','蛇','狗']},
+  '廉':{radicals:['广'],shape:['洞穴'],elem:'金',meaning:'廉洁，清廉',stroke:13,zodiac_good:['猴','鸡','牛'],warn:'含廉字易为他人作嫁（替身字根）'},
+  '贤':{radicals:['贝'],shape:['开大大'],elem:'金',meaning:'贤能，才德兼备',stroke:15,zodiac_good:['猴','鸡','龙','蛇']},
+  '圣':{radicals:['土'],shape:['土'],elem:'土',meaning:'神圣，圣贤',stroke:5,zodiac_good:['牛','龙','羊','狗']},
+  '才':{radicals:['才'],shape:['木'],elem:'木',meaning:'才华，才能',stroke:3,zodiac_good:['兔','虎','龙','猪']},
+  '学':{radicals:['子'],shape:['子鼠'],elem:'水',meaning:'学习，求学',stroke:8,zodiac_good:['鼠','猴','龙','猪']},
+  '书':{radicals:['乙'],shape:['文义'],elem:'木',meaning:'书籍，书法',stroke:4,zodiac_good:['兔','虎','龙','猪']},
+  '诗':{radicals:['讠'],shape:['文义'],elem:'木',meaning:'诗歌，文采',stroke:9,zodiac_good:['兔','虎','龙','猪']},
+
+  // 金属类（五行金）
+  '钰':{radicals:['钅'],shape:['金'],elem:'金',meaning:'美玉，珍贵宝物',stroke:10,zodiac_good:['猴','鸡','牛','蛇','龙']},
+  '钦':{radicals:['钅'],shape:['金'],elem:'金',meaning:'钦佩，尊敬',stroke:12,zodiac_good:['猴','鸡','牛','蛇']},
+  '钧':{radicals:['钅'],shape:['金'],elem:'金',meaning:'古代重量单位，均衡',stroke:9,zodiac_good:['猴','鸡','牛','蛇']},
+  '锐':{radicals:['钅'],shape:['金'],elem:'金',meaning:'锐利，精锐',stroke:12,zodiac_good:['猴','鸡','牛','蛇']},
+  '锦':{radicals:['钅'],shape:['金','彩衣'],elem:'金',meaning:'锦绣，华美',stroke:16,zodiac_good:['猴','鸡','蛇','龙']},
+  '钢':{radicals:['钅'],shape:['金'],elem:'金',meaning:'坚硬，钢铁',stroke:9,zodiac_good:['猴','鸡','牛','蛇']},
+
+  // 水系字
+  '润':{radicals:['氵'],shape:['水'],elem:'水',meaning:'滋润，润泽',stroke:10,zodiac_good:['鼠','猪','牛','龙','猴']},
+  '泽':{radicals:['氵'],shape:['水'],elem:'水',meaning:'恩泽，泽被苍生',stroke:9,zodiac_good:['鼠','猪','牛','龙','猴']},
+
+  // 木系字（树木类）
+  '枫':{radicals:['木'],shape:['木'],elem:'木',meaning:'枫树，秋意盎然',stroke:9,zodiac_good:['兔','虎','龙','猪']},
+  '桦':{radicals:['木'],shape:['木'],elem:'木',meaning:'白桦树，挺拔',stroke:10,zodiac_good:['兔','虎','龙','猪']},
+  '棠':{radicals:['木'],shape:['木'],elem:'木',meaning:'海棠花，华美',stroke:12,zodiac_good:['兔','虎','龙','猪']},
+  '楠':{radicals:['木'],shape:['木'],elem:'木',meaning:'楠木，珍贵树种',stroke:13,zodiac_good:['兔','虎','龙','猪']},
+  '榕':{radicals:['木'],shape:['木'],elem:'木',meaning:'榕树，根深叶茂',stroke:14,zodiac_good:['兔','虎','龙','猪']},
+  '樟':{radicals:['木'],shape:['木'],elem:'木',meaning:'樟树，香气馥郁',stroke:15,zodiac_good:['兔','虎','龙','猪']},
+
+  // 土系字
+  '垚':{radicals:['土'],shape:['土'],elem:'土',meaning:'山高，堆土成山',stroke:9,zodiac_good:['牛','龙','羊','狗']},
+  '培':{radicals:['土'],shape:['土'],elem:'土',meaning:'培育，栽培',stroke:11,zodiac_good:['牛','龙','羊','狗']},
+  '墨':{radicals:['土'],shape:['土'],elem:'土',meaning:'墨水，文化',stroke:15,zodiac_good:['牛','龙','羊','狗']},
+  '均':{radicals:['土'],shape:['土'],elem:'土',meaning:'均匀，公平',stroke:7,zodiac_good:['牛','龙','羊','狗']},
+  '垣':{radicals:['土'],shape:['土'],elem:'土',meaning:'矮墙，城垣',stroke:9,zodiac_good:['牛','龙','羊','狗']},
+
+  // 火系字
+  '炳':{radicals:['火'],shape:['火'],elem:'火',meaning:'光明显著，炳耀',stroke:9,zodiac_good:['虎','马','狗','蛇']},
+  '炯':{radicals:['火'],shape:['火'],elem:'火',meaning:'明亮有神，炯炯有神',stroke:9,zodiac_good:['虎','马','狗','蛇']},
+  '灿':{radicals:['火'],shape:['火'],elem:'火',meaning:'灿烂，光彩夺目',stroke:7,zodiac_good:['虎','马','狗','蛇']},
+  '焱':{radicals:['火'],shape:['火'],elem:'火',meaning:'火花，火焰',stroke:12,zodiac_good:['虎','马','狗','蛇']},
+  '燃':{radicals:['火'],shape:['火'],elem:'火',meaning:'燃烧，激情',stroke:16,zodiac_good:['虎','马','狗','蛇']},
 
 };
 
@@ -3255,6 +4047,17 @@ function analyzeCharV4(ch, zodiac, gender) {
     }
   }
 
+  // 5a. 女字旁·左为阳（所有生肖通用）
+  // 原理：汉字左为阳，右为阴。女字旁在左（阳位），
+  // 女性用之，阴性能量处于阳位，一生代夫扛事，劳碌夺权，
+  // 当家作主却辛苦，婚姻中易变成强势一方。
+  if (info && (info.shape||[]).indexOf('女字旁左阳') !== -1) {
+    if (gender === 'female') {
+      bad.push({ tag:'女字旁·代夫劳碌', reason:'女字旁在左（阳位），女性用之易代男扛事，婚姻中扮演男人角色，劳碌夺权', source:'女字旁' });
+    }
+    // 男性用女字旁反而是阴阳互补，不需要警告
+  }
+
   // 5. 女性专用禁忌
   var FEMALE_WARN = {
     '忠':'刚强夺夫权，代夫操劳',
@@ -3415,6 +4218,118 @@ function analyzeCharV4(ch, zodiac, gender) {
   };
   if (info && GULUAN[ch]) {
     bad.push({ tag:'孤鸾格·感情孤独', reason: GULUAN[ch], source:'孤鸾' });
+  }
+
+  // ══════════════════════════════════════
+  // 13. 主客关系（五行生克）— 《五得正解》核心理论
+  // 客生主=上吉 / 主客同气=中吉 / 主生客=小凶 / 主克客=偏凶 / 客克主=大凶
+  // ══════════════════════════════════════
+  var ZODIAC_ELEM = {
+    '鼠':'水','牛':'土','虎':'木','兔':'木','龙':'土','蛇':'火',
+    '马':'火','羊':'土','猴':'金','鸡':'金','狗':'土','猪':'水'
+  };
+  var WX_SHENG = {'金':'水','水':'木','木':'火','火':'土','土':'金'};
+  var WX_KE   = {'金':'木','木':'土','土':'水','水':'火','火':'金'};
+
+  if (info && info.elem && ZODIAC_ELEM[zodiac]) {
+    var zElem = ZODIAC_ELEM[zodiac];
+    var cElem = info.elem;
+    if (cElem !== zElem) {
+      if (WX_SHENG[cElem] === zElem) {
+        // 客生主 — 上吉
+        good.push({ tag:'客生主·上吉', reason: cElem+'生'+zElem+'，字根五行生扶生肖，财运顺、贵人旺、行事顺', source:'主客' });
+      } else if (WX_KE[zElem] === cElem) {
+        // 主克客 — 偏凶（但若已有其他吉论可接受）
+        if (!good.find(function(g){return g.tag.indexOf('三合')!==-1||g.tag.indexOf('六合')!==-1;})) {
+          bad.push({ tag:'主克客·偏凶', reason: zElem+'克'+cElem+'，生肖克制字根，任性固执、败财伤六亲', source:'主客' });
+        }
+      } else if (WX_KE[cElem] === zElem) {
+        // 客克主 — 大凶
+        bad.push({ tag:'客克主·大凶', reason: cElem+'克'+zElem+'（生肖），受制压抑、有志难伸、劳而无功', source:'主客' });
+      } else if (WX_SHENG[zElem] === cElem) {
+        // 主生客 — 小凶（消耗）
+        bad.push({ tag:'主生客·耗泄', reason: zElem+'生'+cElem+'，生肖能量外泄，消耗精力、付出多回报少', source:'主客' });
+      }
+    }
+    // 主客同气 — 中吉（不重复提示，只在无其他吉时提示）
+    if (cElem === zElem && !good.length) {
+      good.push({ tag:'主客同气·中吉', reason: '字根与生肖五行相同，同道相助、性格鲜明、朋友支持', source:'主客' });
+    }
+  }
+
+  // ══════════════════════════════════════
+  // 14. 替身字检测 — 《五得正解》第四卷第四章
+  // 其/予/吾及其衍生字，用之一生为他人作嫁、付出无回报
+  // ══════════════════════════════════════
+  var TISHEN_ROOTS = {
+    // 含「其」字根
+    '祺':'含其根，易为他人作嫁衣，事业替身', '骐':'含其根，付出多回报少',
+    '棋':'含其根，做事为他人开路', '琪':'含其根，财富易归他人',
+    '淇':'含其根，情感付出难收回', '琦':'含其根，才华为他人服务',
+    '期':'含其根，等待他人成果', '欺':'含其根，易被人利用欺骗',
+    // 含「予」字根
+    '豫':'含予根，主客混淆，常代人受累', '抒':'含予根，付出无边界',
+    '舒':'含予根，舒适背后为他人付出', '序':'含予根，排在他人之后',
+    '纾':'含予根，财气外泄', '预':'含予根，预先为人备好却失去',
+    // 含「吾」字根
+    '梧':'含吾根，自我边界模糊，被人占便宜', '悟':'含吾根，顿悟后为他人所用',
+    '晤':'含吾根，会面之后受累', '语':'含吾根，口舌为他人服务',
+    // 其他替身根
+    '代':'直含代替之意，替人受过', '伐':'含代形，攻伐为他人',
+    '兼':'兼任他人之事，劳碌之象', '廉':'廉价付出，劳而少得',
+    '谦':'过谦成替身，自我贬低', '寄':'寄人篱下，无自立之基',
+    '奇':'奇字同寄，依附而非自主', '从':'追随而非主导，一生跟人走',
+    '纵':'纵横为他人，自身受制',
+  };
+  if (TISHEN_ROOTS[ch]) {
+    bad.push({ tag:'替身字·代人受累', reason: TISHEN_ROOTS[ch]+'（尤忌用于名一人格位）', source:'替身' });
+  }
+
+  // ══════════════════════════════════════
+  // 15. 三刑（寅巳申·恃势之刑 / 子卯·无礼之刑）
+  // ══════════════════════════════════════
+  var SANXING_MAP = {
+    '虎':  { shapes:['巳蛇','申猴'], radicals:['巳','申'], reason:'寅巳申恃势之刑，名带蛇猴字根，官非是非、人际紧张' },
+    '蛇':  { shapes:['申猴','寅虎'], radicals:['申','寅'], reason:'寅巳申恃势之刑，名带猴虎字根，口舌是非、兄弟反目' },
+    '猴':  { shapes:['寅虎','巳蛇'], radicals:['寅','巳'], reason:'寅巳申恃势之刑，名带虎蛇字根，小人多、是非缠身' },
+    '鼠':  { shapes:['卯兔'],        radicals:['卯'],       reason:'子卯无礼之刑，名带兔字根，无礼悖理、人际不和' },
+    '兔':  { shapes:['子鼠'],        radicals:['子'],       reason:'子卯无礼之刑，名带鼠字根，争执频繁、感情波折' },
+  };
+  if (info && SANXING_MAP[zodiac]) {
+    var sx = SANXING_MAP[zodiac];
+    var hasSanxing = (info.shape||[]).some(function(s){return sx.shapes.indexOf(s)!==-1;}) ||
+                     (info.radicals||[]).some(function(r){return sx.radicals.indexOf(r)!==-1;});
+    if (hasSanxing) {
+      if (!bad.find(function(b){return b.tag.indexOf('三刑')!==-1;})) {
+        bad.push({ tag:'三刑·是非缠身', reason: sx.reason, source:'三刑' });
+      }
+    }
+  }
+
+  // ══════════════════════════════════════
+  // 16. 相破（六对）— 合作不顺、财破
+  // ══════════════════════════════════════
+  var XIANPO_MAP = {
+    '鼠':  ['酉鸡'],
+    '鸡':  ['子鼠'],
+    '马':  ['卯兔'],
+    '兔':  ['午马'],
+    '猴':  ['巳蛇'],
+    '蛇':  ['申猴'],
+    '虎':  ['亥猪'],
+    '猪':  ['寅虎'],
+    '龙':  ['丑牛'],
+    '牛':  ['辰龙'],
+    '狗':  ['未羊'],
+    '羊':  ['戌狗'],
+  };
+  if (info && XIANPO_MAP[zodiac]) {
+    var xpShapes = XIANPO_MAP[zodiac];
+    (info.shape||[]).forEach(function(s){
+      if (xpShapes.indexOf(s)!==-1 && !bad.find(function(b){return b.tag.indexOf('相破')!==-1;})) {
+        bad.push({ tag:'相破·合作不顺', reason:'相破字根入名，合伙易出问题、财运受损、合作人际波折', source:'相破' });
+      }
+    });
   }
 
   return {
@@ -3761,6 +4676,527 @@ const PRESET_NAMES = {
 </div>`,
 };
 
+// ═══════════════════════════════════════════════════════════════
+// 生肖关系总览（独立函数，任何情况都显示）
+// ═══════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
+// 天人地三通分析
+// 天=Q(本源梦想) 人=g(主性格) 地=j(子女下属位)
+// 离位(天)=火 中宫(人)=土 地位(地)=水
+// ═══════════════════════════════════════════════════════════════
+function renderTJD(d) {
+  var sec = document.getElementById('tjdSec');
+  var board = document.getElementById('tjdBoard');
+  if (!sec || !board) return;
+  sec.style.display = 'block';
+
+  function numElem(n) {
+    if(n===1||n===6) return '金';
+    if(n===2||n===7) return '水';
+    if(n===3||n===8) return '火';
+    if(n===4||n===9) return '木';
+    return '土';
+  }
+  var ELEM_COLOR = {'金':'#FFD700','水':'#64B5F6','木':'#81C784','火':'#EF9A9A','土':'#FFE082'};
+
+  var Q = d.Q, G = d.g, J = d.j;
+  var qEl = numElem(Q), gEl = numElem(G), jEl = numElem(J);
+
+  // ── 通断判断 ──
+  // 天（离位=火）：Q的五行与火的关系
+  // 通：火+火相旺(3/8) 或 火生土(5)
+  // 不通：火克金(1/6) 水火冲(2/7) 木生火消耗自己(4/9)
+  var tianTong = [3,5,8].indexOf(Q) !== -1;
+
+  // 人（中宫=土）：G的五行与土的关系
+  // 通：土生金(1/6) 土土叠加(5)
+  // 不通：土克水(2/7) 火生土泄(3/8) 木克土(4/9)
+  var renTong = [1,5,6].indexOf(G) !== -1;
+
+  // 地（地位=水）：J的五行与水的关系
+  // 通：水生木(4/9) 水水同气(2/7)
+  // 不通：金生水倒生消耗(1/6) 水火冲(3/8) 土克水(5)
+  var diTong = [2,4,7,9].indexOf(J) !== -1;
+
+  var sanTong = tianTong && renTong && diTong;
+  var tongCount = (tianTong?1:0) + (renTong?1:0) + (diTong?1:0);
+
+  // 详细解说数据
+  var TIAN_DESC = {
+    3: {rel:'火火相旺', status:'通', short:'方向清晰，行动力极强，想到马上做，容易出结果。3号偏灵感空想，要落地。', color:'#EF9A9A'},
+    8: {rel:'火火相旺', status:'通', short:'善于抓住机会，自带发动机，一确定目标就持续推进，前期爆发力强。注意急躁耗能。', color:'#EF9A9A'},
+    5: {rel:'火生土', status:'通', short:'天给能量，人稳稳承接。方向踏实落地，积累型，能守住场面，适合长期项目。', color:'#FFE082'},
+    1: {rel:'火克金', status:'不通', short:'对抗上级，不认同上司，想法多行动少，决策犹豫，项目容易烂尾。要放下旧思维。', color:'#666'},
+    6: {rel:'火克金', status:'不通', short:'责任感强反成负担，容易跟上级对抗，用力错方向。需要放下控制，接受引导。', color:'#666'},
+    2: {rel:'水火冲', status:'不通', short:'有冲劲但容易焦虑急躁，情绪被压住，久了内耗或爆发，钱来得快也散得快。', color:'#666'},
+    7: {rel:'水火冲', status:'不通', short:'内在冲突大，方向能量互相消耗，容易三分钟热度，需要找稳定的锚定方向。', color:'#666'},
+    4: {rel:'木生火(消耗)', status:'不通', short:'不断向外输送能量给天，越拼越累，方向对了还好，方向错了全是白做。', color:'#666'},
+    9: {rel:'木生火(消耗)', status:'不通', short:'能做出结果但自身消耗大，要确保方向对，否则越努力越偏。注意蓄能休息。', color:'#666'},
+  };
+
+  var REN_DESC = {
+    1: {rel:'土生金', status:'通', short:'知道什么该做，能说能做，能拿结果，有地位价值感。要有温度，多做功德。', color:'#FFD700'},
+    6: {rel:'土生金', status:'通', short:'吸财力强，价值感清晰，中宫稳定输出金能量，财运稳定。记得功德回流。', color:'#FFD700'},
+    5: {rel:'土土叠加', status:'通', short:'稳固抗压，稳中有进，越积越厚，长久型人才。风险是思维固化，不愿改变。', color:'#FFE082'},
+    2: {rel:'土克水', status:'不通', short:'很难做决定，犹豫不决，卡住，错失良机，情绪保守。需要主动破局行动。', color:'#666'},
+    7: {rel:'土克水', status:'不通', short:'思路有但落不了地，钱的流动被卡，需要突破固有框架，接受灵活变化。', color:'#666'},
+    3: {rel:'火生土(泄)', status:'不通', short:'容易瞎忙，付出多但结果留不住，情绪大，表面强内心空。要聚焦，不散能量。', color:'#666'},
+    8: {rel:'火生土(泄)', status:'不通', short:'过度付出，燃烧自己，结果不留手里。要学会守，不要全部外放。', color:'#666'},
+    4: {rel:'木克土', status:'不通', short:'冲动折腾，不稳定，反复重来。要稳住，行动前想清楚方向再走。', color:'#666'},
+    9: {rel:'木克土', status:'不通', short:'升级型但容易停滞，若不行动会被环境淘汰。行动有效就越做越大，怕保守。', color:'#666'},
+  };
+
+  var DI_DESC = {
+    4: {rel:'水生木', status:'通', short:'有资源有机会，起步快，有人带有动力，容易被带动持续发展，能力强不断。', color:'#81C784'},
+    9: {rel:'水生木', status:'通', short:'水滋养木，机会持续，稳定发展。注意若自身能量弱会漂，要扎根。', color:'#81C784'},
+    2: {rel:'水水同气', status:'通', short:'同气流动，资源顺畅，财富流通，人脉自然汇聚，结果积累顺畅。', color:'#64B5F6'},
+    7: {rel:'水水同气', status:'通', short:'财富和资源同频共振，留得住，人来了也会留下，结果能稳定积累。', color:'#64B5F6'},
+    1: {rel:'金生水(倒生)', status:'不通', short:'一直在付出消耗，给出去多，回来少，有积累但留不住，做了很多却留不下结果。', color:'#666'},
+    6: {rel:'金生水(倒生)', status:'不通', short:'付出对方回报少，不断输出不断给，结果不稳定，积累后容易被清零。', color:'#666'},
+    3: {rel:'水火冲', status:'不通', short:'忙碌但不聚焦，情绪影响人际，结果不稳定，资源被消耗，容易忙而无果。', color:'#666'},
+    8: {rel:'水火冲', status:'不通', short:'行动力有但结果被冲散，人际起伏，财来财去，需要稳住不要急。', color:'#666'},
+    5: {rel:'土克水', status:'不通', short:'结果被堵住，团队资源平台流动不起来，机会来了进不来，要打通阻塞。', color:'#666'},
+  };
+
+  var tianD = TIAN_DESC[Q] || {rel:'—', status:'不通', short:'结合命盘综合分析。', color:'#666'};
+  var renD  = REN_DESC[G]  || {rel:'—', status:'不通', short:'结合命盘综合分析。', color:'#666'};
+  var diD   = DI_DESC[J]   || {rel:'—', status:'不通', short:'结合命盘综合分析。', color:'#666'};
+
+  var TONG_COLOR = '#2ECC71';
+  var FAIL_COLOR = 'rgba(255,255,255,.25)';
+
+  function card(pos, icon, posEl, num, numEl, desc, tong) {
+    var posColor = {'天':'#EF9A9A','人':'#FFE082','地':'#64B5F6'}[pos];
+    var statusBg = tong ? 'rgba(46,204,113,.1)' : 'rgba(255,255,255,.04)';
+    var statusBorder = tong ? '#2ECC71' : 'rgba(255,255,255,.12)';
+    var h = '<div style="background:'+statusBg+';border:1.5px solid '+statusBorder+';border-radius:14px;padding:16px;">';
+
+    // 头部：位置 + 通断灯
+    h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">';
+    h += '<div style="display:flex;align-items:center;gap:8px;">';
+    h += '<span style="font-size:24px;">'+icon+'</span>';
+    h += '<div><div style="font-size:14px;font-weight:700;color:var(--white);">'+pos+'（'+posEl+'位）</div>';
+    h += '<div style="font-size:11px;color:var(--t3);">固定五行：'+posEl+'</div></div>';
+    h += '</div>';
+    // 通断灯
+    h += '<div style="display:flex;flex-direction:column;align-items:center;gap:4px;">';
+    h += '<div style="width:18px;height:18px;border-radius:50%;background:'+(tong?TONG_COLOR:'rgba(255,255,255,.15)')+';box-shadow:'+(tong?'0 0 10px #2ECC71':'none')+';"></div>';
+    h += '<div style="font-size:10px;font-weight:700;color:'+(tong?TONG_COLOR:'var(--t3)')+';">'+(tong?'通':'不通')+'</div>';
+    h += '</div></div>';
+
+    // 数字 + 五行关系
+    h += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;padding:10px;background:rgba(0,0,0,.25);border-radius:10px;">';
+    h += '<div style="font-family:Cinzel,serif;font-size:40px;font-weight:700;color:'+(tong?TONG_COLOR:'var(--t3)')+';line-height:1;min-width:44px;text-align:center;">'+num+'</div>';
+    h += '<div>';
+    h += '<div style="font-size:12px;color:'+ELEM_COLOR[numEl]+';font-weight:700;margin-bottom:3px;">五行：'+numEl+'</div>';
+    h += '<div style="font-size:12px;color:var(--t2);">关系：<strong style="color:'+(tong?TONG_COLOR:'#EF9A9A')+';">'+desc.rel+'</strong></div>';
+    h += '</div></div>';
+
+    // 解说
+    h += '<div style="font-size:12px;color:var(--t2);line-height:1.8;">' + desc.short + '</div>';
+    h += '</div>';
+    return h;
+  }
+
+  // 总状态
+  var totalLabel, totalColor, totalBg;
+  if (tongCount === 3) {
+    totalLabel = '🌟 三通全顺！天人地同频，万事百顺';
+    totalColor = '#2ECC71';
+    totalBg = 'rgba(46,204,113,.1)';
+  } else if (tongCount === 2) {
+    totalLabel = '⚡ 两通 — 有通道，部分受阻，调整后有力';
+    totalColor = '#FFD700';
+    totalBg = 'rgba(255,193,7,.08)';
+  } else if (tongCount === 1) {
+    totalLabel = '⚠️ 一通 — 通道受阻，方向需要重新调整';
+    totalColor = '#FFA726';
+    totalBg = 'rgba(255,167,38,.08)';
+  } else {
+    totalLabel = '❌ 三不通 — 天不通努力全错，人不通再拼没用，地不通留不住钱和机会';
+    totalColor = '#EF5350';
+    totalBg = 'rgba(239,83,80,.08)';
+  }
+
+  var h = '<div style="font-family:\'Noto Sans SC\',sans-serif;">';
+
+  // 总状态横幅
+  h += '<div style="background:'+totalBg+';border:1.5px solid '+totalColor+'44;border-radius:14px;padding:16px;margin-bottom:16px;text-align:center;">';
+  h += '<div style="font-size:14px;font-weight:700;color:'+totalColor+';margin-bottom:8px;">'+totalLabel+'</div>';
+  // 三个灯
+  h += '<div style="display:flex;justify-content:center;gap:24px;margin-bottom:10px;">';
+  [['天',tianTong],['人',renTong],['地',diTong]].forEach(function(x){
+    var on = x[1];
+    h += '<div style="display:flex;flex-direction:column;align-items:center;gap:5px;">';
+    h += '<div style="width:22px;height:22px;border-radius:50%;background:'+(on?TONG_COLOR:'rgba(255,255,255,.15)')+';box-shadow:'+(on?'0 0 12px '+TONG_COLOR+',0 0 24px '+TONG_COLOR+'44':'none')+';"></div>';
+    h += '<div style="font-size:12px;font-weight:700;color:'+(on?TONG_COLOR:'var(--t3)')+';">'+x[0]+(on?'通':'不通')+'</div>';
+    h += '</div>';
+  });
+  h += '</div>';
+  h += '<div style="font-size:11px;color:var(--t3);">天定方向 · 人做承接 · 地出结果</div>';
+  h += '</div>';
+
+  // 三个卡片 — 改为竖排，手机不跑位
+  h += '<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;">';
+  h += card('天','☀️','火', Q, qEl, tianD, tianTong);
+  h += card('人','🧭','土', G, gEl, renD,  renTong);
+  h += card('地','🌊','水', J, jEl, diD,  diTong);
+  h += '</div>';
+
+  // 三通总结
+  if (!sanTong) {
+    h += '<div style="background:rgba(33,150,243,.06);border:1px solid rgba(33,150,243,.2);border-radius:12px;padding:14px;text-align:center;">';
+    h += '<div style="font-size:12px;color:var(--t2);line-height:1.8;">天不通努力都错 · 人不通再拼也没用 · 地不通留不住钱和机会<br><span style="color:var(--gold);">建议联系黄冠尊老师深度分析，找到打通方向。</span></div>';
+    h += '</div>';
+  } else {
+    h += '<div style="background:rgba(46,204,113,.06);border:1px solid rgba(46,204,113,.2);border-radius:12px;padding:14px;text-align:center;">';
+    h += '<div style="font-size:13px;color:#2ECC71;font-weight:700;">✅ 天人地三通，顺势而为，持续耕耘！</div>';
+    h += '<div style="font-size:12px;color:var(--t3);margin-top:6px;">通了机会才进来，顺了结果才留下。保持状态，越做越顺。</div>';
+    h += '</div>';
+  }
+
+  h += '</div>';
+  board.innerHTML = h;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// 小五行（因果规律）— efghi 五位数字
+// ═══════════════════════════════════════════════════════════════
+function renderSmallWx(d) {
+  var sec = document.getElementById('smallWxSec');
+  var board = document.getElementById('smallWxBoard');
+  if (!sec || !board) return;
+  sec.style.display = 'block';
+
+  var ELEM_MAP = {1:'金',2:'水',3:'火',4:'木',5:'土',6:'金',7:'水',8:'火',9:'木'};
+  var ELEM_COLOR = {'金':'#FFD700','水':'#64B5F6','木':'#81C784','火':'#EF9A9A','土':'#FFE082'};
+  var ELEM_HEALTH = {'金':'肺/大肠/皮肤','水':'肾/膀胱','木':'肝/胆','火':'心/小肠','土':'脾/胃/肠'};
+  var ELEM_WEALTH = {'金':'进财能力','水':'现金流/财富拥有','木':'资产积累','火':'掌控/名望','土':'现金存储'};
+
+  // 小五行：efghi 对应五格
+  var smallNums = [d.e, d.f, d.g, d.h, d.i];
+  // 从g的五行开始排列
+  var wxCycle = ['金','水','木','火','土'];
+  var gEl = ELEM_MAP[d.g];
+  var startIdx = wxCycle.indexOf(gEl);
+  var posElems = wxCycle.slice(startIdx).concat(wxCycle.slice(0,startIdx));
+  var posNames = ['自身','子女/财富','事业/伴侣','官鬼/疾病','贵人/父母'];
+  var posKeys  = [d.e, d.f, d.g, d.h, d.i];
+  var posBal   = [4,3,3,3,3];
+
+  // ── 五行格子统计（efghi）──
+  var smallWx = {'金':0,'水':0,'木':0,'火':0,'土':0};
+  smallNums.forEach(function(n){ if(ELEM_MAP[n]) smallWx[ELEM_MAP[n]]++; });
+
+  var h = '<div style="font-family:\'Noto Sans SC\',sans-serif;">';
+
+  // 说明
+  h += '<div style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:12px;margin-bottom:14px;font-size:12px;color:var(--t2);line-height:1.8;">';
+  h += '小五行 = 起因（<strong style="color:var(--gl);">efghi</strong>） · 大五行 = 结果（a-p）<br>';
+  h += '五行：<span style="color:#EF9A9A;">火</span>→掌控 · <span style="color:#FFE082;">土</span>→现金 · <span style="color:#FFD700;">金</span>→进财 · <span style="color:#64B5F6;">水</span>→福报拥有 · <span style="color:#81C784;">木</span>→资产<br>';
+  h += '健康：<span style="color:#EF9A9A;">火</span>→心 · <span style="color:#FFE082;">土</span>→脾 · <span style="color:#FFD700;">金</span>→肺 · <span style="color:#64B5F6;">水</span>→肾 · <span style="color:#81C784;">木</span>→肝<br>';
+  h += '<span style="color:var(--gold);font-weight:700;">你的能量决定你的财量 · 善能知福，德能聚财</span>';
+  h += '</div>';
+
+  // 五格条形图（按轮转）
+  h += '<div style="display:grid;gap:6px;margin-bottom:14px;">';
+  posElems.forEach(function(ek, i) {
+    var num = posKeys[i];
+    var numEl = ELEM_MAP[num];
+    var v = smallWx[ek]; // 该格五行在efghi里出现几次
+    var isZero = v === 0;
+    var isKey = (i === 2); // 事业/伴侣高亮
+    var col = isZero ? '#EF9A9A' : ELEM_COLOR[ek];
+    var bg = isZero ? 'rgba(239,83,80,.08)' : 'rgba(0,0,0,.15)';
+    var border = isZero ? '#EF9A9A' : (isKey ? 'var(--gold)' : ELEM_COLOR[ek]+'55');
+
+    h += '<div style="background:'+bg+';border:1px solid '+border+';border-left:3px solid '+col+';border-radius:10px;padding:11px 12px;">';
+    h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">';
+    h += '<div style="display:flex;align-items:center;gap:8px;">';
+    h += '<div style="font-family:Cinzel,serif;font-size:22px;font-weight:700;color:'+col+';">'+num+'</div>';
+    h += '<div><div style="font-size:12px;font-weight:700;color:var(--white);">'+posNames[i]+'</div>';
+    h += '<div style="font-size:10px;color:'+col+';">'+ek+'（'+ELEM_HEALTH[ek]+'）</div></div>';
+    h += '</div>';
+    h += '<div style="text-align:right;">';
+    h += '<div style="font-size:10px;color:var(--t3);">五行计数</div>';
+    h += '<div style="font-size:16px;font-weight:700;color:'+(isZero?'#EF9A9A':col)+';">'+v+(isZero?' ⚠':'')+'</div>';
+    h += '</div>';
+    h += '</div>';
+
+    // 对应解说
+    var desc = getSmallWxDesc(i, num, posNames[i], d);
+    if (desc) {
+      h += '<div style="font-size:12px;color:var(--t2);line-height:1.7;border-top:1px solid rgba(255,255,255,.07);padding-top:6px;margin-top:4px;">'+desc+'</div>';
+    }
+    h += '</div>';
+  });
+  h += '</div>';
+
+  // 功德警示（根据主性格特殊号码）
+  var gongDeWarn = getGongDeWarn(d.g, d.c13);
+  if (gongDeWarn) {
+    h += '<div style="background:rgba(255,140,0,.07);border:1px solid rgba(255,140,0,.25);border-radius:12px;padding:14px;margin-bottom:12px;">';
+    h += '<div style="font-size:12px;font-weight:700;color:#FFB347;margin-bottom:8px;">🙏 功德能量提示</div>';
+    h += '<div style="font-size:12px;color:var(--t2);line-height:1.9;">'+gongDeWarn+'</div>';
+    h += '</div>';
+  }
+
+  h += '<div style="text-align:center;font-size:11px;color:var(--t3);padding-top:10px;border-top:1px solid rgba(255,255,255,.07);">能量决定功德 · 功德决定福报</div>';
+  h += '</div>';
+  board.innerHTML = h;
+}
+
+function getSmallWxDesc(posIdx, num, posName, d) {
+  var g = d.g;
+
+  // ── 自身（pos 0）──
+  if (posIdx === 0) {
+    if (num === 5) return '自身为5（土）：<strong style="color:var(--gl);">稳定型</strong>，能量扎实，财量稳定积累。';
+    if ([1,6].indexOf(num) !== -1) return '自身为'+num+'（金）：<strong style="color:var(--gl);">能量不错</strong>，进财能力强，能撑住财富，越过越有钱。';
+    if ([2,7].indexOf(num) !== -1) return '自身为'+num+'（水）：能量稳定，桃花旺，感情丰富，财富有流动性，注意留住钱。';
+    if ([4,9].indexOf(num) !== -1) return '自身为'+num+'（木）：成长型能量，财量持续上升，有资产积累能力，要注意健康肝胆。';
+    if ([3,8].indexOf(num) !== -1) return '自身为'+num+'（火）：掌控欲强，财量时高时低，情绪稳定时财运好。<strong style="color:#EF9A9A;">注意少发火，火起智归零。</strong>';
+    return '你的能量决定你的财量。保持高能量是关键。';
+  }
+
+  // ── 子女/财富（pos 1）——现金流 ──
+  if (posIdx === 1) {
+    var zeroKeys1 = ['112','178','718','224','235','325','279','729','336','382','832','393','933','448','459','549','483','843','551','562','652','663','674','764','696','966','775','887','898','988','999'];
+    var isZeroRisk = zeroKeys1.indexOf(String(g)+String(d.e)+String(d.f)) !== -1 || zeroKeys1.some(function(k){ return d.c13 && d.c13[1] && d.c13[1].key === k; });
+
+    if (num === 0 || (d.f === 0)) return '<strong style="color:#EF9A9A;">现金流极弱：</strong>对孩子影响大，钱留不住，财富不稳定。要有自己的事业，多存钱，保持正能量。';
+    if ([1,6].indexOf(num) !== -1) return '<span style="color:var(--gl);">✅ 进财强：</span>子女财富能量好，现金流稳定，有积累。';
+    if ([2,7].indexOf(num) !== -1) return '<span style="color:var(--gl);">✅ 现金流好：</span>财富有流动，容易拥有福报，守住钱的能力强。';
+    if ([4,9].indexOf(num) !== -1) return '<span style="color:var(--gl);">✅ 资产型：</span>子女财富以资产累积为主，长线稳健。';
+    if ([3,8].indexOf(num) !== -1) return '财富掌控型，收入高但消耗也大，注意存钱，少冲动消费。';
+    if (num === 5) return '现金存储能力强，守财有道，但要主动出击才能增长。';
+    return '';
+  }
+
+  // ── 事业/伴侣（pos 2）——进财/稳定性 ──
+  if (posIdx === 2) {
+    var zeroKeys2 = ['145','415','156','516','189','819','224','279','729','292','922','358','538','369','639','448','472','742','483','843','494','944','551','595','955','674','764','977','898','988','999'];
+    var is167 = d.c13 && d.c13[2] && ['167','617'].indexOf(d.c13[2].key) !== -1;
+
+    if (is167) return '<strong style="color:#EF9A9A;">⚠ 主性格167：败家号，</strong>要特别注意财富管理，有多少花多少，需要强制储蓄计划。';
+
+    if ([1,6].indexOf(num) !== -1) return '<span style="color:var(--gl);">✅ 进财稳定：</span>事业进财能力强，适合稳定型工作或生意，老板要看长期的。';
+    if ([2,7].indexOf(num) !== -1) return '事业财富有流动，工作机会多，但稳定性需要自己把控，多沟通。';
+    if ([4,9].indexOf(num) !== -1) return '资产型事业，长期发展越来越好，适合创业和长线投资。';
+    if ([3,8].indexOf(num) !== -1) {
+      return '高运时能量强，进财快；低运时波动大。找工作/合作要看老板是否超过3年，稳定性要验证。<strong style="color:#FFE082;">能量决定财富稳定性。</strong>';
+    }
+    if (num === 5) return '事业稳健扎实，财富持续积累，适合做长期项目。';
+    return '';
+  }
+
+  // ── 官鬼/疾病（pos 3）——名声/地位/健康 ──
+  if (posIdx === 3) {
+    var health189 = d.c13 && d.c13[2] && ['189','819'].indexOf(d.c13[2].key) !== -1;
+    var is336 = d.c13 && d.c13[2] && d.c13[2].key === '336';
+    var is696 = d.c13 && d.c13[2] && d.c13[2].key === '696';
+
+    var txt = '';
+    if (num === 0) txt = '<strong style="color:#EF9A9A;">⚠ 官鬼为0：</strong>健康需重视（心脑血管/肿瘤风险），容易有官司，小人多，修好人际关系是关键。';
+    else if ([1,6].indexOf(num) !== -1) txt = '官鬼金：名声和地位靠能力积累，注意肺和皮肤健康。能量决定福报。';
+    else if ([2,7].indexOf(num) !== -1) txt = '官鬼水：名声通过人脉累积，注意肾和泌尿系统健康，桃花多也是官鬼。';
+    else if ([4,9].indexOf(num) !== -1) txt = '官鬼木：事业即是地位，成就感强，注意肝胆健康和情绪压力。';
+    else if ([3,8].indexOf(num) !== -1) txt = '官鬼火：名望靠掌控力建立，注意心脏血管健康，情绪管理极重要。';
+    else if (num === 5) txt = '官鬼土：稳稳积累名声地位，注意脾胃消化系统。';
+
+    if (health189) txt += '<br><strong style="color:#EF9A9A;">主性格189：特别注意心脏血管，定期体检！</strong>';
+    if (is336) txt += '<br><strong style="color:#FFA726;">主性格336：冲动急，投资容易亏，管好情绪才能守住钱。</strong>';
+    if (is696) txt += '<br><strong style="color:#FFA726;">主性格696：漏财号，钱来的快也走的快，必须制定存钱计划。</strong>';
+    return txt;
+  }
+
+  // ── 贵人/父母（pos 4）——福气/传承 ──
+  if (posIdx === 4) {
+    if (num === 0) return '<strong style="color:#EF9A9A;">⚠ 贵人为0：</strong>这辈子要好好对父母！多赚但老了没钱，记得赚钱时要留一份给未来。孩子可能得不到你的财富传承，及早规划资产。';
+    if ([1,6].indexOf(num) !== -1) return '<span style="color:var(--gl);">✅ 进财贵人旺：</span>越老越有钱，资产丰厚，注意健康才能享福。';
+    if ([2,7].indexOf(num) !== -1) return '<span style="color:var(--gl);">✅ 福报贵人强：</span>越过越幸福，人生后期有保障，子女孝顺，家族兴旺。';
+    if ([4,9].indexOf(num) !== -1) return '资产型贵人，晚年有资产支撑，子女可以继承家业，需要提前规划传承。';
+    if ([3,8].indexOf(num) !== -1) return '贵人靠名声和掌控力，保持良好名誉，晚年福报丰厚，少发火是关键。';
+    if (num === 5) return '贵人稳固，福报扎实累积，老来不愁，家族根基牢固。';
+    return '';
+  }
+  return '';
+}
+
+function getGongDeWarn(g, c13) {
+  var warns = [];
+  var c13keys = c13 ? c13.map(function(c){ return c.key; }) : [];
+
+  // 123/213 少发火
+  if (['123','213'].some(function(k){ return c13keys.indexOf(k)!==-1; })) {
+    warns.push('🔥 <strong style="color:#EF9A9A;">含123/213</strong>：少发火！火起智归零，情绪一上来，所有智慧都消失了。');
+  }
+  // 134/314 少抱怨
+  if (['134','314'].some(function(k){ return c13keys.indexOf(k)!==-1; })) {
+    warns.push('🗣 <strong style="color:#FFB347;">含134/314</strong>：少抱怨！怨起德归零。好好说话，这是大使命、功德号，嘴巴是最大的武器。');
+  }
+  // 685/865 功德号
+  if (['685','865'].some(function(k){ return c13keys.indexOf(k)!==-1; })) {
+    warns.push('🙏 <strong style="color:var(--gl);">含685/865（功德号）</strong>：少忘求，求起福归零。良心钱，不是你的不能拿，多做公益善事能量才会持续提升。');
+  }
+  // 786/876 桃花/贵人
+  if (['786','876'].some(function(k){ return c13keys.indexOf(k)!==-1; })) {
+    warns.push('💝 <strong style="color:#CE93D8;">含786/876（正贵人/桃花号）</strong>：少生情，情起福归零。桃花多，正贵人能量强，但要守住边界。老公/男的出轨，儿子会跟；老婆/女的出轨，孩子婚姻不好。');
+  }
+  // 933/393 因果/机会
+  if (['933','393'].some(function(k){ return c13keys.indexOf(k)!==-1; })) {
+    warns.push('⚕️ <strong style="color:#FFA726;">含933/393</strong>：因果号，机会多但也有因果债，多做善事能化解过去的业力，身体要特别保养。');
+  }
+  return warns.length ? warns.join('<br>') : '';
+}
+
+function renderZodiacChart(d) {
+  var el = document.getElementById('zodiacChart');
+  var sec = document.getElementById('zodiacSec');
+  if (!el || !d.zodiac) return;
+  sec.style.display = 'block';
+
+  var z = d.zodiac;
+  var ZODIAC_WX = {
+    '鼠':'水','牛':'土','虎':'木','兔':'木','龙':'土','蛇':'火',
+    '马':'火','羊':'土','猴':'金','鸡':'金','狗':'土','猪':'水'
+  };
+  var WX_COLOR = {'金':'#FFD700','水':'#64B5F6','木':'#81C784','火':'#EF9A9A','土':'#FFE082'};
+  var WX_GROUP = {
+    '水':['猪','鼠','牛'], '木':['虎','兔','龙'],
+    '火':['蛇','马','羊'], '金':['猴','鸡','狗'],
+    '土':['牛','龙','羊','狗']
+  };
+  var SANHE = {
+    '鼠':['猴','龙'],'猴':['鼠','龙'],'龙':['猴','鼠'],
+    '蛇':['鸡','牛'],'鸡':['蛇','牛'],'牛':['蛇','鸡'],
+    '虎':['马','狗'],'马':['虎','狗'],'狗':['虎','马'],
+    '猪':['兔','羊'],'兔':['猪','羊'],'羊':['猪','兔']
+  };
+  var SANHUI = {
+    '猪':['鼠','牛'],'鼠':['猪','牛'],'牛':['猪','鼠'],
+    '虎':['兔','龙'],'兔':['虎','龙'],'龙':['虎','兔'],
+    '蛇':['马','羊'],'马':['蛇','羊'],'羊':['蛇','马'],
+    '猴':['鸡','狗'],'鸡':['猴','狗'],'狗':['猴','鸡']
+  };
+  var LIUHE = {
+    '鼠':'牛','牛':'鼠','虎':'猪','猪':'虎',
+    '兔':'狗','狗':'兔','龙':'鸡','鸡':'龙',
+    '蛇':'猴','猴':'蛇','马':'羊','羊':'马'
+  };
+  var LIUCHONG = {
+    '鼠':'马','马':'鼠','牛':'羊','羊':'牛',
+    '虎':'猴','猴':'虎','兔':'鸡','鸡':'兔',
+    '龙':'狗','狗':'龙','蛇':'猪','猪':'蛇'
+  };
+  var LIUHAI = {
+    '鼠':'羊','羊':'鼠','牛':'马','马':'牛',
+    '虎':'蛇','蛇':'虎','兔':'龙','龙':'兔',
+    '猴':'猪','猪':'猴','鸡':'狗','狗':'鸡'
+  };
+  var XIANPO = {
+    '鼠':'鸡','鸡':'鼠','马':'兔','兔':'马',
+    '猴':'蛇','蛇':'猴','虎':'猪','猪':'虎',
+    '龙':'牛','牛':'龙','狗':'羊','羊':'狗'
+  };
+  var SANXING = {
+    '虎':['蛇','猴'],'蛇':['猴','虎'],'猴':['虎','蛇'],
+    '鼠':['兔'],'兔':['鼠']
+  };
+  var ZIXING = ['龙','马','鸡','猪'];
+
+  var ZODIAC_ROOTS = {
+    '鼠':'子、孔、孜、孟、孙、学、季（鼠形/子字根）',
+    '牛':'丑、牛、特、牟、牢、犁（牛形/丑字根）',
+    '虎':'寅、虎、彪、虞、虑（虍/寅字根）',
+    '兔':'卯、印、迎、柳、逸（兔形/卯字根）',
+    '龙':'辰、龙、宸、农、振、晨（辰/龙字根）',
+    '蛇':'巳、廷、延、廴、弓、虫、之（蛇蜿蜒字根）',
+    '马':'午、马、骏、腾、驰、冯（午/马字根）',
+    '羊':'未、羊、善、美、群、洋（羊形/未字根）',
+    '猴':'申、伸、绅、袁、神、坤（申字根）',
+    '鸡':'酉、翔、翎、翊、翰、鸣（羽/酉/鸟字根）',
+    '狗':'戌、犭、犬、然、默、伏（犭/戌字根）',
+    '猪':'亥、家、毅、豕、豪、象（猪形/亥字根）'
+  };
+
+  var wxColor = WX_COLOR[ZODIAC_WX[z]] || '#ccc';
+  var myWx = ZODIAC_WX[z];
+  var zixing = ZIXING.indexOf(z) !== -1;
+
+  var h = [];
+  h.push('<div style="font-family:\'Noto Sans SC\',sans-serif;">');
+
+  // ── 五行分类 ──
+  h.push('<div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">');
+  h.push('<div style="font-size:12px;font-weight:700;color:var(--pale);margin-bottom:10px;">☯ 五行分类（属'+z+'·五行'+myWx+'）</div>');
+  h.push('<div style="display:flex;flex-wrap:wrap;gap:8px;">');
+  Object.keys(WX_GROUP).forEach(function(wx) {
+    var members = WX_GROUP[wx];
+    var isMe = members.indexOf(z) !== -1;
+    var col = WX_COLOR[wx];
+    h.push('<div style="padding:7px 14px;border-radius:20px;border:1px solid '+(isMe?col:'rgba(255,255,255,.1)')+';background:'+(isMe?'rgba(201,168,76,.12)':'rgba(255,255,255,.03)')+';font-size:12px;color:'+(isMe?col:'var(--t3)')+';font-weight:'+(isMe?'700':'400')+'">');
+    h.push('<span style="color:'+col+';font-weight:700;">'+wx+'</span>　'+members.join(' · '));
+    h.push('</div>');
+  });
+  h.push('</div></div>');
+
+  // ── 8大关系 ──
+  var rows = [
+    { label:'★ 三合贵人', color:'#2ECC71', bg:'rgba(46,204,113,.08)',
+      vals: (SANHE[z]||[]).join('　') || '—',
+      desc:'最强贵人，名带此字根大吉，互相明助' },
+    { label:'★ 三会同气', color:'#64B5F6', bg:'rgba(100,181,246,.08)',
+      vals: (SANHUI[z]||[]).join('　') || '—',
+      desc:'同方位同气，力量集中，众人相助' },
+    { label:'✦ 六合暗助', color:'#F0D080', bg:'rgba(240,208,128,.08)',
+      vals: LIUHE[z] || '—',
+      desc:'终身暗中扶持，一生少坎坷' },
+    { label:'✖ 六冲', color:'#EF5350', bg:'rgba(239,83,80,.08)',
+      vals: LIUCHONG[z] || '—',
+      desc:'最凶！名字绝对避开此字根' },
+    { label:'⚠ 六害', color:'#FF7043', bg:'rgba(255,112,67,.08)',
+      vals: LIUHAI[z] || '—',
+      desc:'暗箭小人，伤亲近之人' },
+    { label:'⚠ 相破', color:'#FFA726', bg:'rgba(255,167,38,.08)',
+      vals: XIANPO[z] || '—',
+      desc:'合作不顺，破财破感情' },
+  ];
+  if (SANXING[z]) {
+    rows.push({ label:'⚠ 三刑', color:'#AB47BC', bg:'rgba(171,71,188,.08)',
+      vals: SANXING[z].join('　'),
+      desc:'恃势之刑或无礼之刑，是非官非' });
+  }
+  if (zixing) {
+    rows.push({ label:'⚠ 自刑', color:'#CE93D8', bg:'rgba(206,147,216,.08)',
+      vals: z + '（自身）',
+      desc:'名忌再带同类字根，否则自我内耗' });
+  }
+
+  h.push('<div style="background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">');
+  h.push('<div style="font-size:12px;font-weight:700;color:var(--pale);margin-bottom:12px;">📋 属'+z+'· 生肖八大关系</div>');
+  h.push('<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">');
+  rows.forEach(function(r) {
+    h.push('<div style="padding:10px 12px;border-radius:10px;border:1px solid '+r.color+'33;background:'+r.bg+';">');
+    h.push('<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">');
+    h.push('<span style="font-size:11px;font-weight:700;color:'+r.color+';">'+r.label+'</span>');
+    h.push('<span style="font-size:16px;font-weight:700;color:'+r.color+';letter-spacing:6px;">'+r.vals+'</span>');
+    h.push('</div>');
+    h.push('<div style="font-size:10px;color:var(--t3);">'+r.desc+'</div>');
+    h.push('</div>');
+  });
+  h.push('</div></div>');
+
+  // ── 字根速查 ──
+  h.push('<div style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:14px;">');
+  h.push('<div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:8px;">📌 属'+z+'· 生肖字根速查</div>');
+  h.push('<div style="font-size:13px;color:var(--t2);line-height:2;">'+( ZODIAC_ROOTS[z]||'—')+'</div>');
+  h.push('</div>');
+
+  h.push('</div>');
+  el.innerHTML = h.join('');
+}
+
 function renderNameAnalysisV4(d, nameSecEl, naEl) {
   if (!d.surname && !d.name1) { nameSecEl.style.display = 'none'; return; }
 
@@ -3797,6 +5233,7 @@ function renderNameAnalysisV4(d, nameSecEl, naEl) {
   h.push('<div style="font-size:11px;color:' + scoreColor + ';margin-top:5px;">' + scoreLabel + '</div>');
   h.push('</div></div>');
 
+  // ── 生肖关系总表 ──
   // ── 五福检测 ──
   h.push('<div style="background:rgba(0,0,0,.25);border:1px solid rgba(201,168,76,.25);border-radius:14px;padding:18px;margin-bottom:16px;">');
   h.push('<div style="font-size:14px;font-weight:700;color:var(--gl);margin-bottom:14px;">🏆 五福临门检测</div>');
@@ -3952,13 +5389,41 @@ function renderNameAnalysisV4(d, nameSecEl, naEl) {
     ca.good.forEach(function(g){allGoodTags.push(g.tag);});
     ca.bad.forEach(function(b){allBadTags.push(b.tag);});
   });
+
+  // 主客关系汇总
+  var zhuKeGood=allGoodTags.filter(function(t){return t.indexOf('客生主')!==-1||t.indexOf('主客同气')!==-1;});
+  var zhuKeBad=allBadTags.filter(function(t){return t.indexOf('客克主')!==-1||t.indexOf('主克客')!==-1||t.indexOf('主生客')!==-1;});
+  var tiShen=allBadTags.filter(function(t){return t.indexOf('替身字')!==-1;});
+
   // 统计卡
   h.push('<div style="background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(0,0,0,.2));border:1px solid rgba(201,168,76,.25);border-radius:14px;padding:18px;margin-top:4px;">');
   h.push('<div style="font-size:13px;font-weight:700;color:var(--gl);margin-bottom:14px;">📊 名字能量汇总</div>');
+
+  // 主客关系总结（书中核心理论）
+  if (zhuKeGood.length || zhuKeBad.length) {
+    h.push('<div style="background:rgba(0,0,0,.2);border-radius:10px;padding:12px;margin-bottom:12px;">');
+    h.push('<div style="font-size:11px;font-weight:700;color:var(--gl);margin-bottom:8px;">⚖️ 主客五行关系（生肖 vs 字根五行）</div>');
+    h.push('<div style="font-size:11px;color:var(--t3);margin-bottom:8px;">客生主=上吉 · 主客同气=中吉 · 主生客=小凶 · 主克客=偏凶 · 客克主=大凶</div>');
+    if (zhuKeGood.length) {
+      h.push('<div style="font-size:12px;color:#81C784;margin-bottom:4px;">✦ '+zhuKeGood.join(' · ')+'</div>');
+    }
+    if (zhuKeBad.length) {
+      h.push('<div style="font-size:12px;color:#EF9A9A;">⚠ '+zhuKeBad.join(' · ')+'</div>');
+    }
+    h.push('</div>');
+  }
+
+  // 替身字警示
+  if (tiShen.length) {
+    h.push('<div style="background:rgba(255,140,0,.08);border:1px solid rgba(255,140,0,.3);border-radius:10px;padding:12px;margin-bottom:12px;">');
+    h.push('<div style="font-size:12px;font-weight:700;color:#FFB347;margin-bottom:6px;">⚠️ 替身字警示（《五得正解》第四卷）</div>');
+    h.push('<div style="font-size:12px;color:var(--t2);line-height:1.7;">名字中含有替身字根，此类字意味着<strong style="color:#FFB347;">为他人作嫁衣、代人受累、付出难回报</strong>。尤忌用于<strong style="color:var(--white);">名一（人格位，21-40岁中年主战场）</strong>。建议咨询黄冠尊老师重新评估。</div>');
+    h.push('</div>');
+  }
+
   // 分数条
   var maxScore=Math.max(totalGood+totalBad,1);
   var goodPct=Math.round(totalGood/maxScore*100);
-  var badPct=100-goodPct;
   h.push('<div style="margin-bottom:14px;">');
   h.push('<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--t2);margin-bottom:6px;">');
   h.push('<span>✦ 吉祥能量 <strong style="color:#81C784;">'+totalGood+'</strong>项</span>');
@@ -3972,8 +5437,9 @@ function renderNameAnalysisV4(d, nameSecEl, naEl) {
     h.push('<div style="margin-bottom:12px;">');
     h.push('<div style="font-size:11px;color:#81C784;font-weight:700;margin-bottom:6px;">✦ 吉祥加分项</div>');
     h.push('<div style="display:flex;flex-wrap:wrap;gap:6px;">');
-    allGoodTags.slice(0,8).forEach(function(tag){
-      h.push('<span style="font-size:10px;background:rgba(46,204,113,.12);color:#81C784;padding:3px 10px;border-radius:20px;border:1px solid rgba(46,204,113,.2);">'+tag.substring(0,10)+'</span>');
+    allGoodTags.filter(function(t){return t.indexOf('主客')===0;}).concat(
+    allGoodTags.filter(function(t){return t.indexOf('主客')!==0;})).slice(0,10).forEach(function(tag){
+      h.push('<span style="font-size:10px;background:rgba(46,204,113,.12);color:#81C784;padding:3px 10px;border-radius:20px;border:1px solid rgba(46,204,113,.2);">'+tag.substring(0,12)+'</span>');
     });
     h.push('</div></div>');
   }
@@ -3982,8 +5448,8 @@ function renderNameAnalysisV4(d, nameSecEl, naEl) {
     h.push('<div style="margin-bottom:12px;">');
     h.push('<div style="font-size:11px;color:#EF9A9A;font-weight:700;margin-bottom:6px;">⚠ 需要注意</div>');
     h.push('<div style="display:flex;flex-wrap:wrap;gap:6px;">');
-    allBadTags.slice(0,8).forEach(function(tag){
-      h.push('<span style="font-size:10px;background:rgba(239,83,80,.12);color:#EF9A9A;padding:3px 10px;border-radius:20px;border:1px solid rgba(239,83,80,.2);">'+tag.substring(0,10)+'</span>');
+    allBadTags.slice(0,10).forEach(function(tag){
+      h.push('<span style="font-size:10px;background:rgba(239,83,80,.12);color:#EF9A9A;padding:3px 10px;border-radius:20px;border:1px solid rgba(239,83,80,.2);">'+tag.substring(0,12)+'</span>');
     });
     h.push('</div></div>');
   }
